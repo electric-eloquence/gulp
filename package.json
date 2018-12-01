@@ -1,5 +1,5 @@
 {
-  "name": "gulp",
+  "name": "@electric-eloquence/gulp",
   "description": "The streaming build system",
   "version": "3.9.1",
   "homepage": "http://gulpjs.com",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "coveralls": "^2.7.0",
-    "eslint": "^1.7.3",
+    "eslint": "3.x",
     "eslint-config-gulp": "^2.0.0",
     "graceful-fs": "^3.0.0",
     "istanbul": "^0.3.0",
