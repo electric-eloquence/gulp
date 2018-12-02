@@ -5,6 +5,7 @@ var Orchestrator = require('orchestrator');
 var gutil = require('gulp-util');
 var deprecated = require('deprecated');
 var vfs = require('vinyl-fs');
+var globWatcher = require('glob-watcher');
 
 function Gulp() {
   Orchestrator.call(this);
@@ -34,12 +35,12 @@ Gulp.prototype.watch = function(glob, opt_, fn_) {
 
   // Array of tasks given
   if (Array.isArray(fn)) {
-    return vfs.watch(glob, opt, function() {
+    return globWatcher(glob, opt, function() {
       this.start.apply(this, fn);
     }.bind(this));
   }
 
-  return vfs.watch(glob, opt, fn);
+  return globWatcher(glob, opt, fn);
 };
 
 // Let people use this class from our instance
