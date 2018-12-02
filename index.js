@@ -24,7 +24,9 @@ Gulp.prototype.run = function() {
 
 Gulp.prototype.src = vfs.src;
 Gulp.prototype.dest = vfs.dest;
-Gulp.prototype.watch = function(glob, opt, fn) {
+Gulp.prototype.watch = function(glob, opt_, fn_) {
+  var fn = fn_;
+  var opt = opt_;
   if (typeof opt === 'function' || Array.isArray(opt)) {
     fn = opt;
     opt = null;
@@ -47,7 +49,7 @@ Gulp.prototype.Gulp = Gulp;
 deprecated.field('gulp.env has been deprecated. ' +
   'Use your own CLI parser instead. ' +
   'We recommend using yargs or minimist.',
-  console.warn,
+  console.warn, // eslint-disable-line no-console
   Gulp.prototype,
   'env',
   gutil.env
@@ -55,7 +57,7 @@ deprecated.field('gulp.env has been deprecated. ' +
 
 Gulp.prototype.run = deprecated.method('gulp.run() has been deprecated. ' +
   'Use task dependencies or gulp.watch task triggering instead.',
-  console.warn,
+  console.warn, // eslint-disable-line no-console
   Gulp.prototype.run
 );
 
