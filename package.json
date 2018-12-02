@@ -29,6 +29,7 @@
     "archy": "^1.0.0",
     "chalk": "^1.0.0",
     "deprecated": "^0.0.1",
+    "glob-watcher": "^3.2.0",
     "gulp-util": "^3.0.0",
     "interpret": "^1.0.0",
     "liftoff": "^2.1.0",
@@ -41,7 +42,6 @@
     "vinyl-fs": "^3.0.3"
   },
   "devDependencies": {
-    "coveralls": "^3.0.2",
     "eslint": "3.x",
     "graceful-fs": "^3.0.0",
     "istanbul": "^0.4.5",
@@ -54,11 +54,11 @@
     "should": "^5.0.1"
   },
   "scripts": {
-    "prepublish": "marked-man --name gulp docs/CLI.md > gulp.1",
+    "istanbul": "rm -rf ./coverage && istanbul cover _mocha --report lcovonly -- -R spec",
     "lint": "eslint .",
+    "prepublish": "marked-man --name gulp docs/CLI.md > gulp.1",
     "pretest": "npm run lint",
-    "test": "mocha --reporter spec",
-    "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
+    "test": "mocha --reporter spec"
   },
   "engines": {
     "node": ">= 0.9"

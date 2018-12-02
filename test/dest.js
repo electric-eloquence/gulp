@@ -119,11 +119,7 @@ describe('gulp output stream', function() {
       });
       outstream.on('end', function() {
         fs.exists(join(outpath, 'stuff'), function(exists) {
-
-          /* Stinks that ok is an expression instead of a function call */
-          /* eslint-disable no-unused-expressions */
           should(exists).be.ok;
-          /* eslint-enable no-unused-expressions */
           done();
         });
       });
