@@ -5,7 +5,9 @@
   <p align="center">The streaming build system</p>
 </p>
 
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Gitter chat][gitter-image]][gitter-url]
+### This package provides long-term support for gulp at major version 3.
+
+This includes maintenance fixes and security updates.
 
 ## What is gulp?
 
