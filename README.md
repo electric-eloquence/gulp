@@ -9,6 +9,11 @@
 
 This includes maintenance fixes and security updates.
 
+## Install
+- `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts`
+- Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts"` as a dependency in package.json.
+- Other packages depending on gulp 3 will require or import this package if installed this way.
+
 ## What is gulp?
 
 - **Automation** - gulp is a toolkit that helps you automate painful or time-consuming tasks in your development workflow.
@@ -21,7 +26,6 @@ This includes maintenance fixes and security updates.
 For a Getting started guide, API docs, recipes, making a plugin, etc. check out or docs!
 
 - Need something reliable? Check out the [documentation for the current release](/docs/README.md)!
-- Want to help us test the latest and greatest? Check out the [documentation for the next release](https://github.com/gulpjs/gulp/tree/4.0)!
 
 ## Sample `gulpfile.js`
 
