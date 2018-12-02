@@ -29,6 +29,7 @@ var cli = new Liftoff({
 var failed = false;
 process.once('exit', function(code) {
   if (code === 0 && failed) {
+    // eslint-disable-next-line no-process-exit
     process.exit(1);
   }
 });
@@ -78,6 +79,7 @@ function handleArguments(env) {
     if (env.modulePackage && typeof env.modulePackage.version !== 'undefined') {
       gutil.log('Local version', env.modulePackage.version);
     }
+    // eslint-disable-next-line no-process-exit
     process.exit(0);
   }
 
@@ -87,11 +89,13 @@ function handleArguments(env) {
       chalk.magenta(tildify(env.cwd))
     );
     gutil.log(chalk.red('Try running: npm install gulp'));
+    // eslint-disable-next-line no-process-exit
     process.exit(1);
   }
 
   if (!env.configPath) {
     gutil.log(chalk.red('No gulpfile found'));
+    // eslint-disable-next-line no-process-exit
     process.exit(1);
   }
 
@@ -144,6 +148,7 @@ function logTasks(env, localGulp) {
 }
 
 function logTasksSimple(env, localGulp) {
+  // eslint-disable-next-line no-console
   console.log(Object.keys(localGulp.tasks)
     .join('\n')
     .trim());
@@ -207,6 +212,7 @@ function logEvents(gulpInst) {
       chalk.red('Task \'' + err.task + '\' is not in your gulpfile')
     );
     gutil.log('Please check the documentation for proper gulpfile formatting');
+    // eslint-disable-next-line no-process-exit
     process.exit(1);
   });
 }

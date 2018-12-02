@@ -8,8 +8,7 @@ require('mocha');
 describe('gulp tasks', function() {
   describe('task()', function() {
     it('should define a task', function(done) {
-      var fn;
-      fn = function() {};
+      var fn = function() {};
       gulp.task('test', fn);
       should.exist(gulp.tasks.test);
       gulp.tasks.test.fn.should.equal(fn);
@@ -19,13 +18,12 @@ describe('gulp tasks', function() {
   });
   describe('run()', function() {
     it('should run multiple tasks', function(done) {
-      var a, fn, fn2;
-      a = 0;
-      fn = function() {
+      var a = 0;
+      var fn = function() {
         this.should.equal(gulp);
         ++a;
       };
-      fn2 = function() {
+      var fn2 = function() {
         this.should.equal(gulp);
         ++a;
       };
@@ -37,13 +35,12 @@ describe('gulp tasks', function() {
       done();
     });
     it('should run all tasks when call run() multiple times', function(done) {
-      var a, fn, fn2;
-      a = 0;
-      fn = function() {
+      var a = 0;
+      var fn = function() {
         this.should.equal(gulp);
         ++a;
       };
-      fn2 = function() {
+      var fn2 = function() {
         this.should.equal(gulp);
         ++a;
       };
@@ -56,9 +53,8 @@ describe('gulp tasks', function() {
       done();
     });
     it('should run all async promise tasks', function(done) {
-      var a, fn, fn2;
-      a = 0;
-      fn = function() {
+      var a = 0;
+      var fn = function() {
         var deferred = Q.defer();
         setTimeout(function() {
           ++a;
@@ -66,7 +62,7 @@ describe('gulp tasks', function() {
         }, 1);
         return deferred.promise;
       };
-      fn2 = function() {
+      var fn2 = function() {
         var deferred = Q.defer();
         setTimeout(function() {
           ++a;
@@ -86,15 +82,14 @@ describe('gulp tasks', function() {
       gulp.isRunning.should.equal(true);
     });
     it('should run all async callback tasks', function(done) {
-      var a, fn, fn2;
-      a = 0;
-      fn = function(cb) {
+      var a = 0;
+      var fn = function(cb) {
         setTimeout(function() {
           ++a;
           cb(null);
         }, 1);
       };
-      fn2 = function(cb) {
+      var fn2 = function(cb) {
         setTimeout(function() {
           ++a;
           cb(null);
@@ -126,9 +121,8 @@ describe('gulp tasks', function() {
       }
     });
     it('should run task scoped to gulp', function(done) {
-      var a, fn;
-      a = 0;
-      fn = function() {
+      var a = 0;
+      var fn = function() {
         this.should.equal(gulp);
         ++a;
       };
@@ -140,9 +134,8 @@ describe('gulp tasks', function() {
       done();
     });
     it('should run default task scoped to gulp', function(done) {
-      var a, fn;
-      a = 0;
-      fn = function() {
+      var a = 0;
+      var fn = function() {
         this.should.equal(gulp);
         ++a;
       };

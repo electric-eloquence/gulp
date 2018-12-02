@@ -20,10 +20,9 @@ describe('gulp', function() {
     var tempFileContent = 'A test generated this file and it is safe to delete';
 
     var writeTimeout = 125; // Wait for it to get to the filesystem
-    var writeFileWait = function(name, content, cb) {
-      if (!cb) {
-        cb = function() {};
-      }
+    var writeFileWait = function(name, content, cb_) {
+      var cb = cb_ || function() {};
+
       setTimeout(function() {
         fs.writeFile(name, content, cb);
       }, writeTimeout);
