@@ -6,9 +6,9 @@ package-lock.json
 build
 *.node
 components
-coverage
 *.orig
 .idea
+.nyc_output
 sandbox
 test/out-fixtures/*
 test/watch-*.txt
