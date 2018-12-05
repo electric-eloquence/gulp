@@ -10,9 +10,18 @@
 This includes maintenance fixes and security updates.
 
 ## Install
-- `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts`
-- Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts"` as a dependency in package.json.
-- Other packages depending on gulp 3 will require or import this package if installed this way.
+- Latest version (without Git):
+  - `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts`
+  - Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts"`
+    as a dependency in package.json.
+- Latest version (with Git):
+  - `npm install --save electric-eloquence/gulp`
+- Specific version (with Git):
+  - `npm install --save electric-eloquence/gulp#3.9.1`
+- Semver range (with Git):
+  - `npm install --save electric-eloquence/gulp#semver:~3.9.1`
+- When installed this way, other packages depending on gulp will get gulp 3 with
+  long-term support with no further modifications.
 
 ## What is gulp?
 
