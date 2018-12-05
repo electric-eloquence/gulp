@@ -2,8 +2,14 @@
   "name": "gulp",
   "description": "The streaming build system",
   "version": "3.9.1",
-  "homepage": "http://gulpjs.com",
-  "repository": "gulpjs/gulp",
+  "homepage": "https://github.com/electric-eloquence/gulp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/electric-eloquence/gulp.git"
+  },
+  "bugs": {
+    "url": "http://github.com/electric-eloquence/gulp/issues"
+  },
   "author": "Fractal <contact@wearefractal.com> (http://wearefractal.com/)",
   "tags": [
     "build",
