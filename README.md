@@ -9,6 +9,12 @@
 
 This includes maintenance fixes and security updates.
 
+The scoping of this package makes it an entirely different package from unscoped
+gulp and precludes any access from any gulp plugins if it installed with the
+usual `npm install` command.
+
+Instead, follow these instructions:
+
 ## Install
 - Latest version (without Git):
   - `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts`
