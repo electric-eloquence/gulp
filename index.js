@@ -5,7 +5,7 @@ var Orchestrator = require('orchestrator');
 var gutil = require('gulp-util');
 var deprecated = require('deprecated');
 var vfs = require('vinyl-fs');
-var globWatcher = require('glob-watcher');
+var globWatcher = require('./lib/globWatcher');
 
 function Gulp() {
   Orchestrator.call(this);

@@ -23,9 +23,11 @@ gulp.src('client/templates/*.jade')
 #### globs
 Type: `String` or `Array`
 
-Glob or array of globs to read. Globs use [node-glob syntax] except that negation is fully supported.
+Glob or array of globs to read. Globs use [node-glob syntax] except that
+negation is fully supported.
 
-A glob that begins with `!` excludes matching files from the glob results up to that point. For example, consider this directory structure:
+A glob that begins with `!` excludes matching files from the glob results up to
+that point. For example, consider this directory structure:
 
     client/
       a.js
@@ -42,19 +44,23 @@ Type: `Object`
 
 Options to pass to [node-glob] through [glob-stream].
 
-gulp supports all [options supported by node-glob][node-glob documentation] and [glob-stream] except `ignore` and adds the following options.
+gulp supports all [options supported by node-glob][node-glob documentation] and
+[glob-stream] except `ignore` and adds the following options.
 
 ##### options.buffer
 Type: `Boolean`
 Default: `true`
 
-Setting this to `false` will return `file.contents` as a stream and not buffer files. This is useful when working with large files. **Note:** Plugins might not implement support for streams.
+Setting this to `false` will return `file.contents` as a stream and not buffer
+files. This is useful when working with large files. **Note:** Plugins might not
+implement support for streams.
 
 ##### options.read
 Type: `Boolean`
 Default: `true`
 
-Setting this to `false` will return `file.contents` as null and not read the file at all.
+Setting this to `false` will return `file.contents` as null and not read the
+file at all.
 
 ##### options.base
 Type: `String`
@@ -74,7 +80,8 @@ gulp.src('client/js/**/*.js', { base: 'client' })
 
 ### gulp.dest(path[, options])
 
-Can be piped to and it will write files. Re-emits all data passed to it so you can pipe to multiple folders.  Folders that don't exist will be created.
+Can be piped to and it will write files. Re-emits all data passed to it so you
+can pipe to multiple folders.  Folders that don't exist will be created.
 
 ```javascript
 gulp.src('./client/templates/*.jade')
@@ -85,13 +92,14 @@ gulp.src('./client/templates/*.jade')
 ```
 
 The write path is calculated by appending the file relative path to the given
-destination directory. In turn, relative paths are calculated against the file base. 
-See `gulp.src` above for more info.
+destination directory. In turn, relative paths are calculated against the file
+base. See `gulp.src` above for more info.
 
 #### path
 Type: `String` or `Function`
 
-The path (output folder) to write files to. Or a function that returns it, the function will be provided a [vinyl File instance](https://github.com/wearefractal/vinyl).
+The path (output folder) to write files to. Or a function that returns it, the
+function will be provided a [vinyl File instance](https://github.com/wearefractal/vinyl).
 
 #### options
 Type: `Object`
@@ -100,13 +108,15 @@ Type: `Object`
 Type: `String`
 Default: `process.cwd()`
 
-`cwd` for the output folder, only has an effect if provided output folder is relative.
+`cwd` for the output folder, only has an effect if provided output folder is
+relative.
 
 ##### options.mode
 Type: `String`
 Default: `0777`
 
-Octal permission string specifying mode for any folders that need to be created for output folder.
+Octal permission string specifying mode for any folders that need to be created
+for output folder.
 
 ### gulp.task(name [, deps, fn])
 
@@ -121,7 +131,8 @@ gulp.task('somename', function() {
 #### name
 Type: `String`
 
-The name of the task. Tasks that you want to run from the command line should not have spaces in them.
+The name of the task. Tasks that you want to run from the command line should
+not have spaces in them.
 
 #### deps
 Type: `Array`
@@ -134,20 +145,21 @@ gulp.task('mytask', ['array', 'of', 'task', 'names'], function() {
 });
 ```
 
-**Note:** Are your tasks running before the dependencies are complete?  Make sure your dependency tasks are correctly using the async run hints: take in a callback or return a promise or event stream.
-
-You can also omit the function if you only want to run a bundle of dependency tasks:
+You can also omit the function if you only want to run a bundle of dependency
+tasks:
 
 ```js
 gulp.task('build', ['array', 'of', 'task', 'names']);
 ```
 
-**Note:** The tasks will run in parallel (all at once), so don't assume that the tasks will start/finish in order.
+**Note:** The tasks will run in parallel (all at once), so don't assume that the
+tasks will start/finish in order.
 
 #### fn
 Type: `Function`
 
-The function performs the task's main operations. Generally this takes the form of:
+The function performs the task's main operations. Generally this takes the form
+of:
 
 ```js
 gulp.task('buildStuff', function() {
@@ -161,11 +173,14 @@ gulp.task('buildStuff', function() {
   });
 ```
 
+Is your function running before the dependencies are complete? Make sure your
+dependency tasks handle asynchrony correctly.
+
 #### Async task support
 
 Tasks can be made asynchronous if its `fn` does one of the following:
 
-##### Accept a callback
+##### Invoke a callback
 
 ```javascript
 // run a command in a shell
@@ -207,17 +222,22 @@ gulp.task('somename', function() {
 });
 ```
 
-**Note:** By default, tasks run with maximum concurrency -- e.g. it launches all the tasks at once and waits for nothing. If you want to create a series where tasks run in a particular order, you need to do two things:
+**Note:** By default, tasks run with maximum concurrency -- e.g. it launches all
+the tasks at once and waits for nothing. If you want to create a series where
+tasks run in a particular order, you need to do two things:
 
 - give it a hint to tell it when the task is done,
 - and give it a hint that a task depends on completion of another.
 
-For these examples, let's presume you have two tasks, "one" and "two" that you specifically want to run in this order:
+For these examples, let's presume you have two tasks, "one" and "two" that you
+specifically want to run in this order:
 
-1. In task "one" you add a hint to tell it when the task is done.  Either take in a callback and call it when you're
-done or return a promise or stream that the engine should wait to resolve or end respectively.
+1. In task "one" you add a hint to tell it when the task is done.  Either take
+in a callback and call it when you're done or return a promise or stream that
+the engine should wait to resolve or end respectively.
 
-2. In task "two" you add a hint telling the engine that it depends on completion of the first task.
+2. In task "two" you add a hint telling the engine that it depends on completion
+of the first task.
 
 So this example would look like this:
 
@@ -241,7 +261,8 @@ gulp.task('default', ['one', 'two']);
 
 ### gulp.watch(glob [, opts], tasks) or gulp.watch(glob [, opts, cb])
 
-Watch files and do something when a file changes. This always returns an EventEmitter that emits `change` events.
+Watch files and do something when a file changes. This always returns an
+EventEmitter that emits `change` events.
 
 ### gulp.watch(glob[, opts], tasks)
 
@@ -253,7 +274,7 @@ A single glob or array of globs that indicate which files to watch for changes.
 #### opts
 Type: `Object`
 
-Options, that are passed to [`gaze`](https://github.com/shama/gaze).
+Options, that are passed to [`Chokidar`](https://github.com/electric-eloquence/chokidar).
 
 #### tasks
 Type: `Array`
@@ -277,7 +298,7 @@ A single glob or array of globs that indicate which files to watch for changes.
 #### opts
 Type: `Object`
 
-Options, that are passed to [`gaze`](https://github.com/shama/gaze).
+Options, that are passed to [`Chokidar`](https://github.com/electric-eloquence/chokidar).
 
 #### cb(event)
 Type: `Function`
@@ -295,13 +316,16 @@ The callback will be passed an object, `event`, that describes the change:
 ##### event.type
 Type: `String`
 
-The type of change that occurred, either `added`, `changed` or `deleted`.
+The type of change that occurred, either `add`, `change` or `unlink`.
 
 ##### event.path
 Type: `String`
 
 The path to the file that triggered the event.
 
+Each watcher has a callback queue which can wait for asynchronous callbacks to
+complete before proceeding to the next one. In order for it to do this, the
+callback must return a Promise.
 
 [node-glob]: https://github.com/isaacs/node-glob
 [node-glob documentation]: https://github.com/isaacs/node-glob#options

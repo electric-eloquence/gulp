@@ -13,9 +13,13 @@ var outpath = path.join(__dirname, './out-fixtures');
 
 describe('gulp', function() {
   describe('watch()', function() {
-    beforeEach(rimraf.bind(null, outpath));
-    beforeEach(mkdirp.bind(null, outpath));
-    afterEach(rimraf.bind(null, outpath));
+    before(function(done) {
+      rimraf(outpath, function() {
+        mkdirp(outpath, function() {
+          done();
+        });
+      });
+    });
 
     var tempFileContent = 'A test generated this file and it is safe to delete';
 
@@ -29,46 +33,51 @@ describe('gulp', function() {
     };
 
     it('should call the function on first access: no options', function(done) {
-
       // Arrange
-      var tempFile = path.join(outpath, 'watch-func.txt');
+      var tempFile = path.join(outpath, 'watch-first-access.txt');
       fs.writeFile(tempFile, tempFileContent, function() {
 
         // Assert
-        var watcher = gulp.watch(tempFile, function() {
+        var watcher = gulp.watch(tempFile, function() {});
+        watcher.on('change', function(evt) {
           var watched = watcher.getWatched();
           var testDir = Object.keys(watched)[0];
           var testFullPath = path.join(testDir, watched[testDir][0]);
 
+          should.exist(evt);
+          should.exist(evt.path);
+          should.exist(evt.type);
+          should(evt.type).equal('change');
+          should(evt.path).equal(path.resolve(tempFile));
           should.exist(watched);
           should(testFullPath).equal(tempFile);
           should(fs.existsSync(testDir)).be.true;
           should(fs.existsSync(testFullPath)).be.true;
-
-          watcher.close();
           done();
         });
       });
     });
 
     it('should call the function when file changes: no options', function(done) {
-
       // Arrange
       var tempFile = path.join(outpath, 'watch-func.txt');
       fs.writeFile(tempFile, tempFileContent, function() {
 
         // Assert
-        var watcher = gulp.watch(tempFile, function() {
+        var watcher = gulp.watch(tempFile, function(evt) {
           var watched = watcher.getWatched();
           var testDir = Object.keys(watched)[0];
           var testFullPath = path.join(testDir, watched[testDir][0]);
 
+          should.exist(evt);
+          should.exist(evt.path);
+          should.exist(evt.type);
+          should(evt.type).equal('change');
+          should(evt.path).equal(path.resolve(tempFile));
           should.exist(watched);
           should(testFullPath).equal(tempFile);
           should(fs.existsSync(testDir)).be.true;
           should(fs.existsSync(testFullPath)).be.true;
-
-          watcher.close();
           done();
         });
 
@@ -78,23 +87,25 @@ describe('gulp', function() {
     });
 
     it('should call the function when file changes: w/ options', function(done) {
-
       // Arrange
       var tempFile = path.join(outpath, 'watch-func-options.txt');
       fs.writeFile(tempFile, tempFileContent, function() {
 
         // Assert: it works if it calls done
-        var watcher = gulp.watch(tempFile, { debounceDelay: 5 }, function() {
+        var watcher = gulp.watch(tempFile, { debounceDelay: 5 }, function(evt) {
           var watched = watcher.getWatched();
           var testDir = Object.keys(watched)[0];
           var testFullPath = path.join(testDir, watched[testDir][0]);
 
+          should.exist(evt);
+          should.exist(evt.path);
+          should.exist(evt.type);
+          should(evt.type).equal('change');
+          should(evt.path).equal(path.resolve(tempFile));
           should.exist(watched);
           should(testFullPath).equal(tempFile);
           should(fs.existsSync(testDir)).be.true;
           should(fs.existsSync(testFullPath)).be.true;
-
-          watcher.close();
           done();
         });
 
@@ -113,18 +124,21 @@ describe('gulp', function() {
 
         // Assert
         var watcher = gulp.watch(relFile, { debounceDelay: 5, cwd: cwd })
-          .on('change', function(path1) {
+          .on('change', function(evt) {
             var watched = watcher.getWatched();
             var testDir = Object.keys(watched)[0];
             var testFullPath = path.resolve(cwd, testDir, watched[testDir][0]);
 
+            should.exist(evt);
+            should.exist(evt.path);
+            should.exist(evt.type);
+            should(evt.type).equal('change');
+            should(evt.path).equal(path.resolve(tempFile));
             should.exist(watched);
-            should(path1).equal(relFile);
             should(testFullPath).equal(path.resolve(cwd, relFile));
             should(fs.existsSync(testDir)).be.true;
             should(fs.existsSync(testFullPath)).be.true;
-
-            watcher.close();
+            watcher.close(); // Stops multiple done calls but will segfault if done for all tests
             done();
           });
 
@@ -140,11 +154,9 @@ describe('gulp', function() {
       var task1 = 'task1';
       var a = 0;
       var timeout = writeTimeout * 2.5;
-      var watcher;
 
       new Promise(function(resolve) {
         fs.writeFile(tempFile, tempFileContent, function() {
-
           // Set up watcher
           gulp.task(task, function() {
             a++;
@@ -155,7 +167,7 @@ describe('gulp', function() {
 
           // Launch watcher
           var config = { debounceDelay: timeout / 2 };
-          watcher = gulp.watch(tempFile, config, [task, task1]);
+          gulp.watch(tempFile, config, [task, task1]);
 
           resolve();
         });
@@ -176,7 +188,6 @@ describe('gulp', function() {
           a.should.equal(11); // task and task1
 
           gulp.reset();
-          watcher.close();
           done();
         }, timeout);
       });
@@ -189,11 +200,9 @@ describe('gulp', function() {
       var task1 = 'task1';
       var a = 0;
       var timeout = writeTimeout * 2.5;
-      var watcher;
 
       new Promise(function(resolve) {
         fs.writeFile(tempFile, tempFileContent, function() {
-
           // Set up watcher
           gulp.task(task, function() {
             a++;
@@ -203,7 +212,7 @@ describe('gulp', function() {
           });
 
           // Launch watcher
-          watcher = gulp.watch(tempFile, [task, task1]);
+          gulp.watch(tempFile, [task, task1]);
 
           resolve();
         });
@@ -224,7 +233,6 @@ describe('gulp', function() {
           a.should.equal(11); // Task1 and task1
 
           gulp.reset();
-          watcher.close();
           done();
         }, timeout);
       });
