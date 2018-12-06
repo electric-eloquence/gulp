@@ -154,7 +154,6 @@ describe('gulp', function() {
       var task1 = 'task1';
       var a = 0;
       var timeout = writeTimeout * 2.5;
-      var watcher;
 
       new Promise(function(resolve) {
         fs.writeFile(tempFile, tempFileContent, function() {
@@ -168,7 +167,7 @@ describe('gulp', function() {
 
           // Launch watcher
           var config = { debounceDelay: timeout / 2 };
-          watcher = gulp.watch(tempFile, config, [task, task1]);
+          gulp.watch(tempFile, config, [task, task1]);
 
           resolve();
         });
@@ -201,7 +200,6 @@ describe('gulp', function() {
       var task1 = 'task1';
       var a = 0;
       var timeout = writeTimeout * 2.5;
-      var watcher;
 
       new Promise(function(resolve) {
         fs.writeFile(tempFile, tempFileContent, function() {
@@ -214,7 +212,7 @@ describe('gulp', function() {
           });
 
           // Launch watcher
-          watcher = gulp.watch(tempFile, [task, task1]);
+          gulp.watch(tempFile, [task, task1]);
 
           resolve();
         });
