@@ -53,7 +53,6 @@ describe('gulp', function() {
           should(testFullPath).equal(tempFile);
           should(fs.existsSync(testDir)).be.true;
           should(fs.existsSync(testFullPath)).be.true;
-          watcher.close();
           done();
         });
       });
@@ -79,7 +78,6 @@ describe('gulp', function() {
           should(testFullPath).equal(tempFile);
           should(fs.existsSync(testDir)).be.true;
           should(fs.existsSync(testFullPath)).be.true;
-          watcher.close();
           done();
         });
 
@@ -108,7 +106,6 @@ describe('gulp', function() {
           should(testFullPath).equal(tempFile);
           should(fs.existsSync(testDir)).be.true;
           should(fs.existsSync(testFullPath)).be.true;
-          watcher.close();
           done();
         });
 
@@ -141,8 +138,7 @@ describe('gulp', function() {
             should(testFullPath).equal(path.resolve(cwd, relFile));
             should(fs.existsSync(testDir)).be.true;
             should(fs.existsSync(testFullPath)).be.true;
-
-            watcher.close();
+            watcher.close(); // Stops multiple done calls but will segfault if done for all tests
             done();
           });
 
@@ -193,7 +189,6 @@ describe('gulp', function() {
           a.should.equal(11); // task and task1
 
           gulp.reset();
-          watcher.close();
           done();
         }, timeout);
       });
@@ -240,7 +235,6 @@ describe('gulp', function() {
           a.should.equal(11); // Task1 and task1
 
           gulp.reset();
-          watcher.close();
           done();
         }, timeout);
       });
