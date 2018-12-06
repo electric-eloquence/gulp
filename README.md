@@ -20,8 +20,8 @@ This includes maintenance fixes and security updates.
   - `npm install --save electric-eloquence/gulp#3.9.1`
 - Semver range (with Git):
   - `npm install --save electric-eloquence/gulp#semver:~3.9.1`
-- When installed this way, other packages depending on gulp will get gulp 3 with
-  long-term support with no further modifications.
+- When installed one of these ways, other packages depending on gulp will get
+  gulp 3 with long-term support.
 
 ## What is gulp?
 

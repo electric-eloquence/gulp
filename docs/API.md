@@ -253,7 +253,7 @@ A single glob or array of globs that indicate which files to watch for changes.
 #### opts
 Type: `Object`
 
-Options, that are passed to [`gaze`](https://github.com/shama/gaze).
+Options, that are passed to [`Chokidar`](https://github.com/electric-eloquence/chokidar).
 
 #### tasks
 Type: `Array`
@@ -277,7 +277,7 @@ A single glob or array of globs that indicate which files to watch for changes.
 #### opts
 Type: `Object`
 
-Options, that are passed to [`gaze`](https://github.com/shama/gaze).
+Options, that are passed to [`Chokidar`](https://github.com/electric-eloquence/chokidar).
 
 #### cb(event)
 Type: `Function`
