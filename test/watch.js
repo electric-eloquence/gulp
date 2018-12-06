@@ -39,7 +39,7 @@ describe('gulp', function() {
 
         // Assert
         var watcher = gulp.watch(tempFile, function() {});
-        watcher.on('change', function (evt) {
+        watcher.on('change', function(evt) {
           var watched = watcher.getWatched();
           var testDir = Object.keys(watched)[0];
           var testFullPath = path.join(testDir, watched[testDir][0]);
