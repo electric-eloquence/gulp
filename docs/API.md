@@ -334,13 +334,11 @@ asynchronous callbacks, the watcher must have an on('error') event listener.
 ```js
 var watcher = gulp.watch('js/**/*.js', function() {
   return new Promise(function(resolve, reject) {
-    var httpResponse;
-    try {
-      // Get HTTP response
+    // Get HTTP response
+    if (httpResponse.ok) {
       resolve(httpResponse);
-    } catch (err) {
-      // Gracefully reject error
-      reject(err);
+    } else {
+      reject(new Error(httpResponse.status + ': ' + httpResponse.statusText));
     }
   });
 });
