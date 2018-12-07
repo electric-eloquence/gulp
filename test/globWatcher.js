@@ -172,12 +172,31 @@ describe('globWatcher()', function() {
     });
   });
 
-  it('emits an error if one occurs in the callback and handler attached', function(done) {
+  it('emits an error if one is rejected in the callback Promise and handler is attached', function(done) {
     var expectedError = new Error('boom');
 
     watcher = globWatcher(outGlob, function() {
       return new Promise(function(resolve, reject) {
         reject(expectedError);
+      });
+    });
+
+    watcher.on('error', function(err) {
+      should(err).equal(expectedError);
+      watcher.close(); // Stops multiple done calls but will segfault if done for all tests
+      done();
+    });
+
+    // We default `ignoreInitial` to true, so always wait for `on('ready')`
+    watcher.on('ready', changeFile);
+  });
+
+  it('emits an error if one is thrown in the callback Promise and handler is attached', function(done) {
+    var expectedError = new Error('boom');
+
+    watcher = globWatcher(outGlob, function() {
+      return new Promise(function() {
+        throw expectedError;
       });
     });
 
