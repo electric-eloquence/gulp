@@ -32,32 +32,6 @@ describe('gulp', function() {
       }, writeTimeout);
     };
 
-    it('should call the function on first access: no options', function(done) {
-      // Arrange
-      var tempFile = path.join(outpath, 'watch-first-access.txt');
-      fs.writeFile(tempFile, tempFileContent, function() {
-
-        // Assert
-        var watcher = gulp.watch(tempFile, function() {});
-        watcher.on('change', function(evt) {
-          var watched = watcher.getWatched();
-          var testDir = Object.keys(watched)[0];
-          var testFullPath = path.join(testDir, watched[testDir][0]);
-
-          should.exist(evt);
-          should.exist(evt.path);
-          should.exist(evt.type);
-          should(evt.type).equal('change');
-          should(evt.path).equal(path.resolve(tempFile));
-          should.exist(watched);
-          should(testFullPath).equal(tempFile);
-          should(fs.existsSync(testDir)).be.true;
-          should(fs.existsSync(testFullPath)).be.true;
-          done();
-        });
-      });
-    });
-
     it('should call the function when file changes: no options', function(done) {
       // Arrange
       var tempFile = path.join(outpath, 'watch-func.txt');
