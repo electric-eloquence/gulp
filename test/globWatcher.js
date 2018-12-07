@@ -183,7 +183,7 @@ describe('globWatcher()', function() {
 
     watcher.on('error', function(err) {
       should(err).equal(expectedError);
-      watcher.close(); // Stops multiple done calls but will segfault if done for all tests
+      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
       done();
     });
 
@@ -202,7 +202,7 @@ describe('globWatcher()', function() {
 
     watcher.on('error', function(err) {
       should(err).equal(expectedError);
-      watcher.close(); // Stops multiple done calls but will segfault if done for all tests
+      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
       done();
     });
 
@@ -214,14 +214,14 @@ describe('globWatcher()', function() {
     // Callback is called while chokidar is discovering file paths
     // if ignoreInitial is explicitly set to false and passed to chokidar
     watcher = globWatcher(outGlob, { ignoreInitial: false }, function() {
-      watcher.close(); // Stops multiple done calls but will segfault if done for all tests
+      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
       done();
     });
   });
 
   it('does not override default values with null values', function(done) {
     watcher = globWatcher(outGlob, { ignoreInitial: null }, function() {
-      watcher.close(); // Stops multiple done calls but will segfault if done for all tests
+      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
       done();
     });
 
