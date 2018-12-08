@@ -67,8 +67,5 @@
     "pretest": "npm run lint",
     "test": "nyc mocha --exit"
   },
-  "engines": {
-    "node": ">= 0.9"
-  },
   "license": "MIT"
 }
