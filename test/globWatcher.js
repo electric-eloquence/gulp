@@ -42,6 +42,12 @@ describe('globWatcher()', function() {
     fs.writeFileSync(outFile1, 'hello world');
   });
 
+  afterEach(function() {
+    if (process.platform !== 'darwin') {
+      watcher.close();
+    }
+  });
+
   it('should return a file system watcher', function() {
     watcher = globWatcher(outGlob);
 
