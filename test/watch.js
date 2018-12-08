@@ -138,7 +138,7 @@ describe('gulp', function() {
             should(testFullPath).equal(path.resolve(cwd, relFile));
             should(fs.existsSync(testDir)).be.true;
             should(fs.existsSync(testFullPath)).be.true;
-            watcher.close(); // Stops multiple done calls but will segfault if done for all tests
+            watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
             done();
           });
 

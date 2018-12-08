@@ -172,7 +172,7 @@ describe('globWatcher()', function() {
     });
   });
 
-  it('emits an error if one occurs in the callback and handler attached', function(done) {
+  it('emits an error if one is rejected in the callback Promise and handler is attached', function(done) {
     var expectedError = new Error('boom');
 
     watcher = globWatcher(outGlob, function() {
@@ -183,7 +183,26 @@ describe('globWatcher()', function() {
 
     watcher.on('error', function(err) {
       should(err).equal(expectedError);
-      watcher.close(); // Stops multiple done calls but will segfault if done for all tests
+      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
+      done();
+    });
+
+    // We default `ignoreInitial` to true, so always wait for `on('ready')`
+    watcher.on('ready', changeFile);
+  });
+
+  it('emits an error if one is thrown in the callback Promise and handler is attached', function(done) {
+    var expectedError = new Error('boom');
+
+    watcher = globWatcher(outGlob, function() {
+      return new Promise(function() {
+        throw expectedError;
+      });
+    });
+
+    watcher.on('error', function(err) {
+      should(err).equal(expectedError);
+      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
       done();
     });
 
@@ -195,14 +214,14 @@ describe('globWatcher()', function() {
     // Callback is called while chokidar is discovering file paths
     // if ignoreInitial is explicitly set to false and passed to chokidar
     watcher = globWatcher(outGlob, { ignoreInitial: false }, function() {
-      watcher.close(); // Stops multiple done calls but will segfault if done for all tests
+      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
       done();
     });
   });
 
   it('does not override default values with null values', function(done) {
     watcher = globWatcher(outGlob, { ignoreInitial: null }, function() {
-      watcher.close(); // Stops multiple done calls but will segfault if done for all tests
+      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
       done();
     });
 

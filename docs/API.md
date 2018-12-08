@@ -52,8 +52,9 @@ Type: `Boolean`
 Default: `true`
 
 Setting this to `false` will return `file.contents` as a stream and not buffer
-files. This is useful when working with large files. **Note:** Plugins might not
-implement support for streams.
+files. This is useful when working with large files.
+
+**Note:** Plugins might not implement support for streams.
 
 ##### options.read
 Type: `Boolean`
@@ -324,8 +325,27 @@ Type: `String`
 The path to the file that triggered the event.
 
 Each watcher has a callback queue which can wait for asynchronous callbacks to
-complete before proceeding to the next one. In order for it to do this, the
-callback must return a Promise.
+complete before proceeding to the next one. In order for this to work, the
+callback must return a promise.
+
+**Note:** In order to gracefully handle errors rejected or thrown by such
+asynchronous callbacks, the watcher must have an on('error') event listener.
+
+```js
+var watcher = gulp.watch('js/**/*.js', function() {
+  return new Promise(function(resolve, reject) {
+    // Get HTTP response
+    if (httpResponse.ok) {
+      resolve(httpResponse);
+    } else {
+      reject(new Error(httpResponse.status + ': ' + httpResponse.statusText));
+    }
+  });
+});
+watcher.on('error', function(err) {
+  console.error(err);
+});
+```
 
 [node-glob]: https://github.com/isaacs/node-glob
 [node-glob documentation]: https://github.com/isaacs/node-glob#options
