@@ -43,7 +43,7 @@ describe('globWatcher()', function() {
   });
 
   afterEach(function() {
-    if (process.platform === 'win32') {
+    if (process.platform !== 'darwin') {
       watcher.close();
     }
   });
