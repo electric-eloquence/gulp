@@ -2,7 +2,6 @@
 
 var util = require('util');
 var Orchestrator = require('orchestrator');
-var gutil = require('gulp-util');
 var deprecated = require('deprecated');
 var vfs = require('vinyl-fs');
 var globWatcher = require('./lib/globWatcher');
@@ -45,16 +44,6 @@ Gulp.prototype.watch = function(glob, opt_, fn_) {
 
 // Let people use this class from our instance
 Gulp.prototype.Gulp = Gulp;
-
-// Deprecations
-deprecated.field('gulp.env has been deprecated. ' +
-  'Use your own CLI parser instead. ' +
-  'We recommend using yargs or minimist.',
-  console.warn, // eslint-disable-line no-console
-  Gulp.prototype,
-  'env',
-  gutil.env
-);
 
 Gulp.prototype.run = deprecated.method('gulp.run() has been deprecated. ' +
   'Use task dependencies or gulp.watch task triggering instead.',
