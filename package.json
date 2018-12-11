@@ -11,14 +11,19 @@
     "url": "http://github.com/electric-eloquence/gulp/issues"
   },
   "author": "Fractal <contact@wearefractal.com> (http://wearefractal.com/)",
-  "tags": [
+  "keywords": [
     "build",
+    "gulp",
+    "gulp 3",
+    "long",
+    "long-term",
+    "long-term support",
+    "lts",
     "stream",
+    "streaming",
+    "support",
     "system",
-    "make",
-    "tool",
-    "asset",
-    "pipeline"
+    "term"
   ],
   "files": [
     "index.js",
