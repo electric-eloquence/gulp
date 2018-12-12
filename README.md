@@ -32,9 +32,9 @@ This includes maintenance fixes and security updates.
 
 ## Documentation
 
-For a Getting started guide, API docs, recipes, making a plugin, etc. check out or docs!
+For a Getting Started guide, API docs, recipes, making a plugin, etc. check out our docs!
 
-- Need something reliable? Check out the [documentation for the current release](/docs/README.md)!
+- [Documentation for gulp 3](/docs/README.md)
 
 ## Sample `gulpfile.js`
 
