@@ -11,6 +11,12 @@ require('mocha');
 
 var outpath = path.join(__dirname, './out-fixtures');
 
+function wClose(watcher) {
+  if (process.platform !== 'darwin') {
+    watcher.close();
+  }
+}
+
 describe('gulp', function() {
   describe('watch()', function() {
     before(function(done) {
@@ -52,6 +58,8 @@ describe('gulp', function() {
           should(testFullPath).equal(tempFile);
           should(fs.existsSync(testDir)).be.true;
           should(fs.existsSync(testFullPath)).be.true;
+
+          wClose(watcher);
           done();
         });
 
@@ -80,6 +88,8 @@ describe('gulp', function() {
           should(testFullPath).equal(tempFile);
           should(fs.existsSync(testDir)).be.true;
           should(fs.existsSync(testFullPath)).be.true;
+
+          wClose(watcher);
           done();
         });
 
@@ -112,6 +122,7 @@ describe('gulp', function() {
             should(testFullPath).equal(path.resolve(cwd, relFile));
             should(fs.existsSync(testDir)).be.true;
             should(fs.existsSync(testFullPath)).be.true;
+
             watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
             done();
           });
