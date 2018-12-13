@@ -55,6 +55,7 @@
     "vinyl-fs": "^3.0.3"
   },
   "devDependencies": {
+    "coveralls": "^3.0.2",
     "eslint": "3.x",
     "graceful-fs": "^4.1.15",
     "mkdirp": "^0.5.0",
@@ -66,6 +67,7 @@
     "should": "^5.0.1"
   },
   "scripts": {
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint .",
     "pretest": "npm run lint",
     "test": "nyc mocha --exit"
