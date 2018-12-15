@@ -13,11 +13,6 @@ require('mocha');
 var timeout = 200;
 
 describe('globWatcher()', function() {
-  // This terrible scoping of watcher is necessary for this test to run correctly in Windows.
-  // It may result in flaky results on macOS, but since it is consistent on Linux, continuous integration test should
-  // pass reliably.
-  var watcher;
-
   var outDir = path.join(__dirname, './fixtures/');
   var outFile1 = path.join(outDir, 'changed.js');
   var outFile2 = path.join(outDir, 'added.js');
@@ -34,6 +29,16 @@ describe('globWatcher()', function() {
     fs.writeFileSync(outFile2, 'hello added');
   }
 
+  function wClose(watcher) {
+    // on macOS, chokidar's fsevents handler will consolidate watchers if the number of watched child paths under a
+    // parent path exceeds a threshold (10)
+    // on exceeding that threshold, closing the watcher may segfault because other paths may depend on that watcher
+    // this test on macOS doesn't use much memory (~10MB on Node 11) so leaving watchers open shouldn't be a problem
+    if (process.platform !== 'darwin') {
+      watcher.close();
+    }
+  }
+
   beforeEach(function() {
     if (fs.existsSync(outFile1)) {
       fs.unlinkSync(outFile1);
@@ -44,26 +49,24 @@ describe('globWatcher()', function() {
     fs.writeFileSync(outFile1, 'hello world');
   });
 
-  afterEach(function() {
-    if (process.platform !== 'darwin') {
-      watcher.close();
-    }
-  });
-
   it('should return a file system watcher', function() {
-    watcher = globWatcher(outGlob);
+    var watcher = globWatcher(outGlob);
 
     should.exist(watcher);
     should(watcher).be.instanceof(chokidar.FSWatcher);
     watcher.should.be.an.instanceof(EventEmitter);
+
+    wClose(watcher);
   });
 
   it('only requires a glob and returns watcher', function(done) {
-    watcher = globWatcher(outGlob);
+    var watcher = globWatcher(outGlob);
 
     watcher.once('change', function(evt) {
       should(evt.type).equal('change');
       should(evt.path).equal(outFile1);
+
+      wClose(watcher);
       done();
     });
 
@@ -72,11 +75,13 @@ describe('globWatcher()', function() {
   });
 
   it('picks up added files', function(done) {
-    watcher = globWatcher(outGlob);
+    var watcher = globWatcher(outGlob);
 
     watcher.once('add', function(evt) {
       should(evt.type).equal('add');
       should(evt.path).equal(outFile2);
+
+      wClose(watcher);
       done();
     });
 
@@ -85,12 +90,14 @@ describe('globWatcher()', function() {
   });
 
   it('works with OS-specific cwd', function(done) {
-    watcher = globWatcher('./fixtures/' + globPattern, { cwd: __dirname });
+    var watcher = globWatcher('./fixtures/' + globPattern, { cwd: __dirname });
 
     watcher.once('change', function(evt) {
       // Uses path.join here because the resulting path is OS-specific
       should(evt.type).equal('change');
       should(evt.path).equal(path.join(__dirname, 'fixtures', 'changed.js'));
+
+      wClose(watcher);
       done();
     });
 
@@ -101,7 +108,7 @@ describe('globWatcher()', function() {
   it('waits for completion is signaled before running again', function(done) {
     var runs = 0;
 
-    watcher = globWatcher(outGlob, function() {
+    var watcher = globWatcher(outGlob, function() {
       return new Promise(function(resolve) {
         runs++;
         if (runs === 1) {
@@ -113,6 +120,7 @@ describe('globWatcher()', function() {
           }, timeout * 3);
         }
         if (runs === 2) {
+          wClose(watcher);
           done();
           resolve();
         }
@@ -131,7 +139,7 @@ describe('globWatcher()', function() {
     var runs = 0;
 
     // Promises always seem to queue so no Promise
-    watcher = globWatcher(outGlob, { queue: false }, function() {
+    var watcher = globWatcher(outGlob, { queue: false }, function() {
       runs++;
       if (runs === 1) {
         setTimeout(function() {
@@ -149,13 +157,16 @@ describe('globWatcher()', function() {
 
     // Horrifically bad async usage
     // Necessary because done() doesn't exit the watcher callback after waiting for run 1 to timeout
-    setTimeout(done, timeout * 3.1);
+    setTimeout(function() {
+      wClose(watcher);
+      done();
+    }, timeout * 3.1);
   });
 
   it('allows the user to adjust delay', function(done) {
     var runs = 0;
 
-    watcher = globWatcher(outGlob, { delay: (timeout / 2) }, function() {
+    var watcher = globWatcher(outGlob, { delay: (timeout / 2) }, function() {
       return new Promise(function(resolve) {
         runs++;
         if (runs === 1) {
@@ -166,6 +177,7 @@ describe('globWatcher()', function() {
         }
         if (runs === 2) {
           should(runs).equal(2);
+          wClose(watcher);
           done();
           resolve();
         }
@@ -183,7 +195,7 @@ describe('globWatcher()', function() {
   it('emits an error if one is rejected in the callback Promise and handler is attached', function(done) {
     var expectedError = new Error('boom');
 
-    watcher = globWatcher(outGlob, function() {
+    var watcher = globWatcher(outGlob, function() {
       return new Promise(function(resolve, reject) {
         reject(expectedError);
       });
@@ -202,7 +214,7 @@ describe('globWatcher()', function() {
   it('emits an error if one is thrown in the callback Promise and handler is attached', function(done) {
     var expectedError = new Error('boom');
 
-    watcher = globWatcher(outGlob, function() {
+    var watcher = globWatcher(outGlob, function() {
       return new Promise(function() {
         throw expectedError;
       });
@@ -221,14 +233,14 @@ describe('globWatcher()', function() {
   it('passes options to chokidar', function(done) {
     // Callback is called while chokidar is discovering file paths
     // if ignoreInitial is explicitly set to false and passed to chokidar
-    watcher = globWatcher(outGlob, { ignoreInitial: false }, function() {
+    var watcher = globWatcher(outGlob, { ignoreInitial: false }, function() {
       watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
       done();
     });
   });
 
   it('does not override default values with null values', function(done) {
-    watcher = globWatcher(outGlob, { ignoreInitial: null }, function() {
+    var watcher = globWatcher(outGlob, { ignoreInitial: null }, function() {
       watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
       done();
     });
@@ -240,7 +252,8 @@ describe('globWatcher()', function() {
 
   it('watches exactly the given event', function(done) {
     // Accepts a string as the events property and wraps it in an array
-    watcher = globWatcher(outGlob, { events: 'add' }, function() {
+    var watcher = globWatcher(outGlob, { events: 'add' }, function() {
+      wClose(watcher);
       done();
     });
 
@@ -248,8 +261,9 @@ describe('globWatcher()', function() {
   });
 
   it('accepts multiple events to watch', function(done) {
-    watcher = globWatcher(outGlob, { events: ['add', 'unlink'] }, function(evt) {
+    var watcher = globWatcher(outGlob, { events: ['add', 'unlink'] }, function(evt) {
       if (evt.type === 'unlink') {
+        wClose(watcher);
         done();
       }
     });
@@ -263,25 +277,32 @@ describe('globWatcher()', function() {
   });
 
   it('can ignore a glob after it has been added', function(done) {
-    watcher = globWatcher([outGlob, ignoreGlob]);
+    var watcher = globWatcher([outGlob, ignoreGlob]);
 
     watcher.once('change', function(evt) {
       // It should never reach here
       should(evt.path).to.not.exist();
+
+      wClose(watcher);
       done();
     });
 
     // We default `ignoreInitial` to true, so always wait for `on('ready')`
     watcher.on('ready', changeFile);
 
-    setTimeout(done, 1500);
+    setTimeout(function() {
+      wClose(watcher);
+      done();
+    }, 1500);
   });
 
   it('can re-add a glob after it has been negated', function(done) {
-    watcher = globWatcher([outGlob, ignoreGlob, singleAdd]);
+    var watcher = globWatcher([outGlob, ignoreGlob, singleAdd]);
 
     watcher.once('change', function(evt) {
       should(evt.path).equal(singleAdd);
+
+      wClose(watcher);
       done();
     });
 
@@ -291,24 +312,27 @@ describe('globWatcher()', function() {
 
   it('does not mutate the globs array', function(done) {
     var globs = [outGlob, ignoreGlob, singleAdd];
-    watcher = globWatcher(globs);
+    var watcher = globWatcher(globs);
 
     should(globs[0]).equal(outGlob);
     should(globs[1]).equal(ignoreGlob);
     should(globs[2]).equal(singleAdd);
 
+    wClose(watcher);
     done();
   });
 
   it('passes ignores through to chokidar', function(done) {
     var ignored = [singleAdd];
-    watcher = globWatcher(outGlob, {
+    var watcher = globWatcher(outGlob, {
       ignored: ignored,
     });
 
     watcher.once('change', function(evt) {
       // It should never reach here
       should(evt.path).toNotExist();
+
+      wClose(watcher);
       done();
     });
 
@@ -318,6 +342,9 @@ describe('globWatcher()', function() {
     // Just test the non-mutation in this test
     should(ignored.length).equal(1);
 
-    setTimeout(done, 1500);
+    setTimeout(function() {
+      wClose(watcher);
+      done();
+    }, 1500);
   });
 });

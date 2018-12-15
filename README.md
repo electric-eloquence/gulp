@@ -1,9 +1,9 @@
 <p align="center">
-  <a href="http://gulpjs.com">
-    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
-  </a>
+  <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
   <p align="center">The streaming build system</p>
 </p>
+
+[![Known Vulnerabilities][snyk-image]][snyk-url] [![Mac/Linux Build Status][travis-image]][travis-url] [![Windows Build Status][appveyor-image]][appveyor-url] [![Coverage Status][coveralls-image]][coveralls-url] [![License][license-image]][license-url]
 
 ### This package provides long-term support for gulp at major version 3.
 
@@ -105,3 +105,18 @@ We recommend these plugins:
 - [gulp-cached](https://github.com/contra/gulp-cached) - in-memory file cache, not for operation on sets of files
 - [gulp-remember](https://github.com/ahaurw01/gulp-remember) - pairs nicely with gulp-cached
 - [gulp-newer](https://github.com/tschaub/gulp-newer) - pass through newer source files only, supports many:1 source:dest
+
+[snyk-image]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts/badge.svg
+[snyk-url]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts
+
+[travis-image]: https://img.shields.io/travis/electric-eloquence/gulp.svg
+[travis-url]: https://travis-ci.org/electric-eloquence/gulp
+
+[appveyor-image]: https://img.shields.io/appveyor/ci/e2tha-e/gulp.svg?label=appveyor
+[appveyor-url]: https://ci.appveyor.com/project/e2tha-e/gulp
+
+[coveralls-image]: https://img.shields.io/coveralls/electric-eloquence/gulp/v3-lts.svg
+[coveralls-url]: https://coveralls.io/r/electric-eloquence/gulp
+
+[license-image]: https://img.shields.io/github/license/electric-eloquence/gulp.svg
+[license-url]: https://raw.githubusercontent.com/electric-eloquence/gulp/v3-lts/LICENSE
