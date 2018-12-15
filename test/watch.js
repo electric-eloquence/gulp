@@ -11,12 +11,6 @@ require('mocha');
 
 var outpath = path.join(__dirname, './out-fixtures');
 
-function wClose(watcher) {
-  if (process.platform !== 'darwin') {
-    watcher.close();
-  }
-}
-
 describe('gulp', function() {
   describe('watch()', function() {
     before(function(done) {
@@ -28,15 +22,25 @@ describe('gulp', function() {
     });
 
     var tempFileContent = 'A test generated this file and it is safe to delete';
-
     var writeTimeout = 125; // Wait for it to get to the filesystem
-    var writeFileWait = function(name, content, cb_) {
+
+    function writeFileWait(name, content, cb_) {
       var cb = cb_ || function() {};
 
       setTimeout(function() {
         fs.writeFile(name, content, cb);
       }, writeTimeout);
-    };
+    }
+
+    function wClose(watcher) {
+      // on macOS, chokidar's fsevents handler will consolidate watchers if the number of watched child paths under a
+      // parent path exceeds a threshold (10)
+      // on exceeding that threshold, closing the watcher may segfault because other paths may depend on that watcher
+      // this test on macOS doesn't use much memory (~10MB on Node 11) so leaving watchers open shouldn't be a problem
+      if (process.platform !== 'darwin') {
+        watcher.close();
+      }
+    }
 
     it('should call the function when file changes: no options', function(done) {
       // Arrange
