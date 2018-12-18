@@ -29,13 +29,11 @@
     "index.js",
     "lib",
     "bin",
-    "completion",
-    "gulp.1"
+    "completion"
   ],
   "bin": {
     "gulp": "./bin/gulp.js"
   },
-  "man": "gulp.1",
   "dependencies": {
     "archy": "^1.0.0",
     "chalk": "^1.0.0",
