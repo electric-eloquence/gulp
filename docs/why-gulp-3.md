@@ -14,12 +14,12 @@ your resources allow for the refactor. gulp is essential to the
 [Fepper frontend prototyper](http://fepper.io) because it enables extensibility. 
 Fepper compiles templates and JSON data into HTML, like millions of other 
 projects. And like millions of other projects, simply compiling markup does not 
-require gulp or any other task runner.
+require gulp or any other third-party task runner.
 
 However, let's say _some_ users want to preprocess CSS with Stylus. Fepper could 
 certainly have Stylus hard-coded in. But then, _all_ users would be _forced_ to 
-use it. However, the decision was made early on to leave CSS preprocessing (as 
-well as many many other tasks) up to end-users.
+use it. With that in mind, the decision was made early on to leave CSS 
+preprocessing (as well as many many other tasks) up to end-users.
 
 Fepper enables this extensibility by giving users the ability to declare 
 extension tasks. These, in turn, are declared as optional dependencies to 
@@ -29,7 +29,7 @@ gulpfile.js:
 
 ```javascript
 gulp.task('default', [
-  'core', // abstracted for example purposes
+  'core', // abstracted for demonstration purposes
   'extensions'
 ]);
 ```
