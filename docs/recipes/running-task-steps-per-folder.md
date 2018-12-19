@@ -1,4 +1,4 @@
-# Generating a file per folder
+# Running task steps per folder
 
 If you have a set of folders, and wish to perform a set of tasks on each, for 
 instance...

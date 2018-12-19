@@ -1,4 +1,4 @@
-# Running tasks in series, i.e. Task Dependency
+# Running tasks in series, i.e. task dependency
 
 By default, tasks run with maximum concurrency -- e.g. it launches all the tasks 
 at once and waits for nothing. If you want to create a series where tasks run in 

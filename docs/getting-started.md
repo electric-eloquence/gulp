@@ -39,7 +39,7 @@ To run individual tasks, use `gulp <task> <othertask>`.
 ## Where do I go now?
 
 You have an empty gulpfile and everything is installed. How do you REALLY get 
-started? Check out the [recipes](recipes) and the 
+started? Check out the [recipes](recipes/README.md) and the 
 [list of articles](README.md#articles) for more information.
 
 ## .src, .watch, .dest, CLI args - How do I use these things?

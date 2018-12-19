@@ -1,6 +1,6 @@
 # Browserify + Globs
 
-[Browserify + Uglify2](browserify-uglify-sourcemap.md) 
+[Browserify + Uglify](browserify-uglify-sourcemap.md) 
 shows how to setup a basic gulp task to bundle a JavaScript file with its 
 dependencies, and minify the bundle with UglifyJS while preserving source maps.
 It does not, however, show how one may use gulp and Browserify with multiple 
@@ -33,7 +33,7 @@ gulp.task('javascript', function() {
     // the normal attributes gulp plugins expect.
     .pipe(source('app.js'))
     // the rest of the gulp task, as you would normally write it.
-    // here we're copying from the Browserify + Uglify2 recipe.
+    // here we're copying from the Browserify + Uglify recipe.
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
       // Add gulp plugins to the pipeline here.

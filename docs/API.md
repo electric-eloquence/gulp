@@ -9,9 +9,9 @@ Jump to:
 ### gulp.src(globs[, options])
 
 Emits files matching provided glob or an array of globs. 
-Returns a [stream](http://nodejs.org/api/stream.html) of 
-[Vinyl files](https://github.com/wearefractal/vinyl-fs) that can be 
-[piped](http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options) 
+Returns a [stream](https://nodejs.org/api/stream.html) of 
+[Vinyl files](https://github.com/gulpjs/vinyl-fs) that can be 
+[piped](https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options) 
 to plugins.
 
 ```javascript
@@ -350,7 +350,6 @@ watcher.on('error', function(err) {
 [node-glob]: https://github.com/isaacs/node-glob
 [node-glob documentation]: https://github.com/isaacs/node-glob#options
 [node-glob syntax]: https://github.com/isaacs/node-glob
-[glob-stream]: https://github.com/wearefractal/glob-stream
-[gulp-if]: https://github.com/robrich/gulp-if
+[glob-stream]: https://github.com/gulpjs/glob-stream
 [Orchestrator]: https://github.com/robrich/orchestrator
-[glob2base]: https://github.com/wearefractal/glob2base
+[glob2base]: https://github.com/contra/glob2base

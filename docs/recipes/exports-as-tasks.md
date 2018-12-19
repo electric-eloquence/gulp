@@ -1,4 +1,4 @@
-# Exports as Tasks
+# Exports as tasks
 
 Using the ES2015 module syntax you can use your exports as tasks.
 

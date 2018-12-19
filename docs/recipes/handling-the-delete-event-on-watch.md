@@ -1,4 +1,4 @@
-# Handling the Delete Event on Watch
+# Handling the delete event on watch
 
 You can listen for `'change'` events to fire on the watcher returned from 
 `gulp.watch`.

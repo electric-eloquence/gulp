@@ -1,4 +1,4 @@
-# Browserify + Uglify2 with sourcemaps
+# Browserify + Uglify with sourcemaps
 
 [Browserify](https://github.com/browserify/browserify) has become an important 
 and indispensable tool but requires being wrapped before working well with gulp. 

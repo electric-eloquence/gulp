@@ -1,4 +1,4 @@
-# Maintain Directory Structure while Globbing
+# Maintain directory structure while globbing
 
 If you are planning to read a few files/folders from a directory and maintain 
 their relative path, you need to pass `{ base: '.' }` as the second argument to 
