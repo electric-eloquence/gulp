@@ -253,7 +253,7 @@ gulp.task('one', function(cb) {
     cb(err); // if err is not null and not undefined, the run will stop, and note that it failed
 });
 
-// identifies a dependent task must be complete before this one begins
+// identifies a dependency task that must be complete before this one begins
 gulp.task('two', ['one'], function() {
     // task 'one' is done now
 });

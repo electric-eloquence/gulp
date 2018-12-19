@@ -2,8 +2,8 @@
 
 By default, tasks run with maximum concurrency -- e.g. it launches all the tasks at once and waits for nothing. If you want to create a series where tasks run in a particular order, you need to do two things:
 
-- give it a hint to tell it when the task is done,
-- and give it a hint that a task depends on completion of another.
+* give it a hint to tell it when the task is done,
+* and give it a hint that a task depends on completion of another.
 
 For these examples, let's presume you have two tasks, "one" and "two" that you specifically want to run in this order:
 
@@ -24,7 +24,7 @@ gulp.task('one', function (cb) {
     });
 });
 
-// identifies a dependent task must be complete before this one begins
+// identifies a dependency task that must be complete before this one begins
 gulp.task('two', ['one'], function() {
     // task 'one' is done now
 });
