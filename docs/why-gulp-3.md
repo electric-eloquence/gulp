@@ -60,9 +60,9 @@ gulp.task('extension:bar',
 );
 ```
 
-To make this work, `extensions.js`, `extension-foo.js`, and `extension-bar.js` 
-must be user-editable and kept out of version control for the project core. In 
-this way, updates to core will not overwrite user customizations.
+To make this work, `extensions.js` must be user-editable and kept out of version 
+control for the project core. In this way, updates to core will not overwrite 
+user customizations.
 
 Additionally, adding or removing extensions is as simple as adding or removing 
 their string names from the array submitted as the 2nd argument to `gulp.task()` 
