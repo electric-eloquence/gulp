@@ -71,3 +71,9 @@ in `extensions.js`.
 This is where compatibility breaks most severely with gulp 4. gulp 4 discourages 
 the naming of tasks with strings and it does not recognize the submission of an 
 array of tasks as the 2nd argument to `gulp.task()`.
+
+### Suggestions
+
+If you know of a simpler (and possibly better) way of achieving this 
+extensibility, [please comment](https://github.com/electric-eloquence/gulp/issues) 
+as to what it may be.
