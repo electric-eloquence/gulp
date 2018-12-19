@@ -211,17 +211,13 @@ gulp.task('somename', function() {
 ##### Return a promise
 
 ```javascript
-var Q = require('q');
-
 gulp.task('somename', function() {
-  var deferred = Q.defer();
-
-  // do async stuff
-  setTimeout(function() {
-    deferred.resolve();
-  }, 1);
-
-  return deferred.promise;
+  return new Promise(function(resolve) {
+    // do async stuff
+    setTimeout(function() {
+      resolve();
+    }, 1000);
+  });
 });
 ```
 
