@@ -2,7 +2,6 @@
 
 var util = require('util');
 var Orchestrator = require('orchestrator');
-var deprecated = require('deprecated');
 var vfs = require('vinyl-fs');
 var globWatcher = require('./lib/globWatcher');
 

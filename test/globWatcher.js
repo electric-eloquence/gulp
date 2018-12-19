@@ -30,10 +30,11 @@ describe('globWatcher()', function() {
   }
 
   function wClose(watcher) {
-    // on macOS, chokidar's fsevents handler will consolidate watchers if the number of watched child paths under a
-    // parent path exceeds a threshold (10)
-    // on exceeding that threshold, closing the watcher may segfault because other paths may depend on that watcher
-    // this test on macOS doesn't use much memory (~10MB on Node 11) so leaving watchers open shouldn't be a problem
+    // On macOS, closing watchers too many times in succession will segfault.
+    // (The problem seems to occur in compiled C code in fsevents.)
+    // On the other hand, if they are left open and new watchers reinstantiated, chokidar's fsevents handler will
+    // consolidate watchers if the number of watched child paths under a parent path exceeds a threshold (10).
+    // For this test, memory usage will be minimal (~10MB on Node 11).
     if (process.platform !== 'darwin') {
       watcher.close();
     }
