@@ -1,18 +1,20 @@
 # Testing
 
-> Testing your plugin is the only way to ensure quality. It brings confidence to your users and makes your life easier.
+> Testing your plugin is the only way to ensure quality. It brings confidence to 
+  your users and makes your life easier.
 
 [Writing a Plugin](README.md) > Testing
 
-
 ## Tooling
 
-Most plugins use [mocha](https://github.com/mochajs/mocha), [should](https://github.com/shouldjs/should.js) and [event-stream](https://github.com/dominictarr/event-stream) to help them test. The following examples will use these tools.
-
+Most plugins use [mocha](https://github.com/mochajs/mocha),
+[should](https://github.com/shouldjs/should.js) and 
+[event-stream](https://github.com/dominictarr/event-stream) to help them test. 
+The following examples will use these tools.
 
 ## Testing plugins for streaming mode
 
-```js
+```javascript
 var assert = require('assert');
 var es = require('event-stream');
 var File = require('vinyl');
@@ -53,10 +55,9 @@ describe('gulp-prefixer', function() {
 });
 ```
 
-
 ## Testing plugins for buffer mode
 
-```js
+```javascript
 var assert = require('assert');
 var es = require('event-stream');
 var File = require('vinyl');
@@ -93,7 +94,6 @@ describe('gulp-prefixer', function() {
   });
 });
 ```
-
  
 ## Some plugins with high-quality Testing
 

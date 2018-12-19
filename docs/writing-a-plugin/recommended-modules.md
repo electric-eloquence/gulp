@@ -1,16 +1,13 @@
 # Recommended Modules
 
-> Sticking to this curated list of recommended modules will make sure you don't violate the plugin guidelines and ensure consistency across plugins.
+> Sticking to this curated list of recommended modules will make sure you don't 
+  violate the plugin guidelines and ensure consistency across plugins.
 
 [Writing a Plugin](README.md) > Recommended Modules
 
 #### Replacing a file extension
 
 Use [replace-ext](https://github.com/wearefractal/replace-ext)
-
-#### Errors
-
-Use [BetterError](https://github.com/wearefractal/BetterError) when it is finished
 
 #### String colors
 
