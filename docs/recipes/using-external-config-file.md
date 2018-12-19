@@ -2,34 +2,30 @@
 
 Beneficial because it's keeping tasks DRY and config.json can be used by another task runner, like `grunt`.
 
--
-
 ###### `config.json`
 
 ```json
 {
-  "desktop" : {
-    "src" : [
+  "desktop": {
+    "src": [
       "dev/desktop/js/**/*.js",
-      "!dev/desktop/js/vendor/**"
+      "!dev/desktop/js/vendor/**/*"
     ],
-    "dest" : "build/desktop/js"
+    "dest": "build/desktop/js"
   },
-  "mobile" : {
-    "src" : [
+  "mobile": {
+    "src": [
       "dev/mobile/js/**/*.js",
-      "!dev/mobile/js/vendor/**"
+      "!dev/mobile/js/vendor/**/*"
     ],
-    "dest" : "build/mobile/js"
+    "dest": "build/mobile/js"
   }
 }
 ```
 
--
-
 ###### `gulpfile.js`
 
-```js
+```javascript
 // npm install --save-dev gulp gulp-uglify
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');

@@ -33,7 +33,7 @@ var Transform = require('transform');
 module.exports = function() {
   // Monkey patch Transform or create your own subclass, 
   // implementing `_transform()` and optionally `_flush()`
-  var transformStream = new Transform({objectMode: true});
+  var transformStream = new Transform({ objectMode: true });
   /**
    * @param {Buffer|string} file
    * @param {string=} encoding - ignored if file contains a Buffer

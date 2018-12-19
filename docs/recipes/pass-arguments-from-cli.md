@@ -1,6 +1,6 @@
 # Pass arguments from the command line
 
-```js
+```javascript
 // npm install --save-dev gulp gulp-if gulp-uglify minimist
 
 var gulp = require('gulp');
@@ -25,6 +25,6 @@ gulp.task('scripts', function() {
 
 Then run gulp with:
 
-```sh
-$ gulp scripts --env development
+```shell
+gulp scripts --env development
 ```

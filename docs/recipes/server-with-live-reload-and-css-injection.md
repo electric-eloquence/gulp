@@ -1,11 +1,13 @@
 # Server with live-reloading and CSS injection
 
-With [BrowserSync](http://browsersync.io) and gulp, you can easily create a development server that is accessible to any device on the same WiFi network. BrowserSync also has live-reload built in, so there's nothing else to configure.
+With [BrowserSync](https://browsersync.io) and gulp, you can easily create a 
+development server that is accessible to any device on the same WiFi network. 
+BrowserSync also has live-reload built in, so there's nothing else to configure.
 
 First install the module:
 
-```sh
-$ npm install --save-dev browser-sync
+```shell
+npm install --save-dev browser-sync
 ```
 
 Then, considering the following file structure...
@@ -20,9 +22,10 @@ app/
   index.html
 ```
 
-... you can easily serve files from the `app` directory and have all browsers reload when any of them change with the following in `gulpfile.js`:
+...you can easily serve files from the `app` directory and have all browsers 
+reload when any of them change with the following in `gulpfile.js`:
 
-```js
+```javascript
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
@@ -35,7 +38,7 @@ gulp.task('serve', function() {
     }
   });
 
-  gulp.watch(['*.html', 'styles/**/*.css', 'scripts/**/*.js'], {cwd: 'app'}, reload);
+  gulp.watch(['*.html', 'styles/**/*.css', 'scripts/**/*.js'], { cwd: 'app' }, reload);
 });
 
 ```
@@ -51,16 +54,19 @@ and including the CSS in `index.html`:
 
 ```
 
-to serve your files and launch a browser window pointing to the default URL (http://localhost:3000) run:
+to serve your files and launch a browser window pointing to the default URL 
+(http://localhost:3000) run:
 
-```bash
+```shell
 gulp serve
 ```
 
 
-## + CSS pre-processors
+## + CSS preprocessors
 
-A common use-case is to reload CSS files after they've been pre-processed. Using Sass as an example, this is how you can instruct browsers to reload the CSS without doing a full-page refresh.
+A common use-case is to reload CSS files after they've been preprocessed. Using 
+Sass as an example, this is how you can instruct browsers to reload the CSS 
+without doing a full-page refresh.
 
 Considering this updated file structure...
 
@@ -73,9 +79,10 @@ app/
     main.js
   index.html
 ```
-... you can easily watch Sass files from the `scss` directory and have all browsers reload when any of them change with the following in `gulpfile.js`:
+...you can easily watch Sass files from the `scss` directory and have all 
+browsers reload when any of them change with the following in `gulpfile.js`:
 
-```js
+```javascript
 var gulp = require('gulp');
 var sass = require('gulp-ruby-sass');
 var browserSync = require('browser-sync');
@@ -110,13 +117,9 @@ and including the pre-processed CSS in `index.html`:
 
 ```
 
-to serve your files and launch a browser window pointing to the default URL (http://localhost:3000) run:
+to serve your files and launch a browser window pointing to the default URL 
+(http://localhost:3000) run:
 
-```bash
+```shell
 gulp serve
 ```
-
-## Extras
-
-- Live reload, CSS injection and scroll/form syncing works seamlessly inside of [BrowserStack](http://www.browserstack.com/) virtual machines.
-- Set `tunnel: true` to view your local site at a public URL (complete with all BrowserSync features).

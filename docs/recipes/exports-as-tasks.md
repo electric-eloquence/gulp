@@ -2,7 +2,7 @@
 
 Using the ES2015 module syntax you can use your exports as tasks.
 
-```js
+```javascript
 import gulp from 'gulp';
 import babel from 'gulp-babel';
 

@@ -1,10 +1,10 @@
 # Automate release workflow
 
-If your project follows a semantic versioning, it may be a good idea to automatize the steps needed to do a release.
-Below you have a simple recipe that bumps the project version, commits the changes to git and creates a new tag.
+If your project follows semantic versioning, it may be a good idea to automate 
+the steps needed to do a release. Below is a simple recipe that bumps the 
+project version, commits the changes to git, and creates a new tag.
 
 ``` javascript
-
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var conventionalChangelog = require('gulp-conventional-changelog');
@@ -14,7 +14,7 @@ var gutil = require('gulp-util');
 var git = require('gulp-git');
 var fs = require('fs');
 
-gulp.task('changelog', function () {
+gulp.task('changelog', function() {
   return gulp.src('CHANGELOG.md', {
     buffer: false
   })
@@ -33,32 +33,32 @@ gulp.task('github-release', function(done) {
   }, done);
 });
 
-gulp.task('bump-version', function () {
-// We hardcode the version change type to 'patch' but it may be a good idea to
-// use minimist (https://www.npmjs.com/package/minimist) to determine with a
-// command argument whether you are doing a 'major', 'minor' or a 'patch' change.
+gulp.task('bump-version', function() {
+  // We hardcode the version change type to 'patch' but it may be a good idea to
+  // use minimist (https://www.npmjs.com/package/minimist) to determine with a
+  // command argument whether you are doing a 'major', 'minor' or a 'patch' change.
   return gulp.src(['./bower.json', './package.json'])
-    .pipe(bump({type: "patch"}).on('error', gutil.log))
+    .pipe(bump({ type: 'patch' }).on('error', gutil.log))
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('commit-changes', function () {
+gulp.task('commit-changes', function() {
   return gulp.src('.')
     .pipe(git.add())
     .pipe(git.commit('[Prerelease] Bumped version number'));
 });
 
-gulp.task('push-changes', function (cb) {
+gulp.task('push-changes', function(cb) {
   git.push('origin', 'master', cb);
 });
 
-gulp.task('create-new-tag', function (cb) {
+gulp.task('create-new-tag', function(cb) {
   var version = getPackageJsonVersion();
-  git.tag(version, 'Created Tag for version: ' + version, function (error) {
+  git.tag(version, 'Created Tag for version: ' + version, function(error) {
     if (error) {
       return cb(error);
     }
-    git.push('origin', 'master', {args: '--tags'}, cb);
+    git.push('origin', 'master', { args: '--tags' }, cb);
   });
 
   function getPackageJsonVersion () {
@@ -68,7 +68,7 @@ gulp.task('create-new-tag', function (cb) {
   };
 });
 
-gulp.task('release', function (callback) {
+gulp.task('release', function(callback) {
   runSequence(
     'bump-version',
     'changelog',
@@ -76,7 +76,7 @@ gulp.task('release', function (callback) {
     'push-changes',
     'create-new-tag',
     'github-release',
-    function (error) {
+    function(error) {
       if (error) {
         console.log(error.message);
       } else {

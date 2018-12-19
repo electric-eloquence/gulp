@@ -1,10 +1,13 @@
 # Browserify + Uglify2 with sourcemaps
 
-[Browserify](http://github.com/substack/node-browserify) has become an important and indispensable
-tool but requires being wrapped before working well with gulp. Below is a simple recipe for using
-Browserify with full sourcemaps that resolve to the original individual files.
+[Browserify](https://github.com/browserify/browserify) has become an important 
+and indispensable tool but requires being wrapped before working well with gulp. 
+Below is a simple recipe for using Browserify with full sourcemaps that resolve 
+to the original individual files.
 
-See also: the [Combining Streams to Handle Errors](https://github.com/gulpjs/gulp/blob/master/docs/recipes/combining-streams-to-handle-errors.md) recipe for handling errors with browserify or uglify in your stream.
+See also: the 
+[Combining Streams to Handle Errors](combining-streams-to-handle-errors.md) 
+recipe for handling errors with browserify or uglify in your stream.
 
 ``` javascript
 'use strict';
@@ -17,7 +20,7 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 
-gulp.task('javascript', function () {
+gulp.task('javascript', function() {
   // set up the browserify instance on a task basis
   var b = browserify({
     entries: './entry.js',
@@ -27,10 +30,10 @@ gulp.task('javascript', function () {
   return b.bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
-    .pipe(sourcemaps.init({loadMaps: true}))
-        // Add transformation tasks to the pipeline here.
-        .pipe(uglify())
-        .on('error', gutil.log)
+    .pipe(sourcemaps.init({ loadMaps: true }))
+      // Add transformation tasks to the pipeline here.
+      .pipe(uglify())
+      .on('error', gutil.log)
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./dist/js/'));
 });
