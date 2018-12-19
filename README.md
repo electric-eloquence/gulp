@@ -10,31 +10,35 @@
 This includes maintenance fixes and security updates.
 
 ## Install
-- Latest version (without Git):
-  - `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts`
-  - Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts"`
+* Latest version (without Git):
+  * `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.2`
+  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.2"`
     as a dependency in package.json.
-- Latest version (with Git):
-  - `npm install --save electric-eloquence/gulp`
-- Specific version (with Git):
-  - `npm install --save electric-eloquence/gulp#3.9.1`
-- Semver range (with Git):
-  - `npm install --save electric-eloquence/gulp#semver:~3.9.1`
-- When installed one of these ways, other packages depending on gulp will get
+* Latest version (with Git):
+  * `npm install --save electric-eloquence/gulp`
+* Specific version (with Git):
+  * `npm install --save electric-eloquence/gulp#3.9.2`
+* Semver range (with Git):
+  * `npm install --save electric-eloquence/gulp#semver:^3.9.2`
+* When installed one of these ways, other packages depending on gulp will get
   gulp 3 with long-term support.
 
 ## What is gulp?
 
-- **Automation** - gulp is a toolkit that helps you automate painful or time-consuming tasks in your development workflow.
-- **Platform-agnostic** - Integrations are built into all major IDEs and people are using gulp with PHP, .NET, Node.js, Java, and other platforms.
-- **Strong Ecosystem** - Use npm modules to do anything you want + over 2000 curated plugins for streaming file transformations.
-- **Simple** - By providing only a minimal API surface, gulp is easy to learn and simple to use.
+* __Automation__ - gulp is a toolkit that helps you automate painful or 
+  time-consuming tasks in your development workflow.
+* __Platform-agnostic__ - Integrations are built into all major IDEs and people 
+  are using gulp with PHP, .NET, Node.js, Java, and other platforms.
+* __Strong Ecosystem__ - Use npm modules to do anything you want + over 2000 
+  curated plugins for streaming file transformations.
+* __Simple__ - By providing only a minimal API surface, gulp is easy to learn 
+  and simple to use.
 
 ## Documentation
 
 For a Getting Started guide, API docs, recipes, making a plugin, etc. check out our docs!
 
-- [Documentation for gulp 3](/docs/README.md)
+* [Documentation for gulp 3](/docs/README.md)
 
 ## Sample `gulpfile.js`
 
@@ -95,10 +99,16 @@ gulp.task('default', ['watch', 'scripts', 'images']);
 
 We recommend these plugins:
 
-- [gulp-changed](https://github.com/sindresorhus/gulp-changed) - only pass through changed files
-- [gulp-cached](https://github.com/contra/gulp-cached) - in-memory file cache, not for operation on sets of files
-- [gulp-remember](https://github.com/ahaurw01/gulp-remember) - pairs nicely with gulp-cached
-- [gulp-newer](https://github.com/tschaub/gulp-newer) - pass through newer source files only, supports many:1 source:dest
+* [gulp-changed](https://github.com/sindresorhus/gulp-changed) - only pass through changed files
+* [gulp-cached](https://github.com/contra/gulp-cached) - in-memory file cache, not for operation on sets of files
+* [gulp-remember](https://github.com/ahaurw01/gulp-remember) - pairs nicely with gulp-cached
+* [gulp-newer](https://github.com/tschaub/gulp-newer) - pass through newer source files only, supports many:1 source:dest
+
+## Install Troubleshooting
+
+* `npm ERR! code EINTEGRITY`
+  * If npm warns that the tarball data seems to be corrupted, delete your
+    package-lock.json, and install again.
 
 [snyk-image]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts/badge.svg
 [snyk-url]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts
