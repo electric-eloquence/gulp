@@ -39,6 +39,7 @@ This includes maintenance fixes and security updates.
 For a Getting Started guide, API docs, recipes, making a plugin, etc. check out our docs!
 
 * [Documentation for gulp 3](/docs/README.md)
+* [Why stay on gulp 3?](/docs/why-gulp-3.md)
 
 ## Sample `gulpfile.js`
 
