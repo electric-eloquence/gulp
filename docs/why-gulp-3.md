@@ -18,8 +18,8 @@ require gulp or any other task runner.
 
 However, let's say _some_ users want to preprocess CSS with Stylus. Fepper could 
 certainly have Stylus hard-coded in. But then, _all_ users would be _forced_ to 
-use it. However, the decision was made early on to leave CSS pre or 
-postprocessing (as well as many many other tasks) up to end-users.
+use it. However, the decision was made early on to leave CSS preprocessing (as 
+well as many many other tasks) up to end-users.
 
 Fepper enables this extensibility by giving users the ability to declare 
 extension tasks. These, in turn, are declared as optional dependencies to 
@@ -60,8 +60,8 @@ gulp.task('extension:bar',
 );
 ```
 
-To make this work, `extensions.js` must be user-editable and kept out of version 
-control for the project core. In this way, updates to core will not overwrite 
+To make this work, `extensions.js` must be user-editable and kept out of the 
+project core's version control. In this way, updates to core will not overwrite 
 user customizations.
 
 Additionally, adding or removing extensions is as simple as adding or removing 
