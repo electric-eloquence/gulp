@@ -12,11 +12,6 @@ function Gulp() {
 util.inherits(Gulp, Orchestrator);
 
 Gulp.prototype.task = Gulp.prototype.add;
-Gulp.prototype.run = function() {
-  var tasks = arguments.length ? arguments : ['default'];
-
-  this.start.apply(this, tasks);
-};
 Gulp.prototype.runSequence = runSequence;
 Gulp.prototype.src = vfs.src;
 Gulp.prototype.dest = vfs.dest;
@@ -36,6 +31,14 @@ Gulp.prototype.watch = function(glob, opt_, fn_) {
   }
 
   return globWatcher(glob, opt, fn);
+};
+
+// Not publicly documenting this because it doesn't signal any sort of termination.
+// It fires and forgets tasks concurrently.
+// However, it is necessary for Gulp.prototype.runSequence so it cannot be deprecated.
+Gulp.prototype.run = function() {
+  var tasks = arguments.length ? arguments : ['default'];
+  this.start.apply(this, tasks);
 };
 
 // Let people use this class from our instance
