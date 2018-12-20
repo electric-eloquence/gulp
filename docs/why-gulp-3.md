@@ -23,8 +23,8 @@ use it. With that in mind, the decision was made early on to leave CSS
 preprocessing (as well as many many other tasks) up to end-users.
 
 Fepper enables this extensibility by giving users the ability to declare 
-extension tasks. These, in turn, are declared as optional dependencies to 
-core tasks.
+extension tasks. These, in turn, are declared as optional dependencies within
+a hierarchy that runs them along with core tasks.
 
 gulpfile.js:
 
