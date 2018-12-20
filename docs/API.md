@@ -4,6 +4,7 @@ Jump to:
   [gulp.src](#gulpsrcglobs-options) |
   [gulp.dest](#gulpdestpath-options) |
   [gulp.task](#gulptaskname--deps-fn) |
+  [gulp.run](#gulpruntasks-cb) |
   [gulp.watch](#gulpwatchglob--opts-tasks-or-gulpwatchglob--opts-cb)
 
 ### gulp.src(globs[, options])
@@ -208,7 +209,7 @@ gulp.task('somename', function() {
 });
 ```
 
-##### Return a promise
+##### 
 
 ```javascript
 gulp.task('somename', function() {
@@ -257,6 +258,26 @@ gulp.task('two', ['one'], function() {
 gulp.task('default', ['one', 'two']);
 ```
 
+### gulp.run(tasks...[, cb])
+
+#### tasks
+Type: `String`
+
+Tasks to be executed. You may pass any number of tasks as individual arguments.
+
+__Note:__ Tasks are run concurrently.
+
+```javascript
+gulp.run('scripts', 'copyfiles', 'builddocs');
+```
+
+```javascript
+gulp.run('scripts', 'copyfiles', 'builddocs', function(err) {
+  // All done or aborted due to err
+});
+```
+
+Use `gulp.run` to run tasks from other tasks.
 
 ### gulp.watch(glob [, opts], tasks) or gulp.watch(glob [, opts, cb])
 
