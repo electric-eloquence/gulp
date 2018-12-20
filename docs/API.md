@@ -4,7 +4,7 @@ Jump to:
   [gulp.src](#gulpsrcglobs-options) |
   [gulp.dest](#gulpdestpath-options) |
   [gulp.task](#gulptaskname--deps-fn) |
-  [gulp.run](#gulpruntasks-cb) |
+  [gulp.runSequence](#gulprunsequencetasks-cb) |
   [gulp.watch](#gulpwatchglob--opts-tasks-or-gulpwatchglob--opts-cb)
 
 ### gulp.src(globs[, options])
@@ -258,26 +258,60 @@ gulp.task('two', ['one'], function() {
 gulp.task('default', ['one', 'two']);
 ```
 
-### gulp.run(tasks...[, cb])
+### gulp.runSequence(tasks..., cb)
 
 #### tasks
-Type: `String`
+Type: `String` or `Array`
 
-Tasks to be executed. You may pass any number of tasks as individual arguments.
+Tasks to be executed. You may pass any number of tasks or arrays of tasks as 
+individual arguments.
 
-__Note:__ Tasks are run concurrently.
+Tasks will be run in order so long as they return a stream or promise, or handle 
+the callback. This works by listening to the `task_stop` and `task_err` events, 
+and keeping track of which tasks have been completed. You can still run some of 
+the tasks in parallel by providing an array of task names for one or more of the 
+arguments.
+
+#### cb
+Type: `Function`
+
+Be sure to submit a callback function as the final argument. It is necessary to 
+signal the termination of execution of `gulp.runSequence`.
 
 ```javascript
-gulp.run('scripts', 'copyfiles', 'builddocs');
-```
-
-```javascript
-gulp.run('scripts', 'copyfiles', 'builddocs', function(err) {
-  // All done or aborted due to err
+gulp.task('default', function(callback) {
+  gulp.runSequence(
+    'build-clean',
+    ['build-scripts', 'build-styles'],
+    'build-html',
+    callback
+  );
 });
 ```
 
-Use `gulp.run` to run tasks from other tasks.
+#### Options
+
+There are a few options you can configure on the `gulp.runSequence` function.
+
+__Note:__ These options are persistent to the gulp instance, and once set will 
+affect every use of `gulp.runSequence` thereafter.
+
+```javascript
+gulp.runSequence.options.ignoreUndefinedTasks = true;
+gulp.task('default', function(cb) {
+  gulp.runSequence(
+    'foo',
+    null, // no longer errors on `null`
+    'bar',
+    cb
+  );
+})
+```
+
+* `showErrorStackTrace`: When set to `false`, this suppresses the full stack 
+  trace from errors captured during a sequence.
+* `ignoreUndefinedTasks`: When set to `true`, this enables you to pass falsey 
+  values in which will be stripped from the task set before validation and sequencing.
 
 ### gulp.watch(glob [, opts], tasks) or gulp.watch(glob [, opts, cb])
 

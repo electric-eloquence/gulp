@@ -2,6 +2,7 @@
 
 var util = require('util');
 var Orchestrator = require('orchestrator');
+var runSequence = require('run-sequence');
 var vfs = require('vinyl-fs');
 var globWatcher = require('./lib/globWatcher');
 
@@ -16,7 +17,7 @@ Gulp.prototype.run = function() {
 
   this.start.apply(this, tasks);
 };
-
+Gulp.prototype.runSequence = runSequence;
 Gulp.prototype.src = vfs.src;
 Gulp.prototype.dest = vfs.dest;
 Gulp.prototype.watch = function(glob, opt_, fn_) {
