@@ -104,13 +104,16 @@ describe('gulp runSequence()', function() {
     gulp.run('default');
   });
   it('should run async callback tasks in parallel', function(done) {
-    var start = Date.now();
+    var stop1;
+    var start2;
     var fn = function(cb) {
       setTimeout(function() {
+        stop1 = Date.now();
         cb();
       }, timeout);
     };
     var fn2 = function(cb) {
+      start2 = Date.now();
       setTimeout(function() {
         cb();
       }, timeout);
@@ -121,8 +124,7 @@ describe('gulp runSequence()', function() {
       gulp.runSequence(
         ['test', 'test2'],
         function() {
-          var elapsed = Date.now() - start;
-          elapsed.should.be.below(timeout * 2);
+          start2.should.be.below(stop1);
           cb();
           gulp.reset();
           done();
@@ -132,11 +134,9 @@ describe('gulp runSequence()', function() {
     gulp.run('default');
   });
   it('should run async stream tasks in parallel', function(done) {
-    var start = Date.now();
-    var start1;
-    var start2;
     var stop1;
-    var stop2;
+    var start2;
+
     var fn = function() {
       return gulp.src(join(__dirname, './fixtures/copy/example.txt'))
         .pipe(gulp.dest(join(outpath, './run-sequence-parallel')));
@@ -148,33 +148,30 @@ describe('gulp runSequence()', function() {
     gulp.task('test', fn);
     gulp.task('test2', fn2);
     gulp.task('concurrent', function(cb) {
-      start1 = Date.now();
-      gulp.runSequence(
-        'test',
-        function() {
-          stop1 = Date.now();
-          cb();
-        }
-      );
+      setTimeout(function() {
+        gulp.runSequence(
+          'test',
+          function() {
+            stop1 = Date.now();
+            cb();
+          }
+        );
+      }, timeout);
     });
     gulp.task('concurrent2', function(cb) {
       start2 = Date.now();
-      gulp.runSequence(
-        'test2',
-        function() {
-          stop2 = Date.now();
-          cb();
-        }
-      );
+      setTimeout(function() {
+        gulp.runSequence(
+          'test2',
+          cb
+        );
+      }, timeout);
     });
     gulp.task('default', function(cb) {
       gulp.runSequence(
         ['concurrent', 'concurrent2'],
         function() {
-          var elapsed = Date.now() - start;
-          var elapsed1 = stop1 - start1;
-          var elapsed2 = stop2 - start2;
-          elapsed.should.be.below(elapsed1 + elapsed2);
+          start2.should.be.below(stop1);
           cb();
           gulp.reset();
           done();
@@ -184,16 +181,19 @@ describe('gulp runSequence()', function() {
     gulp.run('default');
   });
   it('should run async promise tasks in parallel', function(done) {
-    var start = Date.now();
+    var stop1;
+    var start2;
     var fn = function() {
       return new Promise(function(resolve) {
         setTimeout(function() {
+          stop1 = Date.now();
           resolve();
         }, timeout);
       });
     };
     var fn2 = function() {
       return new Promise(function(resolve) {
+        start2 = Date.now();
         setTimeout(function() {
           resolve();
         }, timeout);
@@ -205,8 +205,7 @@ describe('gulp runSequence()', function() {
       gulp.runSequence(
         ['test', 'test2'],
         function() {
-          var elapsed = Date.now() - start;
-          elapsed.should.be.below(timeout * 2);
+          start2.should.be.below(stop1);
           cb();
           gulp.reset();
           done();
