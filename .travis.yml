@@ -10,6 +10,5 @@ node_js:
 after_script:
   - npm run coverage
 branches:
-  only:
-  - npm
-  - v3-lts
+  except:
+  - dev
