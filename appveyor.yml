@@ -2,7 +2,7 @@
 environment:
   matrix:
     - nodejs_version: "6"
-    - nodejs_version: "8"
+    - nodejs_version: "8.12.0"
     - nodejs_version: "10"
     - nodejs_version: "11"
 
@@ -28,6 +28,7 @@ build: off
 version: "{build}"
 
 branches:
-  only:
-    - npm
-    - v3-lts
+  except:
+    - dev
+
+skip_tags: true
