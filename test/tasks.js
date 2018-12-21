@@ -33,7 +33,7 @@ describe('gulp tasks', function() {
       gulp.reset();
       done();
     });
-    it('should run all tasks when call run() multiple times', function(done) {
+    it('should run all tasks when it calls run() multiple times', function(done) {
       var a = 0;
       var fn = function() {
         this.should.equal(gulp);

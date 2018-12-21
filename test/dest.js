@@ -12,8 +12,8 @@ var outpath = join(__dirname, './out-fixtures');
 
 describe('gulp output stream', function() {
   describe('dest()', function() {
-    beforeEach(rimraf.bind(null, outpath));
-    afterEach(rimraf.bind(null, outpath));
+    beforeEach(rimraf.sync.bind(null, outpath, {}));
+    afterEach(rimraf.sync.bind(null, outpath, {}));
 
     it('should return a stream', function(done) {
       var stream = gulp.dest(join(__dirname, './fixtures/'));
@@ -118,10 +118,8 @@ describe('gulp output stream', function() {
         join(file.path, '').should.equal(join(outpath, './stuff'));
       });
       outstream.on('end', function() {
-        fs.exists(join(outpath, 'stuff'), function(exists) {
-          should(exists).be.ok;
-          done();
-        });
+        should(fs.existsSync(join(outpath, 'stuff'))).be.true;
+        done();
       });
     }
 

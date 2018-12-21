@@ -209,7 +209,7 @@ gulp.task('somename', function() {
 });
 ```
 
-##### 
+##### Return a promise
 
 ```javascript
 gulp.task('somename', function() {
@@ -226,8 +226,8 @@ __Note:__ By default, tasks run with maximum concurrency -- e.g. it launches all
 the tasks at once and waits for nothing. If you want to create a series where
 tasks run in a particular order, you need to do two things:
 
-* give it a hint to tell it when the task is done,
-* and give it a hint that a task depends on completion of another.
+* Give it a hint to tell it when the task is done.
+* Give it a hint that a task depends on completion of another.
 
 For these examples, let's presume you have two tasks, "one" and "two" that you
 specifically want to run in this order:
@@ -235,7 +235,6 @@ specifically want to run in this order:
 1. In task "one" you add a hint to tell it when the task is done.  Either take
 in a callback and call it when you're done or return a promise or stream that
 the engine should wait to resolve or end respectively.
-
 2. In task "two" you add a hint telling the engine that it depends on completion
 of the first task.
 
