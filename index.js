@@ -33,9 +33,9 @@ Gulp.prototype.watch = function(glob, opt_, fn_) {
   return globWatcher(glob, opt, fn);
 };
 
-// Not publicly documenting this because it doesn't signal any sort of termination.
-// It fires and forgets tasks asynchronously.
-// It is helpful for running tests and its use should remain internal.
+// Not publicly documenting this because it doesn't signal any sort of
+// termination. It fires and forgets tasks asynchronously. Nonetheless,
+// it is helpful for running tests and its use should remain internal.
 Gulp.prototype.run = function() {
   var tasks = arguments.length ? arguments : ['default'];
   this.start.apply(this, tasks);
