@@ -30,3 +30,5 @@ version: "{build}"
 branches:
   except:
     - dev
+
+skip_tags: true
