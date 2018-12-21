@@ -34,8 +34,8 @@ Gulp.prototype.watch = function(glob, opt_, fn_) {
 };
 
 // Not publicly documenting this because it doesn't signal any sort of termination.
-// It fires and forgets tasks concurrently.
-// However, it is necessary for Gulp.prototype.runSequence so it cannot be deprecated.
+// It fires and forgets tasks asynchronously.
+// It is helpful for running tests and its use should remain internal.
 Gulp.prototype.run = function() {
   var tasks = arguments.length ? arguments : ['default'];
   this.start.apply(this, tasks);
