@@ -274,8 +274,8 @@ arguments.
 #### cb
 Type: `Function`
 
-Be sure to submit a callback function as the final argument. It is necessary to 
-signal the termination of execution of `gulp.runSequence`.
+Be sure to submit a callback function as the final argument. This is necessary 
+to signal the termination of execution for `gulp.runSequence`.
 
 ```javascript
 gulp.task('default', function(callback) {
