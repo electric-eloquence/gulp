@@ -4,13 +4,15 @@ Jump to:
   [gulp.src](#gulpsrcglobs-options) |
   [gulp.dest](#gulpdestpath-options) |
   [gulp.task](#gulptaskname--deps-fn) |
+  [gulp.runSequence](#gulprunsequencetasks-cb) |
   [gulp.watch](#gulpwatchglob--opts-tasks-or-gulpwatchglob--opts-cb)
 
 ### gulp.src(globs[, options])
 
 Emits files matching provided glob or an array of globs. 
-Returns a [stream](http://nodejs.org/api/stream.html) of [Vinyl files](https://github.com/wearefractal/vinyl-fs) 
-that can be [piped](http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options) 
+Returns a [stream](https://nodejs.org/api/stream.html) of 
+[Vinyl files](https://github.com/gulpjs/vinyl-fs) that can be 
+[piped](https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options) 
 to plugins.
 
 ```javascript
@@ -54,7 +56,7 @@ Default: `true`
 Setting this to `false` will return `file.contents` as a stream and not buffer
 files. This is useful when working with large files.
 
-**Note:** Plugins might not implement support for streams.
+__Note:__ Plugins might not implement support for streams.
 
 ##### options.read
 Type: `Boolean`
@@ -100,7 +102,8 @@ base. See `gulp.src` above for more info.
 Type: `String` or `Function`
 
 The path (output folder) to write files to. Or a function that returns it, the
-function will be provided a [vinyl File instance](https://github.com/wearefractal/vinyl).
+function will be provided a 
+[vinyl File instance](https://github.com/wearefractal/vinyl).
 
 #### options
 Type: `Object`
@@ -153,7 +156,7 @@ tasks:
 gulp.task('build', ['array', 'of', 'task', 'names']);
 ```
 
-**Note:** The tasks will run in parallel (all at once), so don't assume that the
+__Note:__ The tasks will run in parallel (all at once), so don't assume that the
 tasks will start/finish in order.
 
 #### fn
@@ -209,26 +212,22 @@ gulp.task('somename', function() {
 ##### Return a promise
 
 ```javascript
-var Q = require('q');
-
 gulp.task('somename', function() {
-  var deferred = Q.defer();
-
-  // do async stuff
-  setTimeout(function() {
-    deferred.resolve();
-  }, 1);
-
-  return deferred.promise;
+  return new Promise(function(resolve) {
+    // do async stuff
+    setTimeout(function() {
+      resolve();
+    }, 1000);
+  });
 });
 ```
 
-**Note:** By default, tasks run with maximum concurrency -- e.g. it launches all
+__Note:__ By default, tasks run with maximum concurrency -- e.g. it launches all
 the tasks at once and waits for nothing. If you want to create a series where
 tasks run in a particular order, you need to do two things:
 
-- give it a hint to tell it when the task is done,
-- and give it a hint that a task depends on completion of another.
+* Give it a hint to tell it when the task is done.
+* Give it a hint that a task depends on completion of another.
 
 For these examples, let's presume you have two tasks, "one" and "two" that you
 specifically want to run in this order:
@@ -236,7 +235,6 @@ specifically want to run in this order:
 1. In task "one" you add a hint to tell it when the task is done.  Either take
 in a callback and call it when you're done or return a promise or stream that
 the engine should wait to resolve or end respectively.
-
 2. In task "two" you add a hint telling the engine that it depends on completion
 of the first task.
 
@@ -251,7 +249,7 @@ gulp.task('one', function(cb) {
     cb(err); // if err is not null and not undefined, the run will stop, and note that it failed
 });
 
-// identifies a dependent task must be complete before this one begins
+// identifies a dependency task that must be complete before this one begins
 gulp.task('two', ['one'], function() {
     // task 'one' is done now
 });
@@ -259,6 +257,60 @@ gulp.task('two', ['one'], function() {
 gulp.task('default', ['one', 'two']);
 ```
 
+### gulp.runSequence(tasks..., cb)
+
+#### tasks
+Type: `String` or `Array`
+
+Tasks to be executed. You may pass any number of tasks or arrays of tasks as 
+individual arguments.
+
+Tasks will be run in order so long as they return a stream or promise, or handle 
+the callback. This works by listening to the `task_stop` and `task_err` events, 
+and keeping track of which tasks have been completed. You can still run some of 
+the tasks in parallel by providing an array of task names for one or more of the 
+arguments.
+
+#### cb
+Type: `Function`
+
+Be sure to submit a callback function as the final argument. This is necessary 
+to signal the termination of execution for `gulp.runSequence`.
+
+```javascript
+gulp.task('default', function(callback) {
+  gulp.runSequence(
+    'build-clean',
+    ['build-scripts', 'build-styles'],
+    'build-html',
+    callback
+  );
+});
+```
+
+#### Options
+
+There are a few options you can configure on the `gulp.runSequence` function.
+
+__Note:__ These options are persistent to the gulp instance, and once set will 
+affect every use of `gulp.runSequence` thereafter.
+
+```javascript
+gulp.runSequence.options.ignoreUndefinedTasks = true;
+gulp.task('default', function(cb) {
+  gulp.runSequence(
+    'foo',
+    null, // no longer errors on `null`
+    'bar',
+    cb
+  );
+})
+```
+
+* `showErrorStackTrace`: When set to `false`, this suppresses the full stack 
+  trace from errors captured during a sequence.
+* `ignoreUndefinedTasks`: When set to `true`, this enables you to pass falsey 
+  values in which will be stripped from the task set before validation and sequencing.
 
 ### gulp.watch(glob [, opts], tasks) or gulp.watch(glob [, opts, cb])
 
@@ -275,7 +327,8 @@ A single glob or array of globs that indicate which files to watch for changes.
 #### opts
 Type: `Object`
 
-Options, that are passed to [`Chokidar`](https://github.com/electric-eloquence/chokidar).
+Options, that are passed to 
+[`Chokidar`](https://github.com/electric-eloquence/chokidar).
 
 #### tasks
 Type: `Array`
@@ -299,7 +352,8 @@ A single glob or array of globs that indicate which files to watch for changes.
 #### opts
 Type: `Object`
 
-Options, that are passed to [`Chokidar`](https://github.com/electric-eloquence/chokidar).
+Options, that are passed to 
+[`Chokidar`](https://github.com/electric-eloquence/chokidar).
 
 #### cb(event)
 Type: `Function`
@@ -328,7 +382,7 @@ Each watcher has a callback queue which can wait for asynchronous callbacks to
 complete before proceeding to the next one. In order for this to work, the
 callback must return a promise.
 
-**Note:** In order to gracefully handle errors rejected or thrown by such
+__Note:__ In order to gracefully handle errors rejected or thrown by such
 asynchronous callbacks, the watcher must have an on('error') event listener.
 
 ```js
@@ -350,7 +404,6 @@ watcher.on('error', function(err) {
 [node-glob]: https://github.com/isaacs/node-glob
 [node-glob documentation]: https://github.com/isaacs/node-glob#options
 [node-glob syntax]: https://github.com/isaacs/node-glob
-[glob-stream]: https://github.com/wearefractal/glob-stream
-[gulp-if]: https://github.com/robrich/gulp-if
+[glob-stream]: https://github.com/gulpjs/glob-stream
 [Orchestrator]: https://github.com/robrich/orchestrator
-[glob2base]: https://github.com/wearefractal/glob2base
+[glob2base]: https://github.com/contra/glob2base

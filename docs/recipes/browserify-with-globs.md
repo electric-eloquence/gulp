@@ -1,9 +1,14 @@
 # Browserify + Globs
 
-[Browserify + Uglify2](https://github.com/gulpjs/gulp/blob/master/docs/recipes/browserify-uglify-sourcemap.md) shows how to setup a basic gulp task to bundle a JavaScript file with it's dependencies, and minify the bundle with UglifyJS while preserving source maps.
-It does not, however, show how one may use gulp and Browserify with multiple entry files.
+[Browserify + Uglify](browserify-uglify-sourcemap.md) 
+shows how to setup a basic gulp task to bundle a JavaScript file with its 
+dependencies, and minify the bundle with UglifyJS while preserving source maps.
+It does not, however, show how one may use gulp and Browserify with multiple 
+entry files.
 
-See also: the [Combining Streams to Handle Errors](https://github.com/gulpjs/gulp/blob/master/docs/recipes/combining-streams-to-handle-errors.md) recipe for handling errors with Browserify or UglifyJS in your stream.
+See also: the 
+[Combining Streams to Handle Errors](combining-streams-to-handle-errors.md) 
+recipe for handling errors with Browserify or UglifyJS in your stream.
 
 ``` javascript
 'use strict';
@@ -19,7 +24,7 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var reactify = require('reactify');
 
-gulp.task('javascript', function () {
+gulp.task('javascript', function() {
   // gulp expects tasks to return a stream, so we create one here.
   var bundledStream = through();
 
@@ -28,9 +33,9 @@ gulp.task('javascript', function () {
     // the normal attributes gulp plugins expect.
     .pipe(source('app.js'))
     // the rest of the gulp task, as you would normally write it.
-    // here we're copying from the Browserify + Uglify2 recipe.
+    // here we're copying from the Browserify + Uglify recipe.
     .pipe(buffer())
-    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sourcemaps.init({ loadMaps: true }))
       // Add gulp plugins to the pipeline here.
       .pipe(uglify())
       .on('error', gutil.log)

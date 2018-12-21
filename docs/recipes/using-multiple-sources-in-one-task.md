@@ -1,6 +1,6 @@
 # Using multiple sources in one task
 
-```js
+```javascript
 // npm install --save-dev gulp merge-stream
 
 var gulp = require('gulp');
@@ -19,7 +19,7 @@ gulp.task('test', function() {
 
 `gulp.src` will emit files in the order they were added:
 
-```js
+```javascript
 // npm install gulp gulp-concat
 
 var gulp = require('gulp');

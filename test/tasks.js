@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('../');
-var Q = require('q');
 var should = require('should');
 require('mocha');
 
@@ -34,7 +33,7 @@ describe('gulp tasks', function() {
       gulp.reset();
       done();
     });
-    it('should run all tasks when call run() multiple times', function(done) {
+    it('should run all tasks when it calls run() multiple times', function(done) {
       var a = 0;
       var fn = function() {
         this.should.equal(gulp);
@@ -55,20 +54,20 @@ describe('gulp tasks', function() {
     it('should run all async promise tasks', function(done) {
       var a = 0;
       var fn = function() {
-        var deferred = Q.defer();
-        setTimeout(function() {
-          ++a;
-          deferred.resolve();
-        }, 1);
-        return deferred.promise;
+        return new Promise(function(resolve) {
+          setTimeout(function() {
+            ++a;
+            resolve();
+          }, 1);
+        });
       };
       var fn2 = function() {
-        var deferred = Q.defer();
-        setTimeout(function() {
-          ++a;
-          deferred.resolve();
-        }, 1);
-        return deferred.promise;
+        return new Promise(function(resolve) {
+          setTimeout(function() {
+            ++a;
+            resolve();
+          }, 1);
+        });
       };
       gulp.task('test', fn);
       gulp.task('test2', fn2);

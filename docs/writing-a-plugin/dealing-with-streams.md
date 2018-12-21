@@ -1,22 +1,26 @@
 # Dealing with streams
 
-> It is highly recommended to write plugins supporting streams. Here is some information on creating a gulp plugin that supports streams.
+> It is highly recommended to write plugins supporting streams. Here is some 
+  information on creating a gulp plugin that supports streams.
 
-> Make sure to follow the best practice regarding error handling and add the line that make the gulp plugin re-emit the first error caught during the transformation of the content
+> Make sure to follow the best practice regarding error handling and add the 
+  line that make the gulp plugin re-emit the first error caught during the 
+  transformation of the content
 
 [Writing a Plugin](README.md) > Writing stream based plugins
 
 ## Dealing with streams
 
-Let's implement a plugin prepending some text to files. This plugin supports all possible forms of file.contents.
+Let's implement a plugin prepending some text to files. This plugin supports 
+all possible forms of file.contents.
 
-```js
+```javascript
 var through = require('through2');
 var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
 
 // consts
-const PLUGIN_NAME = 'gulp-prefixer';
+var PLUGIN_NAME = 'gulp-prefixer';
 
 function prefixStream(prefixText) {
   var stream = through();
@@ -64,7 +68,7 @@ module.exports = gulpPrefixer;
 
 The above plugin can be used like this:
 
-```js
+```javascript
 var gulp = require('gulp');
 var gulpPrefixer = require('gulp-prefixer');
 

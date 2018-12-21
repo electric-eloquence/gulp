@@ -2,7 +2,7 @@
 
 var util = require('util');
 var Orchestrator = require('orchestrator');
-var deprecated = require('deprecated');
+var runSequence = require('run-sequence');
 var vfs = require('vinyl-fs');
 var globWatcher = require('./lib/globWatcher');
 
@@ -12,16 +12,7 @@ function Gulp() {
 util.inherits(Gulp, Orchestrator);
 
 Gulp.prototype.task = Gulp.prototype.add;
-Gulp.prototype.run = function() {
-  // `run()` is deprecated as of 3.5 and will be removed in 4.0
-  // Use task dependencies instead
-
-  // Impose our opinion of "default" tasks onto orchestrator
-  var tasks = arguments.length ? arguments : ['default'];
-
-  this.start.apply(this, tasks);
-};
-
+Gulp.prototype.runSequence = null;
 Gulp.prototype.src = vfs.src;
 Gulp.prototype.dest = vfs.dest;
 Gulp.prototype.watch = function(glob, opt_, fn_) {
@@ -42,14 +33,17 @@ Gulp.prototype.watch = function(glob, opt_, fn_) {
   return globWatcher(glob, opt, fn);
 };
 
+// Not publicly documenting this because it doesn't signal any sort of termination.
+// It fires and forgets tasks asynchronously.
+// It is helpful for running tests and its use should remain internal.
+Gulp.prototype.run = function() {
+  var tasks = arguments.length ? arguments : ['default'];
+  this.start.apply(this, tasks);
+};
+
 // Let people use this class from our instance
 Gulp.prototype.Gulp = Gulp;
 
-Gulp.prototype.run = deprecated.method('gulp.run() has been deprecated. ' +
-  'Use task dependencies or gulp.watch task triggering instead.',
-  console.warn, // eslint-disable-line no-console
-  Gulp.prototype.run
-);
-
 var inst = new Gulp();
+inst.runSequence = runSequence.use(inst);
 module.exports = inst;
