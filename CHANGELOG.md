@@ -1,5 +1,7 @@
 # gulp changelog
 
+### 3.9.3
+
 ### 3.9.2
 * Updated documentation
 * Continuous integration
