@@ -29,7 +29,6 @@ version: "{build}"
 
 branches:
   only:
-    - dev
     - npm
     - v3-lts
     # After releasing, bump to next anticpated version.
