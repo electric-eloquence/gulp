@@ -146,6 +146,7 @@ describe('globWatcher()', function() {
         setTimeout(function() {
           // Expect 2 because run 2 completes before this timeout completes and the queue is disabled
           should(runs).equal(2);
+          wClose(watcher);
           done();
         }, timeout * 3);
       }
