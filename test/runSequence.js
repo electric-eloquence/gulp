@@ -18,23 +18,38 @@ describe('gulp runSequence()', function() {
     var a = '';
     var b = '0';
     var c = '1';
+    var stop1;
+    var start2;
     var fn = function(cb) {
-      a = a + b;
-      cb();
+      setTimeout(function() {
+        stop1 = Date.now();
+        a = a + b;
+        cb();
+      }, timeout);
     };
     var fn2 = function(cb) {
-      a = a + c;
-      cb();
+      start2 = Date.now();
+      setTimeout(function() {
+        a = a + c;
+        cb();
+      }, timeout);
     };
     gulp.task('test', fn);
     gulp.task('test2', fn2);
     gulp.task('default', function(cb) {
-      gulp.runSequence('test', 'test2', cb);
+      gulp.runSequence(
+        'test',
+        'test2',
+        function() {
+          a.should.equal('01');
+          start2.should.be.aboveOrEqual(stop1);
+          cb();
+          gulp.reset();
+          done();
+        }
+      );
     });
     gulp.run('default');
-    a.should.equal('01');
-    gulp.reset();
-    done();
   });
   it('should run async stream tasks in series', function(done) {
     var fn = function() {
@@ -71,20 +86,24 @@ describe('gulp runSequence()', function() {
     var a = '';
     var b = '0';
     var c = '1';
+    var stop1;
+    var start2;
     var fn = function() {
       return new Promise(function(resolve) {
         setTimeout(function() {
           a = a + b;
+          stop1 = Date.now();
           resolve();
-        }, 0);
+        }, timeout);
       });
     };
     var fn2 = function() {
       return new Promise(function(resolve) {
+        start2 = Date.now();
         setTimeout(function() {
           a = a + c;
           resolve();
-        }, 0);
+        }, timeout);
       });
     };
     gulp.task('test', fn);
@@ -95,6 +114,7 @@ describe('gulp runSequence()', function() {
         'test2',
         function() {
           a.should.equal('01');
+          start2.should.be.aboveOrEqual(stop1);
           cb();
           gulp.reset();
           done();

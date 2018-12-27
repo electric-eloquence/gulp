@@ -10,5 +10,8 @@ node_js:
 after_script:
   - npm run coverage
 branches:
-  except:
-  - dev
+  only:
+  - npm
+  - v3-lts
+  # After releasing, bump to next anticpated version.
+  - v3-lts@3.9.3

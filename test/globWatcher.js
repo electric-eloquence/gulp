@@ -146,6 +146,8 @@ describe('globWatcher()', function() {
         setTimeout(function() {
           // Expect 2 because run 2 completes before this timeout completes and the queue is disabled
           should(runs).equal(2);
+          wClose(watcher);
+          done();
         }, timeout * 3);
       }
     });
@@ -155,13 +157,6 @@ describe('globWatcher()', function() {
       changeFile();
       setTimeout(changeFile, timeout * 2);
     });
-
-    // Horrifically bad async usage
-    // Necessary because done() doesn't exit the watcher callback after waiting for run 1 to timeout
-    setTimeout(function() {
-      wClose(watcher);
-      done();
-    }, timeout * 3.1);
   });
 
   it('allows the user to adjust delay', function(done) {

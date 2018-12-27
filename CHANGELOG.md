@@ -1,5 +1,9 @@
 # gulp changelog
 
+### 3.9.3
+* Better handling of renamed and removed directories
+* Better handling of paths when cwd is submitted
+
 ### 3.9.2
 * Updated documentation
 * Continuous integration

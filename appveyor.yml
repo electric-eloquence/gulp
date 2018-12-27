@@ -28,7 +28,10 @@ build: off
 version: "{build}"
 
 branches:
-  except:
-    - dev
+  only:
+    - npm
+    - v3-lts
+    # After releasing, bump to next anticpated version.
+    - v3-lts@3.9.3
 
 skip_tags: true
