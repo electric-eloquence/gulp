@@ -108,7 +108,7 @@ We recommend these plugins:
 ## Install Troubleshooting
 
 * `npm ERR! code EINTEGRITY`
-  * If npm warns that the tarball data seems to be corrupted, delete your
+  * If npm warns that the tarball seems to be corrupted, delete your
     package-lock.json, and install again.
 
 [snyk-image]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts/badge.svg
