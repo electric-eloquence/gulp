@@ -3,7 +3,12 @@
   <p align="center">The streaming build system</p>
 </p>
 
-[![Known Vulnerabilities][snyk-image]][snyk-url] [![Mac/Linux Build Status][travis-image]][travis-url] [![Windows Build Status][appveyor-image]][appveyor-url] [![Coverage Status][coveralls-image]][coveralls-url] [![License][license-image]][license-url]
+[![Known Vulnerabilities][snyk-image]][snyk-url]
+[![Mac/Linux Build Status][travis-image]][travis-url]
+[![Windows Build Status][appveyor-image]][appveyor-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+![Node Version][version-image]
+[![License][license-image]][license-url]
 
 ### This package provides long-term support for gulp at major version 3.
 
@@ -122,6 +127,8 @@ We recommend these plugins:
 
 [coveralls-image]: https://img.shields.io/coveralls/electric-eloquence/gulp/v3-lts.svg
 [coveralls-url]: https://coveralls.io/r/electric-eloquence/gulp
+
+[version-image]: https://img.shields.io/node/v/@electric-eloquence/gulp.svg
 
 [license-image]: https://img.shields.io/github/license/electric-eloquence/gulp.svg
 [license-url]: https://raw.githubusercontent.com/electric-eloquence/gulp/v3-lts/LICENSE
