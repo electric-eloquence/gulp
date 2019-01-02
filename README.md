@@ -125,8 +125,8 @@ We recommend these plugins:
 [appveyor-image]: https://img.shields.io/appveyor/ci/e2tha-e/gulp.svg?label=appveyor
 [appveyor-url]: https://ci.appveyor.com/project/e2tha-e/gulp
 
-[coveralls-image]: https://img.shields.io/coveralls/electric-eloquence/gulp/v3-lts.svg
-[coveralls-url]: https://coveralls.io/r/electric-eloquence/gulp
+[coveralls-image]: https://coveralls.io/repos/github/electric-eloquence/gulp/badge.svg?branch=v3-lts
+[coveralls-url]: https://coveralls.io/github/electric-eloquence/gulp?branch=v3-lts
 
 [version-image]: https://img.shields.io/node/v/@electric-eloquence/gulp.svg
 
