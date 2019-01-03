@@ -3,7 +3,7 @@
 .DS_Store
 .coveralls.yml
 .nyc_output/
+/test/out-fixtures/*
+/test/watch-*.txt
 node_modules/
 package-lock.json
-test/out-fixtures/*
-test/watch-*.txt
