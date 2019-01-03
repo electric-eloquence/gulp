@@ -2,8 +2,8 @@
 .*.swp
 .DS_Store
 .coveralls.yml
-.nyc_output
-node_modules
+.nyc_output/
+node_modules/
 package-lock.json
 test/out-fixtures/*
 test/watch-*.txt
