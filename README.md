@@ -122,7 +122,7 @@ We recommend these plugins:
 [travis-image]: https://img.shields.io/travis/electric-eloquence/gulp.svg
 [travis-url]: https://travis-ci.org/electric-eloquence/gulp
 
-[appveyor-image]: https://img.shields.io/appveyor/ci/e2tha-e/gulp.svg?label=appveyor
+[appveyor-image]: https://img.shields.io/appveyor/ci/e2tha-e/gulp.svg?label=windows
 [appveyor-url]: https://ci.appveyor.com/project/e2tha-e/gulp
 
 [coveralls-image]: https://coveralls.io/repos/github/electric-eloquence/gulp/badge.svg?branch=v3-lts
