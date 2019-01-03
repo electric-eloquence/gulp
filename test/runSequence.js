@@ -167,7 +167,7 @@ describe('gulp runSequence()', function() {
     };
     gulp.task('test', fn);
     gulp.task('test2', fn2);
-    gulp.task('concurrent', function(cb) {
+    gulp.task('parallel', function(cb) {
       setTimeout(function() {
         gulp.runSequence(
           'test',
@@ -178,7 +178,7 @@ describe('gulp runSequence()', function() {
         );
       }, timeout);
     });
-    gulp.task('concurrent2', function(cb) {
+    gulp.task('parallel2', function(cb) {
       start2 = Date.now();
       setTimeout(function() {
         gulp.runSequence(
@@ -189,7 +189,7 @@ describe('gulp runSequence()', function() {
     });
     gulp.task('default', function(cb) {
       gulp.runSequence(
-        ['concurrent', 'concurrent2'],
+        ['parallel', 'parallel2'],
         function() {
           start2.should.be.below(stop1);
           cb();

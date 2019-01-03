@@ -3,7 +3,12 @@
   <p align="center">The streaming build system</p>
 </p>
 
-[![Known Vulnerabilities][snyk-image]][snyk-url] [![Mac/Linux Build Status][travis-image]][travis-url] [![Windows Build Status][appveyor-image]][appveyor-url] [![Coverage Status][coveralls-image]][coveralls-url] [![License][license-image]][license-url]
+[![Known Vulnerabilities][snyk-image]][snyk-url]
+[![Mac/Linux Build Status][travis-image]][travis-url]
+[![Windows Build Status][appveyor-image]][appveyor-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+![Node Version][version-image]
+[![License][license-image]][license-url]
 
 ### This package provides long-term support for gulp at major version 3.
 
@@ -17,15 +22,15 @@ Instead, follow these instructions:
 
 ## Install
 * Latest version (without Git):
-  * `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.3`
-  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.3"`
+  * `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.4`
+  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.4"`
     as a dependency in package.json.
 * Latest version (with Git):
   * `npm install --save electric-eloquence/gulp`
 * Specific version (with Git):
-  * `npm install --save electric-eloquence/gulp#3.9.3`
+  * `npm install --save electric-eloquence/gulp#3.9.4`
 * Semver range (with Git):
-  * `npm install --save electric-eloquence/gulp#semver:^3.9.3`
+  * `npm install --save electric-eloquence/gulp#semver:^3.9.4`
 * When installed one of these ways, other packages depending on gulp will get
   gulp 3 with long-term support.
 
@@ -114,7 +119,7 @@ We recommend these plugins:
 ## Install Troubleshooting
 
 * `npm ERR! code EINTEGRITY`
-  * If npm warns that the tarball data seems to be corrupted, delete your
+  * If npm warns that the tarball seems to be corrupted, delete your
     package-lock.json, and install again.
 
 [snyk-image]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts/badge.svg
@@ -126,8 +131,10 @@ We recommend these plugins:
 [appveyor-image]: https://img.shields.io/appveyor/ci/e2tha-e/gulp.svg?label=appveyor
 [appveyor-url]: https://ci.appveyor.com/project/e2tha-e/gulp
 
-[coveralls-image]: https://img.shields.io/coveralls/electric-eloquence/gulp/v3-lts.svg
-[coveralls-url]: https://coveralls.io/r/electric-eloquence/gulp
+[coveralls-image]: https://coveralls.io/repos/github/electric-eloquence/gulp/badge.svg?branch=v3-lts
+[coveralls-url]: https://coveralls.io/github/electric-eloquence/gulp?branch=v3-lts
+
+[version-image]: https://img.shields.io/node/v/@electric-eloquence/gulp.svg
 
 [license-image]: https://img.shields.io/github/license/electric-eloquence/gulp.svg
 [license-url]: https://raw.githubusercontent.com/electric-eloquence/gulp/v3-lts/LICENSE
