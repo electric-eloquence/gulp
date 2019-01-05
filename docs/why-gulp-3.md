@@ -26,7 +26,7 @@ Fepper enables this extensibility by giving users the ability to declare
 extension tasks. These, in turn, are declared as optional dependencies within
 a hierarchy that runs them along with core tasks.
 
-gulpfile.js:
+##### gulpfile.js:
 
 ```javascript
 gulp.task('default', [
@@ -35,7 +35,7 @@ gulp.task('default', [
 ]);
 ```
 
-extensions.js:
+##### extensions.js:
 
 ```javascript
 gulp.task('extensions', [
@@ -44,7 +44,7 @@ gulp.task('extensions', [
 ]);
 ```
 
-extension-foo.js:
+##### extension-foo.js:
 
 ```javascript
 gulp.task('extension:foo',
@@ -52,7 +52,7 @@ gulp.task('extension:foo',
 );
 ```
 
-extension-bar.js:
+##### extension-bar.js:
 
 ```javascript
 
