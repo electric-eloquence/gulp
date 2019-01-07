@@ -119,7 +119,7 @@ We recommend these plugins:
 [snyk-image]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts/badge.svg
 [snyk-url]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts
 
-[travis-image]: https://img.shields.io/travis/electric-eloquence/gulp.svg
+[travis-image]: https://img.shields.io/travis/electric-eloquence/gulp.svg?label=mac%20%26%20linux
 [travis-url]: https://travis-ci.org/electric-eloquence/gulp
 
 [appveyor-image]: https://img.shields.io/appveyor/ci/e2tha-e/gulp.svg?label=windows
