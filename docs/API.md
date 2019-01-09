@@ -187,13 +187,13 @@ Tasks can be made asynchronous if its `fn` does one of the following:
 ##### Invoke a callback
 
 ```javascript
-// run a command in a shell
+// Run a command in a shell
 var exec = require('child_process').exec;
 gulp.task('jekyll', function(cb) {
-  // build Jekyll
+  // Build Jekyll
   exec('jekyll build', function(err) {
-    if (err) return cb(err); // return error
-    cb(); // finished task
+    if (err) return cb(err); // Return error
+    cb(); // Finished task
   });
 });
 ```
@@ -214,7 +214,7 @@ gulp.task('somename', function() {
 ```javascript
 gulp.task('somename', function() {
   return new Promise(function(resolve) {
-    // do async stuff
+    // Do async stuff
     setTimeout(function() {
       resolve();
     }, 1000);
@@ -243,15 +243,15 @@ So this example would look like this:
 ```js
 var gulp = require('gulp');
 
-// takes in a callback so the engine knows when it'll be done
+// Takes in a callback so the engine knows when it'll be done
 gulp.task('one', function(cb) {
-    // do stuff -- async or otherwise
-    cb(err); // if err is not null and not undefined, the run will stop, and note that it failed
+    // Do stuff -- async or otherwise
+    cb(err); // If err is not null and not undefined, the run will stop, and note that it failed
 });
 
-// identifies a dependency task that must be complete before this one begins
+// Identifies a dependency task that must be complete before this one begins
 gulp.task('two', ['one'], function() {
-    // task 'one' is done now
+    // Task 'one' is done now
 });
 
 gulp.task('default', ['one', 'two']);
@@ -300,7 +300,7 @@ gulp.runSequence.options.ignoreUndefinedTasks = true;
 gulp.task('default', function(cb) {
   gulp.runSequence(
     'foo',
-    null, // no longer errors on `null`
+    null, // No longer errors on `null`
     'bar',
     cb
   );
