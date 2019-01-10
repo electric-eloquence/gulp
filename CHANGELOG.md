@@ -1,6 +1,7 @@
 # gulp changelog
 
 ### 3.9.4
+* Minor maintenance and doc updates
 
 ### 3.9.3
 * Better handling of renamed and removed directories
