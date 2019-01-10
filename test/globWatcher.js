@@ -1,6 +1,6 @@
 'use strict';
 
-var chokidar = require('chokidar');
+var chokidar = require('@electric-eloquence/chokidar');
 var EventEmitter = require('events').EventEmitter;
 var fs = require('fs');
 var globWatcher = require('../lib/globWatcher');
