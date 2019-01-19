@@ -42,7 +42,7 @@ var tap = require('gulp-tap');
 var concat = require('gulp-concat');
 var size = require('gulp-size');
 var path = require('path');
-var es = require('event-stream');
+var mergeStream = require('merge-stream');
 
 // Keep assets in memory.
 var memory = {};
@@ -97,7 +97,7 @@ gulp.task('write-versions', function() {
     });
 
     streamEnd = streamEnd
-    // Transform the raw data in the stream into a vinyl object/file.
+    // Transform the raw data in the stream into a Vinyl file object.
     .pipe(vinylBuffer())
     //.pipe(tap(function(file) { /* do something with the file contents here */ }))
     .pipe(gulp.dest('output'));
@@ -107,7 +107,7 @@ gulp.task('write-versions', function() {
     streams.push(streamEnd);
   });
 
-  return es.merge.apply(this, streams);
+  return mergeStream.apply(this, streams);
 });
 
 //============================================ our main task

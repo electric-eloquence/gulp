@@ -1,7 +1,4 @@
-<p align="center">
-  <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
-  <p align="center">The streaming build system</p>
-</p>
+# gulp 3 lts
 
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![Mac/Linux Build Status][travis-image]][travis-url]
@@ -86,7 +83,7 @@ gulp.task('scripts', ['clean'], function() {
 gulp.task('images', ['clean'], function() {
   return gulp.src(paths.images)
     // Pass in options to the task
-    .pipe(imagemin({optimizationLevel: 5}))
+    .pipe(imagemin({ optimizationLevel: 5 }))
     .pipe(gulp.dest('build/img'));
 });
 
@@ -105,7 +102,7 @@ gulp.task('default', ['watch', 'scripts', 'images']);
 We recommend these plugins:
 
 * [gulp-changed](https://github.com/sindresorhus/gulp-changed) - only pass through changed files
-* [gulp-cached](https://github.com/contra/gulp-cached) - in-memory file cache, not for operation on sets of files
+* [gulp-cached](https://github.com/gulp-community/gulp-cached) - in-memory file cache, not for operation on sets of files
 * [gulp-remember](https://github.com/ahaurw01/gulp-remember) - pairs nicely with gulp-cached
 * [gulp-newer](https://github.com/tschaub/gulp-newer) - pass through newer source files only, supports many:1 source:dest
 

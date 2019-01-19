@@ -70,6 +70,6 @@ Unfortunately, the above plugin will error when using gulp.src in non-buffered
 
 ## Some plugins based on buffers
 
-* [gulp-coffee](https://github.com/wearefractal/gulp-coffee)
+* [gulp-coffee](https://github.com/gulp-community/gulp-coffee)
 * [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
 * [gulp-svg2ttf](https://github.com/nfroidure/gulp-svg2ttf)

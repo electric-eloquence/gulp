@@ -16,8 +16,8 @@ A gulp plugin always returns a stream in
 [object mode](https://nodejs.org/api/stream.html#stream_object_mode) that does 
 the following:
 
-1. Takes in [vinyl File objects](https://github.com/gulpjs/vinyl)
-2. Outputs [vinyl File objects](https://github.com/gulpjs/vinyl) (via 
+1. Takes in [Vinyl file objects](https://github.com/gulpjs/vinyl)
+2. Outputs [Vinyl file objects](https://github.com/gulpjs/vinyl) (via 
    `transform.push()` and/or the plugin's callback function) 
 
 These are known as 
@@ -74,7 +74,7 @@ class, which extends
 options, you can call the `through()` function directly:
 
 ```javascript
-return through({objectMode: true /* other options... */}, function(file, encoding, callback) { ...
+return through({ objectMode: true /* other options... */ }, function(file, encoding, callback) { ...
 ```
  
 Supported options include:
