@@ -21,21 +21,21 @@ So this example would look like:
 ```javascript
 var gulp = require('gulp');
 
-// takes in a callback so the engine knows when it'll be done
+// Take in a callback so the engine knows when it's done.
 gulp.task('one', function(cb) {
   // do stuff -- async or otherwise
   fs.writeFile('filename', 'data', opts, function(err) {
-    cb(err); // if err is not null and not undefined, the orchestration will stop, and 'two' will not run
+    cb(err); // If err is not null and not undefined, the orchestration will stop, and 'two' will not run.
   });
 });
 
-// identifies a dependency task that must be complete before this one begins
+// Identify a dependency task that must be complete before this one begins.
 gulp.task('two', ['one'], function() {
   // task 'one' is done now
 });
 
 gulp.task('default', ['one', 'two']);
-// alternatively: gulp.task('default', ['two']);
+// Alternatively: gulp.task('default', ['two']);
 ```
 
 Another example, which returns the stream instead of using a callback:
@@ -50,16 +50,16 @@ gulp.task('clean', function() {
 
 gulp.task('templates', ['clean'], function() {
   var stream = gulp.src(['src/templates/*.hbs'])
-    // do some concatenation, minification, etc.
+    // Do some concatenation, minification, etc.
     .pipe(gulp.dest('output/templates/'));
-  return stream; // return the stream as the completion hint
+  return stream; // Return the stream.
 });
 
 gulp.task('styles', ['clean'], function() {
   var stream = gulp.src(['src/styles/app.less'])
-    // do some hinting, minification, etc.
+    // Do some hinting, minification, etc.
     .pipe(gulp.dest('output/css/app.css'));
-  return stream;
+  return stream; // Return the stream.
 });
 
 gulp.task('build', ['templates', 'styles']);

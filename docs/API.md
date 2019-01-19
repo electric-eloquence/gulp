@@ -128,7 +128,7 @@ Define a task using [Orchestrator].
 
 ```js
 gulp.task('somename', function() {
-  // Do stuff
+  // do stuff
 });
 ```
 
@@ -145,7 +145,7 @@ An array of tasks to be executed and completed before your task will run.
 
 ```js
 gulp.task('mytask', ['array', 'of', 'task', 'names'], function() {
-  // Do stuff
+  // do stuff
 });
 ```
 
@@ -245,7 +245,7 @@ var gulp = require('gulp');
 
 // Takes in a callback so the engine knows when it'll be done
 gulp.task('one', function(cb) {
-    // Do stuff -- async or otherwise
+    // do stuff -- async or otherwise
     cb(err); // If err is not null and not undefined, the run will stop, and note that it failed
 });
 

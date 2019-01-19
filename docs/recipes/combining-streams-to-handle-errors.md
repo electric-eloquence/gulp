@@ -22,7 +22,7 @@ gulp.task('test', function() {
     gulp.dest('public/bootstrap')
   ]);
 
-  // any errors in the above streams will get caught
+  // Any errors in the above streams will get caught
   // by this listener, instead of being thrown:
   combined.on('error', console.error.bind(console));
 

@@ -36,9 +36,9 @@ var del = require('del');
 gulp.task('clean:mobile', function() {
   return del([
     'dist/report.csv',
-    // here we use a globbing pattern to match everything inside the `mobile` folder
+    // Here we use a globbing pattern to match everything inside the `mobile` folder.
     'dist/mobile/**/*',
-    // we don't want to clean this file though so we negate the pattern
+    // We don't want to clean this file though so we negate the pattern.
     '!dist/mobile/deploy.json'
   ]);
 });
@@ -69,7 +69,7 @@ Imagine the following file structure:
 
 ```javascript
 var gulp = require('gulp');
-var stripDebug = require('gulp-strip-debug'); // only as an example
+var stripDebug = require('gulp-strip-debug'); // Only as an example.
 var del = require('del');
 var vinylPaths = require('vinyl-paths');
 

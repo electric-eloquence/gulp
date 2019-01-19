@@ -21,7 +21,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 
 gulp.task('javascript', function() {
-  // set up the browserify instance on a task basis
+  // Set up the browserify instance on a task basis.
   var b = browserify({
     entries: './entry.js',
     debug: true

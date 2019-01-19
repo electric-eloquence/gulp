@@ -43,7 +43,7 @@ var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var lazypipe = require('lazypipe');
 
-// give lazypipe
+// Give lazypipe.
 var jsTransform = lazypipe()
   .pipe(jshint)
   .pipe(jshint.reporter, stylish)

@@ -64,16 +64,15 @@ var paths = {
   images: 'client/img/**/*'
 };
 
-// Not all tasks need to use streams
-// A gulpfile is just another node program and you can use any package available on npm
+// Not all tasks need to use streams.
+// A gulpfile is just another node program and you can use any package available on npm.
 gulp.task('clean', function() {
-  // You can use multiple globbing patterns as you would with `gulp.src`
+  // You can use multiple globbing patterns as you would with `gulp.src`.
   return del(['build']);
 });
 
 gulp.task('scripts', ['clean'], function() {
-  // Minify and copy all JavaScript (except vendor scripts)
-  // with sourcemaps all the way down
+  // Minify and copy all JavaScript (except vendor scripts) with sourcemaps all the way down.
   return gulp.src(paths.scripts)
     .pipe(sourcemaps.init())
       .pipe(coffee())
@@ -83,7 +82,7 @@ gulp.task('scripts', ['clean'], function() {
     .pipe(gulp.dest('build/js'));
 });
 
-// Copy all static images
+// Copy all static images.
 gulp.task('images', ['clean'], function() {
   return gulp.src(paths.images)
     // Pass in options to the task
@@ -91,13 +90,13 @@ gulp.task('images', ['clean'], function() {
     .pipe(gulp.dest('build/img'));
 });
 
-// Rerun the task when a file changes
+// Rerun the task when a file changes.
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.images, ['images']);
 });
 
-// The default task (called when you run `gulp` from cli)
+// The default task (called when you run `gulp` from cli).
 gulp.task('default', ['watch', 'scripts', 'images']);
 ```
 

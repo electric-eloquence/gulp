@@ -18,7 +18,7 @@ var options = minimist(process.argv.slice(2), knownOptions);
 
 gulp.task('scripts', function() {
   return gulp.src('**/*.js')
-    .pipe(gulpif(options.env === 'production', uglify())) // only minify in production
+    .pipe(gulpif(options.env === 'production', uglify())) // Only minify in production.
     .pipe(gulp.dest('dist'));
 });
 ```

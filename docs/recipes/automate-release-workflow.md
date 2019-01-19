@@ -27,7 +27,7 @@ gulp.task('changelog', function() {
 gulp.task('github-release', function(done) {
   conventionalGithubReleaser({
     type: "oauth",
-    token: '0126af95c0e2d9b0a7c78738c4c00a860b04acc8' // change this to your own GitHub token or use an environment variable
+    token: '0126af95c0e2d9b0a7c78738c4c00a860b04acc8' // Do not commit this to public version control.
   }, {
     preset: 'angular' // Or to any other commit message convention you use.
   }, done);
@@ -62,8 +62,8 @@ gulp.task('create-new-tag', function(cb) {
   });
 
   function getPackageJsonVersion () {
-    // We parse the json file instead of using require because require caches
-    // multiple calls so the version number won't be updated
+    // Use `fs` to parse the json file instead of using `require` because `require` caches.
+    // Once cached, updates to the file won't be picked up by `require`. 
     return JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
   };
 });
@@ -85,5 +85,4 @@ gulp.task('release', function(callback) {
       callback(error);
     });
 });
-
 ```

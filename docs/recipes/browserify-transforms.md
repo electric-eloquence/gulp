@@ -21,11 +21,11 @@ var sourcemaps = require('gulp-sourcemaps');
 var reactify = require('reactify');
 
 gulp.task('javascript', function() {
-  // set up the browserify instance on a task basis
+  // Set up the browserify instance on a task basis.
   var b = browserify({
     entries: './entry.js',
     debug: true,
-    // defining transforms here will avoid crashing your stream
+    // Defining transforms here will avoid crashing your stream.
     transform: [reactify]
   });
 
