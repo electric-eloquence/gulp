@@ -41,5 +41,5 @@ task gulp will error.
 ### Compilers
 
 You can find a list of supported languages at 
-[interpret](https://github.com/tkellen/node-interpret#jsvariants). If you would 
-like to add support for a new language send pull request/open issues there.
+[interpret](https://github.com/gulpjs/interpret#jsvariants). If you would like 
+to add support for a new language send pull request/open issues there.

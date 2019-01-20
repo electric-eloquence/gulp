@@ -103,7 +103,7 @@ Type: `String` or `Function`
 
 The path (output folder) to write files to. Or a function that returns it, the
 function will be provided a 
-[vinyl File instance](https://github.com/wearefractal/vinyl).
+[Vinyl file instance](https://github.com/gulpjs/vinyl).
 
 #### options
 Type: `Object`

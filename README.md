@@ -62,14 +62,16 @@ var paths = {
 };
 
 // Not all tasks need to use streams.
-// A gulpfile is just another node program and you can use any package available on npm.
+// A gulpfile is just another node program and you can use any package
+// available on npm.
 gulp.task('clean', function() {
   // You can use multiple globbing patterns as you would with `gulp.src`.
   return del(['build']);
 });
 
 gulp.task('scripts', ['clean'], function() {
-  // Minify and copy all JavaScript (except vendor scripts) with sourcemaps all the way down.
+  // Minify and copy all JavaScript (except vendor scripts) with
+  // sourcemaps all the way down.
   return gulp.src(paths.scripts)
     .pipe(sourcemaps.init())
       .pipe(coffee())

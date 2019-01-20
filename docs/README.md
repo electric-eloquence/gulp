@@ -17,4 +17,4 @@ The community has written [recipes](recipes#recipes) for common gulp use-cases.
 
 All the documentation is covered by the CC0 license *(do whatever you want with it - public domain)*.
 
-[![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+[![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)

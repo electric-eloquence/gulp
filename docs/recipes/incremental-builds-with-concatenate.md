@@ -6,7 +6,7 @@ module-wrap just the file(s) that have changed, then concatenate it with all
 other linted and module-wrapped files. This is difficult without the use of temp 
 files.
 
-Use [gulp-cached](https://github.com/wearefractal/gulp-cached) and 
+Use [gulp-cached](https://github.com/gulp-community/gulp-cached) and 
 [gulp-remember](https://github.com/ahaurw01/gulp-remember) to achieve this.
 
 ```javascript

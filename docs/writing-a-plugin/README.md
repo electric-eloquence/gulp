@@ -65,10 +65,10 @@ module.exports = function() {
 
 The stream returned from `through()` (and `this` within your transform function) 
 is an instance of the 
-[Transform](https://github.com/iojs/readable-stream/blob/master/lib/_stream_transform.js)
+[Transform](https://github.com/nodejs/readable-stream/blob/master/lib/_stream_transform.js)
 class, which extends 
-[Duplex](https://github.com/iojs/readable-stream/blob/master/lib/_stream_duplex.js),
-[Readable](https://github.com/iojs/readable-stream/blob/master/lib/_stream_readable.js)
+[Duplex](https://github.com/nodejs/readable-stream/blob/master/lib/_stream_duplex.js),
+[Readable](https://github.com/nodejs/readable-stream/blob/master/lib/_stream_readable.js)
 (and parasitically from Writable) and ultimately 
 [Stream](https://nodejs.org/api/stream.html). If you need to parse additional 
 options, you can call the `through()` function directly:
@@ -82,7 +82,7 @@ Supported options include:
 * highWaterMark (defaults to 16)
 * defaultEncoding (defaults to 'utf8')
 * encoding - 'utf8', 'base64', 'utf16le', 'ucs2' etc. If specified, a 
-  [StringDecoder](https://github.com/rvagg/string_decoder/blob/master/index.js) 
+  [StringDecoder](https://nodejs.org/api/string_decoder.html) 
   `decoder` will be attached to the stream.
 * readable {boolean}
 * writable {boolean}
@@ -149,8 +149,6 @@ A simple example showing how to detect & handle each form is provided below, for
 a more detailed explanation of each approach follow the links above.
 
 ```javascript
-var PluginError = require('gulp-util').PluginError;
-
 var PLUGIN_NAME = 'gulp-example';
 
 module.exports = function() {
@@ -162,14 +160,14 @@ module.exports = function() {
 
     if (file.isStream()) {
       // file.contents is a Stream - https://nodejs.org/api/stream.html
-      this.emit('error', new PluginError(PLUGIN_NAME, 'Streams not supported!'));
+      this.emit('error', new Error(PLUGIN_NAME + ': Streams not supported!'));
       
       // Or, if you can handle Streams:
       //file.contents = file.contents.pipe(...
       //return callback(null, file);
     } else if (file.isBuffer()) {
       // file.contents is a Buffer - https://nodejs.org/api/buffer.html
-      this.emit('error', new PluginError(PLUGIN_NAME, 'Buffers not supported!'));
+      this.emit('error', new Error(PLUGIN_NAME + ': Buffers not supported!'));
   
       // Or, if you can handle Buffers:
       //file.contents = ...
@@ -198,14 +196,6 @@ if (someCondition) {
 // further execution...
 ```
 
-## Useful resources
-
-* [File object](https://github.com/gulpjs/gulp-util#new-fileobj)
-* [PluginError](https://github.com/gulpjs/gulp-util#new-pluginerrorpluginname-message-options)
-* [BufferStream](https://github.com/nfroidure/BufferStream)
-* [gulp-util](https://github.com/gulpjs/gulp-util)
-
-
 ## Sample plugins
 
 * [sindresorhus' gulp plugins](https://github.com/search?q=%40sindresorhus+gulp-)
@@ -222,4 +212,5 @@ If you're unfamiliar with streams, you will need to read up on them:
 
 Other libraries that are not file manipulating through streams but are made for 
 use with gulp are tagged with the 
-[gulpfriendly](https://npmjs.org/browse/keyword/gulpfriendly) keyword on npm.
+[gulpfriendly](https://www.npmjs.com/search?q=keywords:gulpfriendly) keyword on 
+npm.

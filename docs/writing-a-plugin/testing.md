@@ -12,7 +12,7 @@ The following examples use Node's native `assert` library.
 Most plugins probably use [mocha](https://github.com/mochajs/mocha),
 [chai](https://github.com/chaijs/chai),
 [should](https://github.com/shouldjs/should.js),
-and many other well-known tools to help them test. 
+and other well-known tools to help them test. 
 
 ## Testing plugins for streaming mode
 

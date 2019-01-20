@@ -22,16 +22,12 @@ gulp.task('default', function() {
 ### Running mocha tests when files change
 
 ```javascript
-// npm install gulp gulp-mocha gulp-util
-
 var gulp = require('gulp');
 var mocha = require('gulp-mocha');
-var gutil = require('gulp-util');
 
 gulp.task('mocha', function() {
   return gulp.src(['test/*.js'], { read: false })
-    .pipe(mocha({ reporter: 'list' }))
-    .on('error', gutil.log);
+    .pipe(mocha({ reporter: 'list' }));
 });
 
 gulp.task('watch-mocha', function() {

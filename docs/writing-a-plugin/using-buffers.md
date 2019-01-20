@@ -11,15 +11,13 @@ prepending some text to files:
 
 ```javascript
 var through = require('through2');
-var gutil = require('gulp-util');
-var PluginError = gutil.PluginError;
 
 var PLUGIN_NAME = 'gulp-prefixer';
 
 // Plugin level function (dealing with files).
 function gulpPrefixer(prefixText) {
   if (!prefixText) {
-    throw new PluginError(PLUGIN_NAME, 'Missing prefix text!');
+    throw new Error(PLUGIN_NAME + ': Missing prefix text!');
   }
 
   // Allocate ahead of time.
@@ -28,7 +26,7 @@ function gulpPrefixer(prefixText) {
   // Creating a stream through which each file will pass.
   var stream = through.obj(function(file, enc, cb) {
     if (file.isStream()) {
-      this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported!'));
+      this.emit('error', new Error(PLUGIN_NAME + ': Streams are not supported!'));
       return cb();
     }
 
