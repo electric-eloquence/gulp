@@ -11,24 +11,22 @@ prepending some text to files:
 
 ```javascript
 var through = require('through2');
-var gutil = require('gulp-util');
-var PluginError = gutil.PluginError;
 
-// consts
 var PLUGIN_NAME = 'gulp-prefixer';
 
-// plugin level function (dealing with files)
+// Plugin level function (dealing with files).
 function gulpPrefixer(prefixText) {
   if (!prefixText) {
-    throw new PluginError(PLUGIN_NAME, 'Missing prefix text!');
+    throw new Error(PLUGIN_NAME + ': Missing prefix text!');
   }
 
-  prefixText = new Buffer(prefixText); // allocate ahead of time
+  // Allocate ahead of time.
+  prefixText = new Buffer(prefixText);
 
-  // creating a stream through which each file will pass
+  // Creating a stream through which each file will pass.
   var stream = through.obj(function(file, enc, cb) {
     if (file.isStream()) {
-      this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported!'));
+      this.emit('error', new Error(PLUGIN_NAME + ': Streams are not supported!'));
       return cb();
     }
 
@@ -36,18 +34,18 @@ function gulpPrefixer(prefixText) {
       file.contents = Buffer.concat([prefixText, file.contents]);
     }
 
-    // make sure the file goes through the next gulp plugin
+    // Make sure the file goes through the next gulp plugin.
     this.push(file);
 
-    // tell the stream engine that we are done with this file
+    // Tell the stream engine that we are done with this file.
     cb();
   });
 
-  // returning the file stream
+  // Return the file stream.
   return stream;
 };
 
-// exporting the plugin main function
+// Export the plugin main function.
 module.exports = gulpPrefixer;
 ```
 
@@ -70,6 +68,6 @@ Unfortunately, the above plugin will error when using gulp.src in non-buffered
 
 ## Some plugins based on buffers
 
-* [gulp-coffee](https://github.com/wearefractal/gulp-coffee)
+* [gulp-coffee](https://github.com/gulp-community/gulp-coffee)
 * [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin)
 * [gulp-svg2ttf](https://github.com/nfroidure/gulp-svg2ttf)

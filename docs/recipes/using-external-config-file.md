@@ -2,7 +2,7 @@
 
 Beneficial because it's keeping tasks DRY and config.json can be used by another task runner, like `grunt`.
 
-###### `config.json`
+##### config.json:
 
 ```json
 {
@@ -23,7 +23,7 @@ Beneficial because it's keeping tasks DRY and config.json can be used by another
 }
 ```
 
-###### `gulpfile.js`
+##### gulpfile.js:
 
 ```javascript
 // npm install --save-dev gulp gulp-uglify

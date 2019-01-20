@@ -1,2 +1,2 @@
-test/fixtures
-test/out-fixtures
+/test/fixtures
+/test/out-fixtures

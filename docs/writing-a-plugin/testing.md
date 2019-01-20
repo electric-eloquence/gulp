@@ -7,50 +7,61 @@
 
 ## Tooling
 
-Most plugins use [mocha](https://github.com/mochajs/mocha),
-[should](https://github.com/shouldjs/should.js) and 
-[event-stream](https://github.com/dominictarr/event-stream) to help them test. 
-The following examples will use these tools.
+The following examples use Node's native `assert` library.
+
+Most plugins probably use [mocha](https://github.com/mochajs/mocha),
+[chai](https://github.com/chaijs/chai),
+[should](https://github.com/shouldjs/should.js),
+and other well-known tools to help them test. 
 
 ## Testing plugins for streaming mode
 
 ```javascript
 var assert = require('assert');
-var es = require('event-stream');
+var Stream = require('stream');
 var File = require('vinyl');
 var prefixer = require('../');
 
 describe('gulp-prefixer', function() {
   describe('in streaming mode', function() {
-
     it('should prepend text', function(done) {
 
-      // create the fake file
+      // Create the readable stream.
+      var readable = new Stream.Readable();
+
+      // Create the fake file.
       var fakeFile = new File({
-        contents: es.readArray(['stream', 'with', 'those', 'contents'])
+        contents: readable
       });
 
-      // Create a prefixer plugin stream
+      // Create a prefixer plugin stream.
       var myPrefixer = prefixer('prependthis');
 
-      // write the fake file to it
+      // Write the fake file to it.
       myPrefixer.write(fakeFile);
 
-      // wait for the file to come back out
+      // Create the listener to wait for the stream and then assert.
       myPrefixer.once('data', function(file) {
-        // make sure it came out the same way it went in
+        // Make sure the Vinyl file object is a stream.
         assert(file.isStream());
 
-        // buffer the contents to make sure it got prepended to
-        file.contents.pipe(es.wait(function(err, data) {
-          // check the contents
+        // Concatenate the chunks of the stream.
+        var data = '';
+        file.contents.on('data', function(chunk) {
+          data += chunk.toString();
+        });
+        file.contents.on('end', function() {
+          // Check the contents.
           assert.equal(data, 'prependthisstreamwiththosecontents');
           done();
-        }));
+        });
       });
 
+      // Fill the stream.
+      var items = ['stream', 'with', 'those', 'contents'];
+      items.forEach(function(item) { readable.push(item); });
+      readable.push(null);
     });
-
   });
 });
 ```
@@ -59,43 +70,34 @@ describe('gulp-prefixer', function() {
 
 ```javascript
 var assert = require('assert');
-var es = require('event-stream');
 var File = require('vinyl');
 var prefixer = require('../');
 
 describe('gulp-prefixer', function() {
   describe('in buffer mode', function() {
-
     it('should prepend text', function(done) {
 
-      // create the fake file
+      // Create the fake file.
       var fakeFile = new File({
         contents: new Buffer('abufferwiththiscontent')
       });
 
-      // Create a prefixer plugin stream
+      // Create a prefixer plugin stream.
       var myPrefixer = prefixer('prependthis');
 
-      // write the fake file to it
+      // Write the fake file to it.
       myPrefixer.write(fakeFile);
 
-      // wait for the file to come back out
+      // Wait for the file to come back out.
       myPrefixer.once('data', function(file) {
-        // make sure it came out the same way it went in
+        // Make sure it came out the same way it went in.
         assert(file.isBuffer());
 
-        // check the contents
+        // Check the contents.
         assert.equal(file.contents.toString('utf8'), 'prependthisabufferwiththiscontent');
         done();
       });
-
     });
-
   });
 });
 ```
- 
-## Some plugins with high-quality Testing
-
-* [gulp-cat](https://github.com/ben-eb/gulp-cat/blob/master/test.js)
-* [gulp-concat](https://github.com/wearefractal/gulp-concat/blob/master/test/main.js)

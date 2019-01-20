@@ -1,7 +1,7 @@
 # Templating with Swig and YAML front-matter
 Templating can be setup using `gulp-swig` and `gulp-front-matter`:
 
-##### `page.html`
+##### page.html:
 
 ```html
 ---
@@ -26,7 +26,7 @@ todos:
 </html>
 ```
 
-##### `gulpfile.js`
+##### gulpfile.js:
 
 ```javascript
 var gulp = require('gulp');

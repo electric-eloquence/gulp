@@ -30,7 +30,7 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
-// watch files for changes and reload
+// Watch files for changes and reload.
 gulp.task('serve', function() {
   browserSync({
     server: {
@@ -94,7 +94,7 @@ gulp.task('sass', function() {
     .pipe(reload({ stream:true }));
 });
 
-// watch Sass files for changes, run the Sass preprocessor with the 'sass' task and reload
+// Watch Sass files for changes, run the Sass preprocessor with the 'sass' task and reload.
 gulp.task('serve', ['sass'], function() {
   browserSync({
     server: {

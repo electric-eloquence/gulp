@@ -17,7 +17,7 @@ gulp --cwd layer1
 ```
 
 If you only need to specify a cwd for a certain glob, you can use the `cwd` 
-option on a [glob-stream](https://github.com/wearefractal/glob-stream):
+option on a [glob-stream](https://github.com/gulpjs/glob-stream):
 
 ```javascript
 gulp.src('./some/dir/**/*.js', { cwd: 'public' });

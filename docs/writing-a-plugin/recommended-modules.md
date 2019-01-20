@@ -7,11 +7,11 @@
 
 #### Replacing a file extension
 
-Use [replace-ext](https://github.com/wearefractal/replace-ext)
+Use [replace-ext](https://github.com/gulpjs/replace-ext)
 
 #### String colors
 
-Use [chalk](https://github.com/sindresorhus/chalk)
+Use [chalk](https://github.com/chalk/chalk)
 
 #### Date formatting
 

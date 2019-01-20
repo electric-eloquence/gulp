@@ -15,7 +15,7 @@
     the ecosystem with low quality plugins that don't make sense within the gulp 
     paradigm.
   * gulp plugins are for file-based operations! If you find yourself shoehorning 
-    a complex process into streams just make a normal node module instead.
+    a complex process into streams, just make a normal Node module instead.
   * A good example of a gulp plugin would be something like gulp-coffee. The 
     coffee-script module does not work with Vinyl out of the box, so we wrap it 
     to add this functionality and abstract away pain points to make it work well 
@@ -25,7 +25,7 @@
   * For example: A JS minification plugin should not have an option that adds a 
     header as well
 * Your plugin shouldn't do things that other plugins are responsible for
-  * It should not concat, [gulp-concat](https://github.com/wearefractal/gulp-concat) 
+  * It should not concat, [gulp-concat](https://github.com/gulp-community/gulp-concat) 
     does that
   * It should not add headers, [gulp-header](https://github.com/tracker1/gulp-header) 
     does that
@@ -46,9 +46,6 @@
     configuration while creating the stream, you may throw it.
 * Prefix any errors with the name of your plugin
   * For example: `gulp-replace: Cannot do regexp replace on a stream`
-  * Use gulp-util's 
-    [PluginError](https://github.com/gulpjs/gulp-util#new-pluginerrorpluginname-message-options) 
-    class to make this easy
 * Name your plugin appropriately: it should begin with "gulp-" if it is a gulp 
   plugin
   * If it is not a gulp plugin, it should not begin with "gulp-"
@@ -59,7 +56,7 @@
     * Do not buffer a stream to shoehorn your plugin to work with streams. This 
       will cause horrible things to happen.
 * Do not pass the `file` object downstream until you are done with it
-* Use [`file.clone()`](https://github.com/wearefractal/vinyl#clone) when cloning 
+* Use [`file.clone()`](https://github.com/gulpjs/vinyl#filecloneoptions) when cloning 
   a file or creating a new one based on a file.
 * Use modules from our [recommended modules page](recommended-modules.md) to 
   make your life easier
@@ -91,10 +88,7 @@ People will always prefer to use plugins that match "the gulp way".
 ```javascript
 // through2 is a thin wrapper around node transform streams
 var through = require('through2');
-var gutil = require('gulp-util');
-var PluginError = gutil.PluginError;
 
-// Consts
 var PLUGIN_NAME = 'gulp-prefixer';
 
 function prefixStream(prefixText) {
@@ -103,18 +97,19 @@ function prefixStream(prefixText) {
   return stream;
 }
 
-// Plugin level function(dealing with files)
+// Plugin level function(dealing with files).
 function gulpPrefixer(prefixText) {
-
   if (!prefixText) {
-    throw new PluginError(PLUGIN_NAME, 'Missing prefix text!');
+    throw new Error(PLUGIN_NAME + ': Missing prefix text!');
   }
-  prefixText = new Buffer(prefixText); // allocate ahead of time
 
-  // Creating a stream through which each file will pass
+  // Allocate ahead of time.
+  prefixText = new Buffer(prefixText);
+
+  // Create a stream through which each file will pass.
   return through.obj(function(file, enc, cb) {
     if (file.isNull()) {
-      // return empty file
+      // Return empty file.
       return cb(null, file);
     }
     if (file.isBuffer()) {
@@ -125,11 +120,9 @@ function gulpPrefixer(prefixText) {
     }
 
     cb(null, file);
-
   });
-
 }
 
-// Exporting the plugin main function
+// Export the plugin main function.
 module.exports = gulpPrefixer;
 ```

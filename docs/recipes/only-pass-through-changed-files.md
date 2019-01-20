@@ -12,16 +12,16 @@ var changed = require('gulp-changed');
 var jscs = require('gulp-jscs');
 var uglify = require('gulp-uglify');
 
-// we define some constants here so they can be reused
+// Define some constants here so they can be reused.
 var src = 'src/*.js';
 var dest = 'dist';
 
 gulp.task('default', function() {
   return gulp.src(src)
-    // the `changed` task needs to know the destination directory
-    // upfront to be able to figure out which files changed
+    // The `changed` task needs to know the destination directory
+    // upfront to be able to figure out which files changed.
     .pipe(changed(dest))
-    // only files that has changed will pass through here
+    // Only files that have changed will pass through here.
     .pipe(jscs())
     .pipe(uglify())
     .pipe(gulp.dest(dest));

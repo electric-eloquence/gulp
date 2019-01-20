@@ -42,97 +42,96 @@ var tap = require('gulp-tap');
 var concat = require('gulp-concat');
 var size = require('gulp-size');
 var path = require('path');
-var es = require('event-stream');
+var mergeStream = require('merge-stream');
 
-var memory = {}; // we'll keep our assets in memory
+// Keep assets in memory.
+var memory = {};
 
-// task of loading the files' contents in memory
+// Task of loading the files' contents into memory.
 gulp.task('load-lib-files', function() {
-  // read the lib files from the disk
+  // Read the lib files from disk.
   return gulp.src('src/libs/*.js')
-  // concatenate all lib files into one
+  // Concatenate all lib files into one.
   .pipe(concat('libs.concat.js'))
-  // tap into the stream to get each file's data
+  // Tap into the stream to get each file's data.
   .pipe(tap(function(file) {
-    // save the file contents in memory
+    // Save the file contents in memory.
     memory[path.basename(file.path)] = file.contents.toString();
   }));
 });
 
 gulp.task('load-versions', function() {
   memory.versions = {};
-  // read the version files from the disk
+  // Read the version files from disk.
   return gulp.src('src/versions/version.*.js')
-  // tap into the stream to get each file's data
+  // Tap into the stream to get each file's data.
   .pipe( tap(function(file) {
-    // save the file contents in the assets
+    // Save the file contents in memory.
     memory.versions[path.basename(file.path)] = file.contents.toString();
   }));
 });
 
 gulp.task('write-versions', function() {
-  // we store all the different version file names in an array
+  // Store all the different version file names in an array.
   var availableVersions = Object.keys(memory.versions);
-  // we make an array to store all the stream promises
+  // Make an array to store all the stream promises.
   var streams = [];
 
   availableVersions.forEach(function(v) {
-    // make a new stream with fake file name
+    // Make a new stream with fake file name.
     var stream = source('final.' + v);
     
     var streamEnd = stream;
     
-    // we load the data from the concatenated libs
+    // Load the data from the concatenated libs.
     var fileContents = memory['libs.concat.js'] +
-      // we add the version's data
+      // Add the version's data.
       '\n' + memory.versions[v];
 
-    // write the file contents to the stream
+    // Write the file contents to the stream.
     stream.write(fileContents);
 
     process.nextTick(function() {
-      // in the next process cycle, end the stream
+      // In the next process cycle, end the stream.
       stream.end();
     });
 
     streamEnd = streamEnd
-    // transform the raw data into the stream, into a vinyl object/file
+    // Transform the raw data in the stream into a Vinyl file object.
     .pipe(vinylBuffer())
     //.pipe(tap(function(file) { /* do something with the file contents here */ }))
     .pipe(gulp.dest('output'));
     
-    // add the end of the stream, otherwise the task would finish before all the processing
-    // is done
+    // Add the end of the stream. Otherwise the task would finish before all the processing.
+    // Done.
     streams.push(streamEnd);
-    
   });
 
-  return es.merge.apply(this, streams);
+  return mergeStream.apply(this, streams);
 });
 
 //============================================ our main task
 gulp.task('default', function(taskDone) {
   runSequence(
-    ['load-lib-files', 'load-versions'],  // load the files in parallel
-    'write-versions',  // ready to write once all resources are in memory
-    taskDone           // done
+    ['load-lib-files', 'load-versions'], // Load the files in parallel.
+    'write-versions', // Ready to write once all resources are in memory.
+    taskDone          // Done.
   );
 });
 
 //============================================ our watcher task
-// only watch after having run 'default' once so that all resources
-// are already in memory
+// Only watch after having run 'default' once so that all resources are already in memory.
 gulp.task('watch', ['default'], function() {
   gulp.watch('./src/libs/*.js', function() {
     runSequence(
-      'load-lib-files',  // we only have to load the changed files
+      'load-lib-files',  // We only have to load the changed files.
       'write-versions'
     );
   });
 
   gulp.watch('./src/versions/*.js', function() {
     runSequence(
-      'load-versions',  // we only have to load the changed files
+      'load-versions', // We only have to load the changed files.
       'write-versions'
     );
   });

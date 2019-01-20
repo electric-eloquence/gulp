@@ -40,4 +40,4 @@ Always use `\n` to prevent diff issues between operating systems.
 [Writing a gulp plugin]: writing-a-plugin/README.md
 [gulp introduction slideshow]: https://slides.com/contra/gulp#/
 [search-gulp-plugins]: https://gulpjs.com/plugins/
-[npm plugin search]: https://npmjs.org/browse/keyword/gulpplugin
+[npm plugin search]: https://www.npmjs.com/search?q=keywords:gulpplugin

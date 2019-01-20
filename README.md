@@ -1,7 +1,4 @@
-<p align="center">
-  <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
-  <p align="center">The streaming build system</p>
-</p>
+# gulp 3 lts
 
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![Mac/Linux Build Status][travis-image]][travis-url]
@@ -70,16 +67,17 @@ var paths = {
   images: 'client/img/**/*'
 };
 
-// Not all tasks need to use streams
-// A gulpfile is just another node program and you can use any package available on npm
+// Not all tasks need to use streams.
+// A gulpfile is just another node program and you can use any package
+// available on npm.
 gulp.task('clean', function() {
-  // You can use multiple globbing patterns as you would with `gulp.src`
+  // You can use multiple globbing patterns as you would with `gulp.src`.
   return del(['build']);
 });
 
 gulp.task('scripts', ['clean'], function() {
-  // Minify and copy all JavaScript (except vendor scripts)
-  // with sourcemaps all the way down
+  // Minify and copy all JavaScript (except vendor scripts) with
+  // sourcemaps all the way down.
   return gulp.src(paths.scripts)
     .pipe(sourcemaps.init())
       .pipe(coffee())
@@ -89,21 +87,21 @@ gulp.task('scripts', ['clean'], function() {
     .pipe(gulp.dest('build/js'));
 });
 
-// Copy all static images
+// Copy all static images.
 gulp.task('images', ['clean'], function() {
   return gulp.src(paths.images)
     // Pass in options to the task
-    .pipe(imagemin({optimizationLevel: 5}))
+    .pipe(imagemin({ optimizationLevel: 5 }))
     .pipe(gulp.dest('build/img'));
 });
 
-// Rerun the task when a file changes
+// Rerun the task when a file changes.
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.images, ['images']);
 });
 
-// The default task (called when you run `gulp` from cli)
+// The default task (called when you run `gulp` from cli).
 gulp.task('default', ['watch', 'scripts', 'images']);
 ```
 
@@ -112,7 +110,7 @@ gulp.task('default', ['watch', 'scripts', 'images']);
 We recommend these plugins:
 
 * [gulp-changed](https://github.com/sindresorhus/gulp-changed) - only pass through changed files
-* [gulp-cached](https://github.com/contra/gulp-cached) - in-memory file cache, not for operation on sets of files
+* [gulp-cached](https://github.com/gulp-community/gulp-cached) - in-memory file cache, not for operation on sets of files
 * [gulp-remember](https://github.com/ahaurw01/gulp-remember) - pairs nicely with gulp-cached
 * [gulp-newer](https://github.com/tschaub/gulp-newer) - pass through newer source files only, supports many:1 source:dest
 
@@ -125,10 +123,10 @@ We recommend these plugins:
 [snyk-image]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts/badge.svg
 [snyk-url]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts
 
-[travis-image]: https://img.shields.io/travis/electric-eloquence/gulp.svg
+[travis-image]: https://img.shields.io/travis/electric-eloquence/gulp.svg?label=mac%20%26%20linux
 [travis-url]: https://travis-ci.org/electric-eloquence/gulp
 
-[appveyor-image]: https://img.shields.io/appveyor/ci/e2tha-e/gulp.svg?label=appveyor
+[appveyor-image]: https://img.shields.io/appveyor/ci/e2tha-e/gulp.svg?label=windows
 [appveyor-url]: https://ci.appveyor.com/project/e2tha-e/gulp
 
 [coveralls-image]: https://coveralls.io/repos/github/electric-eloquence/gulp/badge.svg?branch=v3-lts
