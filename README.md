@@ -1,5 +1,7 @@
 # gulp 3 lts
 
+> The streaming build system
+
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![Mac/Linux Build Status][travis-image]][travis-url]
 [![Windows Build Status][appveyor-image]][appveyor-url]
