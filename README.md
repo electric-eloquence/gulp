@@ -120,12 +120,12 @@ We recommend these plugins:
 ## Acknowledgments
 
 This package is forked from 
-[an upstream source](https://github.com/gulpjs/gulp) with the same name. 
+[the upstream source](https://github.com/gulpjs/gulp) with the same name. 
 This fork is purely derivative and does not add functionality. Credit and 
 gratitude is due for 
 [the contributors to the source](https://github.com/gulpjs/gulp/graphs/contributors). 
 It is our intent to work in their favor by maintaining an older version of their 
-project, which may otherwise be too burdensome for them to commit time to.
+project, which may otherwise be burdensome for them to commit time to.
 
 [snyk-image]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts/badge.svg
 [snyk-url]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts
