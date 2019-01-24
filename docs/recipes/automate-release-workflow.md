@@ -4,7 +4,7 @@ If your project follows semantic versioning, it may be a good idea to automate
 the steps needed to release a version. Below is a simple recipe that bumps the 
 project version, commits the changes to git, and creates a new tag.
 
-``` javascript
+```javascript
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var conventionalChangelog = require('gulp-conventional-changelog');
