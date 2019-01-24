@@ -1,5 +1,7 @@
 # gulp changelog
 
+### 3.9.6
+
 ### 3.9.5
 * Acknowledgements in readme
 
