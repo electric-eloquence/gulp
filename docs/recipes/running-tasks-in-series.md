@@ -25,7 +25,7 @@ var gulp = require('gulp');
 gulp.task('one', function(cb) {
   // do stuff -- async or otherwise
   fs.writeFile('filename', 'data', opts, function(err) {
-    cb(err); // If err is not null and not undefined, the orchestration will stop, and 'two' will not run.
+    cb(err); // cb will terminate orchestration on error and 'two' will not run.
   });
 });
 

@@ -1,5 +1,7 @@
 # gulp 3 lts
 
+> The streaming build system
+
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![Mac/Linux Build Status][travis-image]][travis-url]
 [![Windows Build Status][appveyor-image]][appveyor-url]
@@ -18,16 +20,17 @@ usual `npm install` command.
 Instead, follow these instructions:
 
 ## Install
+
 * Latest version (without Git):
-  * `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.4`
-  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.4"`
+  * `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.5`
+  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.5"`
     as a dependency in package.json.
 * Latest version (with Git):
   * `npm install --save electric-eloquence/gulp`
 * Specific version (with Git):
-  * `npm install --save electric-eloquence/gulp#3.9.4`
+  * `npm install --save electric-eloquence/gulp#3.9.5`
 * Semver range (with Git):
-  * `npm install --save electric-eloquence/gulp#semver:^3.9.4`
+  * `npm install --save electric-eloquence/gulp#semver:^3.9.5`
 * When installed one of these ways, other packages depending on gulp will get
   gulp 3 with long-term support.
 
@@ -114,11 +117,21 @@ We recommend these plugins:
 * [gulp-remember](https://github.com/ahaurw01/gulp-remember) - pairs nicely with gulp-cached
 * [gulp-newer](https://github.com/tschaub/gulp-newer) - pass through newer source files only, supports many:1 source:dest
 
-## Install Troubleshooting
+## Troubleshooting Installation
 
 * `npm ERR! code EINTEGRITY`
   * If npm warns that the tarball seems to be corrupted, delete your
     package-lock.json, and install again.
+
+## Acknowledgments
+
+This package is forked from 
+[the upstream source](https://github.com/gulpjs/gulp) with the same name. 
+This fork is purely derivative and does not add functionality. Credit and 
+gratitude is due for 
+[the contributors to the source](https://github.com/gulpjs/gulp/graphs/contributors). 
+It is our intent to work in their favor by maintaining an older version of their 
+project, which may otherwise be burdensome for them to commit time to.
 
 [snyk-image]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts/badge.svg
 [snyk-url]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts

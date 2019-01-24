@@ -72,11 +72,11 @@ Default: everything before a glob starts (see [glob2base])
 E.g., consider `somefile.js` in `client/js/somedir`:
 
 ```js
-gulp.src('client/js/**/*.js') // Matches 'client/js/somedir/somefile.js' and resolves `base` to `client/js/`
+gulp.src('client/js/**/*.js') // Resolves `base` to `client/js/`
   .pipe(minify())
   .pipe(gulp.dest('build'));  // Writes 'build/somedir/somefile.js'
 
-gulp.src('client/js/**/*.js', { base: 'client' })
+gulp.src('client/js/**/*.js', { base: 'client' }) // Resolves `base` to `client/`
   .pipe(minify())
   .pipe(gulp.dest('build'));  // Writes 'build/js/somedir/somefile.js'
 ```

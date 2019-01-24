@@ -1,5 +1,8 @@
 # gulp changelog
 
+### 3.9.5
+* Acknowledgements in readme
+
 ### 3.9.4
 * Minor maintenance and doc updates
 
