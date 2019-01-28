@@ -122,7 +122,7 @@ We recommend these plugins:
 This package is forked from 
 [the upstream source](https://github.com/gulpjs/gulp) with the same name. 
 This fork is purely derivative and does not add functionality. Credit and 
-gratitude is due for 
+gratitude are due for 
 [the contributors to the source](https://github.com/gulpjs/gulp/graphs/contributors). 
 It is our intent to work in their favor by maintaining an older version of their 
 project, which may otherwise be burdensome for them to commit time to.
