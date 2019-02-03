@@ -71,7 +71,7 @@ Default: everything before a glob starts (see [glob2base])
 
 E.g., consider `somefile.js` in `client/js/somedir`:
 
-```js
+```javascript
 gulp.src('client/js/**/*.js') // Resolves `base` to `client/js/`
   .pipe(minify())
   .pipe(gulp.dest('build'));  // Writes 'build/somedir/somefile.js'
@@ -126,7 +126,7 @@ for output folder.
 
 Define a task using [Orchestrator].
 
-```js
+```javascript
 gulp.task('somename', function() {
   // do stuff
 });
@@ -143,7 +143,7 @@ Type: `Array`
 
 An array of tasks to be executed and completed before your task will run.
 
-```js
+```javascript
 gulp.task('mytask', ['array', 'of', 'task', 'names'], function() {
   // do stuff
 });
@@ -152,7 +152,7 @@ gulp.task('mytask', ['array', 'of', 'task', 'names'], function() {
 You can also omit the function if you only want to run a bundle of dependency
 tasks:
 
-```js
+```javascript
 gulp.task('build', ['array', 'of', 'task', 'names']);
 ```
 
@@ -165,7 +165,7 @@ Type: `Function`
 The function performs the task's main operations. Generally this takes the form
 of:
 
-```js
+```javascript
 gulp.task('buildStuff', function() {
   // Do something that "builds stuff"
   var stream = gulp.src(/*some source path*/)
@@ -200,7 +200,7 @@ gulp.task('jekyll', function(cb) {
 
 ##### Return a stream
 
-```js
+```javascript
 gulp.task('somename', function() {
   var stream = gulp.src('client/**/*.js')
     .pipe(minify())
@@ -240,7 +240,7 @@ of the first task.
 
 So this example would look like this:
 
-```js
+```javascript
 var gulp = require('gulp');
 
 // Takes in a callback so the engine knows when it'll be done
@@ -335,7 +335,7 @@ Type: `Array`
 
 Names of task(s) to run when a file changes, added with `gulp.task()`
 
-```js
+```javascript
 var watcher = gulp.watch('js/**/*.js', ['uglify','reload']);
 watcher.on('change', function(event) {
   console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
@@ -360,7 +360,7 @@ Type: `Function`
 
 Callback to be called on each change.
 
-```js
+```javascript
 gulp.watch('js/**/*.js', function(event) {
   console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 });
@@ -385,7 +385,7 @@ callback must return a promise.
 __Note:__ In order to gracefully handle errors rejected or thrown by such
 asynchronous callbacks, the watcher must have an on('error') event listener.
 
-```js
+```javascript
 var watcher = gulp.watch('js/**/*.js', function() {
   return new Promise(function(resolve, reject) {
     // Get HTTP response

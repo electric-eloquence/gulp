@@ -14,7 +14,7 @@ Logically we would break it down like this:
 
 Imagine this file structure:
 
-```sh
+```shell
 ├── libs
 │   ├── lib1.js
 │   └── lib2.js
@@ -25,7 +25,7 @@ Imagine this file structure:
 
 You should get:
 
-```sh
+```shell
 └── output
     ├── version.1.complete.js # lib1.js + lib2.js + version.1.js
     └── version.2.complete.js # lib1.js + lib2.js + version.2.js
@@ -33,7 +33,7 @@ You should get:
 
 A simple and modular way to do this would be the following:
 
-```js
+```javascript
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var source = require('vinyl-source-stream');
