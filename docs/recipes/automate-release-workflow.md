@@ -6,7 +6,6 @@ project version, commits the changes to git, and creates a new tag.
 
 ```javascript
 var gulp = require('gulp');
-var runSequence = require('run-sequence');
 var conventionalChangelog = require('gulp-conventional-changelog');
 var conventionalGithubReleaser = require('conventional-github-releaser');
 var bump = require('gulp-bump');
@@ -68,7 +67,7 @@ gulp.task('create-new-tag', function(cb) {
 });
 
 gulp.task('release', function(callback) {
-  runSequence(
+  gulp.runSeq(
     'bump-version',
     'changelog',
     'commit-changes',

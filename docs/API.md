@@ -4,7 +4,7 @@ Jump to:
   [gulp.src](#gulpsrcglobs-options) |
   [gulp.dest](#gulpdestpath-options) |
   [gulp.task](#gulptaskname--deps-fn) |
-  [gulp.runSequence](#gulprunsequencetasks-cb) |
+  [gulp.runSeq](#gulprunseqtasks-cb) |
   [gulp.watch](#gulpwatchglob--opts-tasks-or-gulpwatchglob--opts-cb)
 
 ### gulp.src(globs[, options])
@@ -257,7 +257,10 @@ gulp.task('two', ['one'], function() {
 gulp.task('default', ['one', 'two']);
 ```
 
-### gulp.runSequence(tasks..., cb)
+### gulp.runSeq(tasks..., cb)
+
+An internal reference to the 
+[run-sequence](https://github.com/OverZealous/run-sequence) package and method.
 
 #### tasks
 Type: `String` or `Array`
@@ -275,14 +278,14 @@ arguments.
 Type: `Function`
 
 Be sure to submit a callback function as the final argument. This is necessary 
-to signal the termination of execution for `gulp.runSequence`.
+to signal the termination of execution for `gulp.runSeq`.
 
 ```javascript
 gulp.task('default', function(callback) {
-  gulp.runSequence(
-    'build-clean',
-    ['build-scripts', 'build-styles'],
-    'build-html',
+  gulp.runSeq(
+    'boil-water',
+    ['steep-tea', 'boil-egg'],
+    'peel-egg',
     callback
   );
 });
@@ -290,15 +293,15 @@ gulp.task('default', function(callback) {
 
 #### Options
 
-There are a few options you can configure on the `gulp.runSequence` function.
+There are a few options you can configure on the `gulp.runSeq` function.
 
 __Note:__ These options are persistent to the gulp instance, and once set will 
-affect every use of `gulp.runSequence` thereafter.
+affect every use of `gulp.runSeq` thereafter.
 
 ```javascript
-gulp.runSequence.options.ignoreUndefinedTasks = true;
+gulp.runSeq.options.ignoreUndefinedTasks = true;
 gulp.task('default', function(cb) {
-  gulp.runSequence(
+  gulp.runSeq(
     'foo',
     null, // No longer errors on `null`
     'bar',
