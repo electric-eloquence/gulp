@@ -2,7 +2,7 @@
 
 var util = require('util');
 var Orchestrator = require('orchestrator');
-var runSequence = require('run-sequence');
+var runSequence = require('./lib/run-sequence');
 var vfs = require('vinyl-fs');
 var globWatcher = require('./lib/globWatcher');
 
