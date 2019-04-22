@@ -3,7 +3,7 @@
 var chokidar = require('@electric-eloquence/chokidar');
 var EventEmitter = require('events').EventEmitter;
 var fs = require('fs');
-var globWatcher = require('../lib/globWatcher');
+var globWatcher = require('../lib/glob-watcher');
 var path = require('path');
 
 var should = require('should');
