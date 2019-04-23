@@ -46,6 +46,6 @@ Gulp.prototype.run = function() {
 Gulp.prototype.Gulp = Gulp;
 
 var inst = new Gulp();
-inst.runSeq = runSequence.use(inst);
-inst.runSequence = inst.runSequence; // Keeping because older version documented this.
+inst.runSeq = runSequence.bind(null, inst);
+inst.runSequence = inst.runSeq; // Keeping because older version documented this.
 module.exports = inst;

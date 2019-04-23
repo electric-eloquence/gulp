@@ -259,8 +259,8 @@ gulp.task('default', ['one', 'two']);
 
 ### gulp.runSeq(tasks..., cb)
 
-An internal reference to the 
-[run-sequence](https://github.com/OverZealous/run-sequence) package and method.
+An reference to the [run-sequence](https://github.com/OverZealous/run-sequence) 
+package and method.
 
 #### tasks
 Type: `String` or `Array`
