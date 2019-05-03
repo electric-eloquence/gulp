@@ -13,7 +13,7 @@ util.inherits(Gulp, Orchestrator);
 
 Gulp.prototype.task = Gulp.prototype.add;
 Gulp.prototype.runSeq = null;
-Gulp.prototype.runSequence = null; // Keeping because older version documented
+Gulp.prototype.runSequence = null; // Keeping because of older documentation.
 Gulp.prototype.src = vfs.src;
 Gulp.prototype.dest = vfs.dest;
 Gulp.prototype.watch = function(glob, opt_, fn_) {
@@ -48,5 +48,5 @@ Gulp.prototype.Gulp = Gulp;
 var inst = new Gulp();
 inst.runSeq = runSequence.bind(null, inst);
 inst.runSeq.options = runSequence.options;
-inst.runSequence = inst.runSeq; // Keeping because older version documented this
+inst.runSequence = inst.runSeq; // Keeping because of older documentation.
 module.exports = inst;
