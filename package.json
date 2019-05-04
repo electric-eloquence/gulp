@@ -69,7 +69,7 @@
     "test": "nyc mocha --exit"
   },
   "engines": {
-    "node": ">=6.14.2"
+    "node": ">=8.16.0"
   },
   "license": "MIT"
 }
