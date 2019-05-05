@@ -12,7 +12,7 @@ var interpret = require('interpret');
 var v8flags = require('v8flags');
 var completion = require('../lib/completion');
 var argv = require('minimist')(process.argv.slice(2));
-var taskTree = require('../lib/taskTree');
+var taskTree = require('../lib/task-tree');
 
 // Set env var for ORIGINAL cwd
 // before anything touches it

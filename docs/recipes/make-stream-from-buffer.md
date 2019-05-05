@@ -14,7 +14,7 @@ Logically we would break it down like this:
 
 Imagine this file structure:
 
-```sh
+```shell
 ├── libs
 │   ├── lib1.js
 │   └── lib2.js
@@ -25,7 +25,7 @@ Imagine this file structure:
 
 You should get:
 
-```sh
+```shell
 └── output
     ├── version.1.complete.js # lib1.js + lib2.js + version.1.js
     └── version.2.complete.js # lib1.js + lib2.js + version.2.js
@@ -33,9 +33,8 @@ You should get:
 
 A simple and modular way to do this would be the following:
 
-```js
+```javascript
 var gulp = require('gulp');
-var runSequence = require('run-sequence');
 var source = require('vinyl-source-stream');
 var vinylBuffer = require('vinyl-buffer');
 var tap = require('gulp-tap');
@@ -112,7 +111,7 @@ gulp.task('write-versions', function() {
 
 //============================================ our main task
 gulp.task('default', function(taskDone) {
-  runSequence(
+  gulp.runSeq(
     ['load-lib-files', 'load-versions'], // Load the files in parallel.
     'write-versions', // Ready to write once all resources are in memory.
     taskDone          // Done.
@@ -123,14 +122,14 @@ gulp.task('default', function(taskDone) {
 // Only watch after having run 'default' once so that all resources are already in memory.
 gulp.task('watch', ['default'], function() {
   gulp.watch('./src/libs/*.js', function() {
-    runSequence(
+    gulp.runSeq(
       'load-lib-files',  // We only have to load the changed files.
       'write-versions'
     );
   });
 
   gulp.watch('./src/versions/*.js', function() {
-    runSequence(
+    gulp.runSeq(
       'load-versions', // We only have to load the changed files.
       'write-versions'
     );

@@ -22,15 +22,15 @@ Instead, follow these instructions:
 ## Install
 
 * Latest version (without Git):
-  * `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.5`
-  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.5"`
+  * `npm install --save https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.6`
+  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.6"`
     as a dependency in package.json.
 * Latest version (with Git):
   * `npm install --save electric-eloquence/gulp`
 * Specific version (with Git):
-  * `npm install --save electric-eloquence/gulp#3.9.5`
+  * `npm install --save electric-eloquence/gulp#3.9.6`
 * Semver range (with Git):
-  * `npm install --save electric-eloquence/gulp#semver:^3.9.5`
+  * `npm install --save electric-eloquence/gulp#semver:^3.9.6`
 * When installed one of these ways, other packages depending on gulp will get
   gulp 3 with long-term support.
 
@@ -56,7 +56,7 @@ For a Getting Started guide, API docs, recipes, making a plugin, etc. check out 
 
 This file will give you a taste of what gulp does.
 
-```js
+```javascript
 var gulp = require('gulp');
 var coffee = require('gulp-coffee');
 var concat = require('gulp-concat');
@@ -127,8 +127,8 @@ We recommend these plugins:
 
 This package is forked from 
 [the upstream source](https://github.com/gulpjs/gulp) with the same name. 
-This fork is purely derivative and does not add functionality. Credit and 
-gratitude is due for 
+This fork is mostly derivative and adds little functionality. Credit and 
+gratitude are due for 
 [the contributors to the source](https://github.com/gulpjs/gulp/graphs/contributors). 
 It is our intent to work in their favor by maintaining an older version of their 
 project, which may otherwise be burdensome for them to commit time to.

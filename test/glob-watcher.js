@@ -3,7 +3,7 @@
 var chokidar = require('@electric-eloquence/chokidar');
 var EventEmitter = require('events').EventEmitter;
 var fs = require('fs');
-var globWatcher = require('../lib/globWatcher');
+var globWatcher = require('../lib/glob-watcher');
 var path = require('path');
 
 var should = require('should');
@@ -30,14 +30,7 @@ describe('globWatcher()', function() {
   }
 
   function wClose(watcher) {
-    // On macOS, closing watchers too many times in succession will segfault.
-    // (The problem seems to occur in compiled C code in fsevents.)
-    // On the other hand, if they are left open and new watchers reinstantiated, chokidar's fsevents handler will
-    // consolidate watchers if the number of watched child paths under a parent path exceeds a threshold (10).
-    // For this test, memory usage will be minimal (~10MB on Node 11).
-    if (process.platform !== 'darwin') {
-      watcher.close();
-    }
+    watcher.close();
   }
 
   beforeEach(function() {
@@ -118,7 +111,7 @@ describe('globWatcher()', function() {
             // Run 2 must await the completion of run 1
             should(runs).equal(1);
             resolve();
-          }, timeout * 3);
+          }, timeout * 6);
         }
         if (runs === 2) {
           wClose(watcher);
@@ -131,8 +124,8 @@ describe('globWatcher()', function() {
     // We default `ignoreInitial` to true, so always wait for `on('ready')`
     watcher.on('ready', function() {
       changeFile();
-      // Fire after double the delay
-      setTimeout(changeFile, timeout * 2);
+      // Fire after delay
+      setTimeout(changeFile, timeout * 5);
     });
   });
 
@@ -148,14 +141,14 @@ describe('globWatcher()', function() {
           should(runs).equal(2);
           wClose(watcher);
           done();
-        }, timeout * 3);
+        }, timeout * 6);
       }
     });
 
     // We default `ignoreInitial` to true, so always wait for `on('ready')`
     watcher.on('ready', function() {
       changeFile();
-      setTimeout(changeFile, timeout * 2);
+      setTimeout(changeFile, timeout * 5);
     });
   });
 
@@ -169,7 +162,7 @@ describe('globWatcher()', function() {
           setTimeout(function() {
             should(runs).equal(1);
             resolve();
-          }, timeout * 3);
+          }, timeout * 6);
         }
         if (runs === 2) {
           should(runs).equal(2);
@@ -183,8 +176,7 @@ describe('globWatcher()', function() {
     // We default `ignoreInitial` to true, so always wait for `on('ready')`
     watcher.on('ready', function() {
       changeFile();
-      // This will queue because delay is halved
-      setTimeout(changeFile, timeout);
+      setTimeout(changeFile, timeout * 5);
     });
   });
 

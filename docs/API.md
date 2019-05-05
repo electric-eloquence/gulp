@@ -4,7 +4,7 @@ Jump to:
   [gulp.src](#gulpsrcglobs-options) |
   [gulp.dest](#gulpdestpath-options) |
   [gulp.task](#gulptaskname--deps-fn) |
-  [gulp.runSequence](#gulprunsequencetasks-cb) |
+  [gulp.runSeq](#gulprunseqtasks-cb) |
   [gulp.watch](#gulpwatchglob--opts-tasks-or-gulpwatchglob--opts-cb)
 
 ### gulp.src(globs[, options])
@@ -71,7 +71,7 @@ Default: everything before a glob starts (see [glob2base])
 
 E.g., consider `somefile.js` in `client/js/somedir`:
 
-```js
+```javascript
 gulp.src('client/js/**/*.js') // Resolves `base` to `client/js/`
   .pipe(minify())
   .pipe(gulp.dest('build'));  // Writes 'build/somedir/somefile.js'
@@ -126,7 +126,7 @@ for output folder.
 
 Define a task using [Orchestrator].
 
-```js
+```javascript
 gulp.task('somename', function() {
   // do stuff
 });
@@ -143,7 +143,7 @@ Type: `Array`
 
 An array of tasks to be executed and completed before your task will run.
 
-```js
+```javascript
 gulp.task('mytask', ['array', 'of', 'task', 'names'], function() {
   // do stuff
 });
@@ -152,7 +152,7 @@ gulp.task('mytask', ['array', 'of', 'task', 'names'], function() {
 You can also omit the function if you only want to run a bundle of dependency
 tasks:
 
-```js
+```javascript
 gulp.task('build', ['array', 'of', 'task', 'names']);
 ```
 
@@ -165,7 +165,7 @@ Type: `Function`
 The function performs the task's main operations. Generally this takes the form
 of:
 
-```js
+```javascript
 gulp.task('buildStuff', function() {
   // Do something that "builds stuff"
   var stream = gulp.src(/*some source path*/)
@@ -200,7 +200,7 @@ gulp.task('jekyll', function(cb) {
 
 ##### Return a stream
 
-```js
+```javascript
 gulp.task('somename', function() {
   var stream = gulp.src('client/**/*.js')
     .pipe(minify())
@@ -240,7 +240,7 @@ of the first task.
 
 So this example would look like this:
 
-```js
+```javascript
 var gulp = require('gulp');
 
 // Takes in a callback so the engine knows when it'll be done
@@ -257,7 +257,10 @@ gulp.task('two', ['one'], function() {
 gulp.task('default', ['one', 'two']);
 ```
 
-### gulp.runSequence(tasks..., cb)
+### gulp.runSeq(tasks..., cb)
+
+An reference to the [run-sequence](https://github.com/OverZealous/run-sequence) 
+package and method.
 
 #### tasks
 Type: `String` or `Array`
@@ -275,14 +278,14 @@ arguments.
 Type: `Function`
 
 Be sure to submit a callback function as the final argument. This is necessary 
-to signal the termination of execution for `gulp.runSequence`.
+to signal the termination of execution for `gulp.runSeq`.
 
 ```javascript
 gulp.task('default', function(callback) {
-  gulp.runSequence(
-    'build-clean',
-    ['build-scripts', 'build-styles'],
-    'build-html',
+  gulp.runSeq(
+    'boil-water',
+    ['steep-tea', 'boil-egg'],
+    'peel-egg',
     callback
   );
 });
@@ -290,15 +293,15 @@ gulp.task('default', function(callback) {
 
 #### Options
 
-There are a few options you can configure on the `gulp.runSequence` function.
+There are a few options you can configure on the `gulp.runSeq` function.
 
 __Note:__ These options are persistent to the gulp instance, and once set will 
-affect every use of `gulp.runSequence` thereafter.
+affect every use of `gulp.runSeq` thereafter.
 
 ```javascript
-gulp.runSequence.options.ignoreUndefinedTasks = true;
+gulp.runSeq.options.ignoreUndefinedTasks = true;
 gulp.task('default', function(cb) {
-  gulp.runSequence(
+  gulp.runSeq(
     'foo',
     null, // No longer errors on `null`
     'bar',
@@ -335,7 +338,7 @@ Type: `Array`
 
 Names of task(s) to run when a file changes, added with `gulp.task()`
 
-```js
+```javascript
 var watcher = gulp.watch('js/**/*.js', ['uglify','reload']);
 watcher.on('change', function(event) {
   console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
@@ -360,7 +363,7 @@ Type: `Function`
 
 Callback to be called on each change.
 
-```js
+```javascript
 gulp.watch('js/**/*.js', function(event) {
   console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 });
@@ -385,7 +388,7 @@ callback must return a promise.
 __Note:__ In order to gracefully handle errors rejected or thrown by such
 asynchronous callbacks, the watcher must have an on('error') event listener.
 
-```js
+```javascript
 var watcher = gulp.watch('js/**/*.js', function() {
   return new Promise(function(resolve, reject) {
     // Get HTTP response

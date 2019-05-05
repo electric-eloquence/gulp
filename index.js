@@ -2,9 +2,9 @@
 
 var util = require('util');
 var Orchestrator = require('orchestrator');
-var runSequence = require('run-sequence');
+var runSequence = require('./lib/run-sequence');
 var vfs = require('vinyl-fs');
-var globWatcher = require('./lib/globWatcher');
+var globWatcher = require('./lib/glob-watcher');
 
 function Gulp() {
   Orchestrator.call(this);
@@ -12,7 +12,8 @@ function Gulp() {
 util.inherits(Gulp, Orchestrator);
 
 Gulp.prototype.task = Gulp.prototype.add;
-Gulp.prototype.runSequence = null;
+Gulp.prototype.runSeq = null;
+Gulp.prototype.runSequence = null; // Keeping because of older documentation.
 Gulp.prototype.src = vfs.src;
 Gulp.prototype.dest = vfs.dest;
 Gulp.prototype.watch = function(glob, opt_, fn_) {
@@ -45,5 +46,7 @@ Gulp.prototype.run = function() {
 Gulp.prototype.Gulp = Gulp;
 
 var inst = new Gulp();
-inst.runSequence = runSequence.use(inst);
+inst.runSeq = runSequence.bind(null, inst);
+inst.runSeq.options = runSequence.options;
+inst.runSequence = inst.runSeq; // Keeping because of older documentation.
 module.exports = inst;
