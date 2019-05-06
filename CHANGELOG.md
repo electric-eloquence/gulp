@@ -1,5 +1,7 @@
 # gulp changelog
 
+### 3.9.7
+
 ### 3.9.6
 * Adding gulp.runSeq as an alias for gulp.runSequence
 * Using @electric-eloquence/chokidar ^1.7.6, which uses fsevents 2.x, which uses Node's native N-API

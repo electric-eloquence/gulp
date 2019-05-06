@@ -28,9 +28,10 @@ version: "{build}"
 
 branches:
   only:
+    - dev
     - npm
     - v3-lts
     # After releasing, bump to next anticpated version.
-    - v3-lts@3.9.6
+    - v3-lts@3.9.7
 
 skip_tags: true
