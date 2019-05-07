@@ -32,17 +32,6 @@ describe('gulp', function() {
       }, writeTimeout);
     }
 
-    function wClose(watcher) {
-      // On macOS, closing watchers too many times in succession will segfault.
-      // (The problem seems to occur in compiled C code in fsevents.)
-      // On the other hand, if they are left open and new watchers reinstantiated, chokidar's fsevents handler will
-      // consolidate watchers if the number of watched child paths under a parent path exceeds a threshold (10).
-      // Even though this test doesn't exceed this threshold, it's still better to not segfault.
-      if (process.platform !== 'darwin') {
-        watcher.close();
-      }
-    }
-
     it('should call the function when file changes: no options', function(done) {
       // Arrange
       var tempFile = path.join(outpath, 'watch-func.txt');
@@ -64,7 +53,7 @@ describe('gulp', function() {
           should(fs.existsSync(testDir)).be.true;
           should(fs.existsSync(testFullPath)).be.true;
 
-          wClose(watcher);
+          watcher.close();
           done();
         });
 
@@ -94,7 +83,7 @@ describe('gulp', function() {
           should(fs.existsSync(testDir)).be.true;
           should(fs.existsSync(testFullPath)).be.true;
 
-          wClose(watcher);
+          watcher.close();
           done();
         });
 
@@ -128,7 +117,7 @@ describe('gulp', function() {
             should(fs.existsSync(testDir)).be.true;
             should(fs.existsSync(testFullPath)).be.true;
 
-            watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
+            watcher.close();
             done();
           });
 

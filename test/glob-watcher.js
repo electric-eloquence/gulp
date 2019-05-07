@@ -29,10 +29,6 @@ describe('globWatcher()', function() {
     fs.writeFileSync(outFile2, 'hello added');
   }
 
-  function wClose(watcher) {
-    watcher.close();
-  }
-
   beforeEach(function() {
     if (fs.existsSync(outFile1)) {
       fs.unlinkSync(outFile1);
@@ -50,7 +46,7 @@ describe('globWatcher()', function() {
     should(watcher).be.instanceof(chokidar.FSWatcher);
     watcher.should.be.an.instanceof(EventEmitter);
 
-    wClose(watcher);
+    watcher.close();
   });
 
   it('only requires a glob and returns watcher', function(done) {
@@ -60,7 +56,7 @@ describe('globWatcher()', function() {
       should(evt.type).equal('change');
       should(evt.path).equal(outFile1);
 
-      wClose(watcher);
+      watcher.close();
       done();
     });
 
@@ -75,7 +71,7 @@ describe('globWatcher()', function() {
       should(evt.type).equal('add');
       should(evt.path).equal(outFile2);
 
-      wClose(watcher);
+      watcher.close();
       done();
     });
 
@@ -91,7 +87,7 @@ describe('globWatcher()', function() {
       should(evt.type).equal('change');
       should(evt.path).equal(path.join(__dirname, 'fixtures', 'changed.js'));
 
-      wClose(watcher);
+      watcher.close();
       done();
     });
 
@@ -114,7 +110,7 @@ describe('globWatcher()', function() {
           }, timeout * 6);
         }
         if (runs === 2) {
-          wClose(watcher);
+          watcher.close();
           done();
           resolve();
         }
@@ -139,7 +135,7 @@ describe('globWatcher()', function() {
         setTimeout(function() {
           // Expect 2 because run 2 completes before this timeout completes and the queue is disabled
           should(runs).equal(2);
-          wClose(watcher);
+          watcher.close();
           done();
         }, timeout * 6);
       }
@@ -166,7 +162,7 @@ describe('globWatcher()', function() {
         }
         if (runs === 2) {
           should(runs).equal(2);
-          wClose(watcher);
+          watcher.close();
           done();
           resolve();
         }
@@ -191,7 +187,7 @@ describe('globWatcher()', function() {
 
     watcher.on('error', function(err) {
       should(err).equal(expectedError);
-      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
+      watcher.close();
       done();
     });
 
@@ -210,7 +206,7 @@ describe('globWatcher()', function() {
 
     watcher.on('error', function(err) {
       should(err).equal(expectedError);
-      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
+      watcher.close();
       done();
     });
 
@@ -222,14 +218,14 @@ describe('globWatcher()', function() {
     // Callback is called while chokidar is discovering file paths
     // if ignoreInitial is explicitly set to false and passed to chokidar
     var watcher = globWatcher(outGlob, { ignoreInitial: false }, function() {
-      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
+      watcher.close();
       done();
     });
   });
 
   it('does not override default values with null values', function(done) {
     var watcher = globWatcher(outGlob, { ignoreInitial: null }, function() {
-      watcher.close(); // Stops multiple done calls but will segfault if done too many times especially in macOS
+      watcher.close();
       done();
     });
 
@@ -241,7 +237,7 @@ describe('globWatcher()', function() {
   it('watches exactly the given event', function(done) {
     // Accepts a string as the events property and wraps it in an array
     var watcher = globWatcher(outGlob, { events: 'add' }, function() {
-      wClose(watcher);
+      watcher.close();
       done();
     });
 
@@ -251,7 +247,7 @@ describe('globWatcher()', function() {
   it('accepts multiple events to watch', function(done) {
     var watcher = globWatcher(outGlob, { events: ['add', 'unlink'] }, function(evt) {
       if (evt.type === 'unlink') {
-        wClose(watcher);
+        watcher.close();
         done();
       }
     });
@@ -271,7 +267,7 @@ describe('globWatcher()', function() {
       // It should never reach here
       should(evt.path).to.not.exist();
 
-      wClose(watcher);
+      watcher.close();
       done();
     });
 
@@ -279,7 +275,7 @@ describe('globWatcher()', function() {
     watcher.on('ready', changeFile);
 
     setTimeout(function() {
-      wClose(watcher);
+      watcher.close();
       done();
     }, 1500);
   });
@@ -290,7 +286,7 @@ describe('globWatcher()', function() {
     watcher.once('change', function(evt) {
       should(evt.path).equal(singleAdd);
 
-      wClose(watcher);
+      watcher.close();
       done();
     });
 
@@ -306,7 +302,7 @@ describe('globWatcher()', function() {
     should(globs[1]).equal(ignoreGlob);
     should(globs[2]).equal(singleAdd);
 
-    wClose(watcher);
+    watcher.close();
     done();
   });
 
@@ -320,7 +316,7 @@ describe('globWatcher()', function() {
       // It should never reach here
       should(evt.path).toNotExist();
 
-      wClose(watcher);
+      watcher.close();
       done();
     });
 
@@ -331,7 +327,7 @@ describe('globWatcher()', function() {
     should(ignored.length).equal(1);
 
     setTimeout(function() {
-      wClose(watcher);
+      watcher.close();
       done();
     }, 1500);
   });
