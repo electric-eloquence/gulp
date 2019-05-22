@@ -1,6 +1,7 @@
 # gulp changelog
 
 ### 3.9.7
+* Using vinyl-fs lts v3.0.4
 
 ### 3.9.6
 * Adding gulp.runSeq as an alias for gulp.runSequence
