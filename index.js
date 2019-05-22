@@ -3,7 +3,7 @@
 var util = require('util');
 var Orchestrator = require('orchestrator');
 var runSequence = require('./lib/run-sequence');
-var vfs = require('vinyl-fs');
+var vfs = require('@electric-eloquence/vinyl-fs');
 var globWatcher = require('./lib/glob-watcher');
 
 function Gulp() {
