@@ -2,6 +2,7 @@
 
 ### 3.9.7
 * Using vinyl-fs lts v3.0.4
+* Letting chokidar disable fsevents for macOS El Capitan and lower
 
 ### 3.9.6
 * Adding gulp.runSeq as an alias for gulp.runSequence
