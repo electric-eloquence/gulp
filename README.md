@@ -14,8 +14,8 @@
 This includes maintenance fixes and security updates.
 
 The scoping of this package makes it an entirely different package from unscoped
-gulp and precludes any access from any gulp plugins if it installed with the
-usual `npm install` command.
+gulp and precludes any access from any gulp plugins if it is installed with the
+usual `npm install @electric-eloquence/gulp` command.
 
 Instead, follow these instructions:
 
