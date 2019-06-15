@@ -1,5 +1,7 @@
 # gulp changelog
 
+### 3.9.8
+
 ### 3.9.7
 * Using vinyl-fs lts v3.0.4
 * Letting chokidar disable fsevents for macOS El Capitan and lower
