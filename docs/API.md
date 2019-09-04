@@ -312,7 +312,7 @@ gulp.task('default', function(cb) {
 
 * `showErrorStackTrace`: When set to `false`, this suppresses the full stack 
   trace from errors captured during a sequence.
-* `ignoreUndefinedTasks`: When set to `true`, this enables you to pass falsey 
+* `ignoreUndefinedTasks`: When set to `true`, this enables you to pass falsy 
   values in which will be stripped from the task set before validation and sequencing.
 
 ### gulp.watch(glob [, opts], tasks) or gulp.watch(glob [, opts, cb])
