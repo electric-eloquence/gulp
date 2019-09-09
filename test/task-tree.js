@@ -6,7 +6,7 @@ var should = require('should');
 require('mocha');
 
 describe('taskTree()', function() {
-  it('should form a tree properly', function(done) {
+  it('forms a tree properly', function(done) {
     should.exist(taskTree); // Lol shutup jshint
 
     var tasks = {

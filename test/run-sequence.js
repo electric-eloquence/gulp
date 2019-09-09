@@ -15,7 +15,7 @@ describe('runSequence()', function() {
   before(rimraf.sync.bind(null, outpath, {}));
 
   describe('sequential tasks', function() {
-    it('should run async callback tasks', function(done) {
+    it('runs async callback tasks', function(done) {
       var a = '';
       var b = '0';
       var c = '1';
@@ -53,7 +53,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should run async stream tasks', function(done) {
+    it('runs async stream tasks', function(done) {
       var fn = function() {
         return gulp.src(join(__dirname, './fixtures/copy/example.txt'))
           .pipe(gulp.dest(outpath));
@@ -85,7 +85,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should run async promise tasks', function(done) {
+    it('runs async promise tasks', function(done) {
       var a = '';
       var b = '0';
       var c = '1';
@@ -129,7 +129,7 @@ describe('runSequence()', function() {
   });
 
   describe('concurrent tasks', function() {
-    it('should run async callback tasks', function(done) {
+    it('runs async callback tasks', function(done) {
       var stop1;
       var start2;
       var fn = function(cb) {
@@ -160,7 +160,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should run async stream tasks', function(done) {
+    it('runs async stream tasks', function(done) {
       var stop1;
       var start2;
 
@@ -208,7 +208,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should run async promise tasks', function(done) {
+    it('runs async promise tasks', function(done) {
       var stop1;
       var start2;
       var fn = function() {
@@ -249,7 +249,7 @@ describe('runSequence()', function() {
       cb();
     };
 
-    it('should throw an error if no tasks are provided', function(done) {
+    it('throws an error if no tasks are provided', function(done) {
       gulp.task('default', function(cb) {
         try {
           gulp.runSeq();
@@ -263,7 +263,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should throw an error if a task is not defined', function(done) {
+    it('throws an error if a task is not defined', function(done) {
       gulp.task('default', function(cb) {
         try {
           gulp.runSeq('test');
@@ -277,7 +277,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should throw an error if a task argument is neither string nor array', function(done) {
+    it('throws an error if a task argument is neither string nor array', function(done) {
       gulp.task('default', function(cb) {
         try {
           gulp.runSeq(0);
@@ -291,7 +291,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should throw an error if a task is listed more than once in a concurrency array', function(done) {
+    it('throws an error if a task is listed more than once in a concurrency array', function(done) {
       gulp.task('test', callback);
       gulp.task('default', function(cb) {
         try {
@@ -308,7 +308,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should throw an error if a concurrency array is empty', function(done) {
+    it('throws an error if a concurrency array is empty', function(done) {
       gulp.task('default', function(cb) {
         try {
           gulp.runSeq(
@@ -324,7 +324,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should ignore undefined tasks if configured to do so', function(done) {
+    it('ignores undefined tasks if configured to do so', function(done) {
       gulp.runSeq.options.ignoreUndefinedTasks = true;
       gulp.task('test', callback);
       gulp.task('test2', callback);
@@ -346,7 +346,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should bubble errors thrown by gulp to the callback', function(done) {
+    it('bubbles errors thrown by gulp to the callback', function(done) {
       var fn = function() {
         throw new Error('test throw');
       };
@@ -366,7 +366,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should suppress the stack trace of gulp errors if configured to do so', function(done) {
+    it('suppresses the stack trace of gulp errors if configured to do so', function(done) {
       var fn = function() {
         throw new Error('test throw');
       };
@@ -387,7 +387,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should throw gulp errors when there is no callback', function(done) {
+    it('throws gulp errors when there is no callback', function(done) {
       var fn = function() {
         throw new Error('test throw');
       };
@@ -406,7 +406,7 @@ describe('runSequence()', function() {
       gulp.run('default');
     });
 
-    it('should bubble an "aborted orchestration" error to the callback when gulp abruptly stops', function(done) {
+    it('bubbles an "aborted orchestration" error to the callback when gulp abruptly stops', function(done) {
       var fn = function(cb) {
         gulp.stop();
         cb();

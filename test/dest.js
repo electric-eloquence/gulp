@@ -15,14 +15,14 @@ describe('gulp output stream', function() {
     beforeEach(rimraf.sync.bind(null, outpath, {}));
     afterEach(rimraf.sync.bind(null, outpath, {}));
 
-    it('should return a stream', function(done) {
+    it('returns a stream', function(done) {
       var stream = gulp.dest(join(__dirname, './fixtures/'));
       should.exist(stream);
       should.exist(stream.on);
       done();
     });
 
-    it('should return a output stream that writes files', function(done) {
+    it('returns an output stream that writes files', function(done) {
       var instream = gulp.src(join(__dirname, './fixtures/**/*.txt'));
       var outstream = gulp.dest(outpath);
       instream.pipe(outstream);
@@ -46,7 +46,7 @@ describe('gulp output stream', function() {
       });
     });
 
-    it('should return a output stream that does not write non-read files', function(done) {
+    it('returns an output stream that does not write non-read files', function(done) {
       var instream = gulp.src(join(__dirname, './fixtures/**/*.txt'), { read: false });
       var outstream = gulp.dest(outpath);
       instream.pipe(outstream);
@@ -68,7 +68,7 @@ describe('gulp output stream', function() {
       });
     });
 
-    it('should return a output stream that writes streaming files', function(done) {
+    it('returns an output stream that writes streaming files', function(done) {
       var instream = gulp.src(join(__dirname, './fixtures/**/*.txt'), { buffer: false });
       var outstream = instream.pipe(gulp.dest(outpath));
 
@@ -90,19 +90,19 @@ describe('gulp output stream', function() {
       });
     });
 
-    it('should return a output stream that writes streaming files into new directories', function(done) {
+    it('returns an output stream that writes streaming files into new directories', function(done) {
       testWriteDir({}, done);
     });
 
-    it('should return a output stream that writes streaming files into new directories (buffer: false)', function(done) {
+    it('returns an output stream that writes streaming files into new directories (buffer: false)', function(done) {
       testWriteDir({ buffer: false }, done);
     });
 
-    it('should return a output stream that writes streaming files into new directories (read: false)', function(done) {
+    it('return an output stream that writes streaming files into new directories (read: false)', function(done) {
       testWriteDir({ read: false }, done);
     });
 
-    it('should return a output stream that writes streaming files into new directories (read: false, buffer: false)', function(done) {
+    it('return an output stream that writes streaming files into new directories (read: false, buffer: false)', function(done) {
       testWriteDir({ buffer: false, read: false }, done);
     });
 

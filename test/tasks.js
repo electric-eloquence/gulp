@@ -6,7 +6,7 @@ require('mocha');
 
 describe('gulp tasks', function() {
   describe('task()', function() {
-    it('should define a task', function(done) {
+    it('defines a task', function(done) {
       var fn = function() {};
       gulp.task('test', fn);
       should.exist(gulp.tasks.test);
@@ -16,7 +16,7 @@ describe('gulp tasks', function() {
     });
   });
   describe('run()', function() {
-    it('should run multiple tasks', function(done) {
+    it('runs multiple tasks', function(done) {
       var a = 0;
       var fn = function() {
         this.should.equal(gulp);
@@ -33,7 +33,7 @@ describe('gulp tasks', function() {
       gulp.reset();
       done();
     });
-    it('should run all tasks when it calls run() multiple times', function(done) {
+    it('runs all tasks when it calls run() multiple times', function(done) {
       var a = 0;
       var fn = function() {
         this.should.equal(gulp);
@@ -51,7 +51,7 @@ describe('gulp tasks', function() {
       gulp.reset();
       done();
     });
-    it('should run all async promise tasks', function(done) {
+    it('runs all async promise tasks', function(done) {
       var a = 0;
       var fn = function() {
         return new Promise(function(resolve) {
@@ -80,7 +80,7 @@ describe('gulp tasks', function() {
       });
       gulp.isRunning.should.equal(true);
     });
-    it('should run all async callback tasks', function(done) {
+    it('runs all async callback tasks', function(done) {
       var a = 0;
       var fn = function(cb) {
         setTimeout(function() {
@@ -105,7 +105,7 @@ describe('gulp tasks', function() {
       });
       gulp.isRunning.should.equal(true);
     });
-    it('should emit task_not_found and throw an error when task is not defined', function(done) {
+    it('emits task_not_found and throw an error when task is not defined', function(done) {
       gulp.on('task_not_found', function(err) {
         should.exist(err);
         should.exist(err.task);
@@ -119,7 +119,7 @@ describe('gulp tasks', function() {
         should.exist(err);
       }
     });
-    it('should run task scoped to gulp', function(done) {
+    it('runs task scoped to gulp', function(done) {
       var a = 0;
       var fn = function() {
         this.should.equal(gulp);
@@ -132,7 +132,7 @@ describe('gulp tasks', function() {
       gulp.reset();
       done();
     });
-    it('should run default task scoped to gulp', function(done) {
+    it('runs default task scoped to gulp', function(done) {
       var a = 0;
       var fn = function() {
         this.should.equal(gulp);

@@ -8,13 +8,13 @@ require('mocha');
 
 describe('gulp input stream', function() {
   describe('src()', function() {
-    it('should return a stream', function(done) {
+    it('returns a stream', function(done) {
       var stream = gulp.src(join(__dirname, './fixtures/*.coffee'));
       should.exist(stream);
       should.exist(stream.on);
       done();
     });
-    it('should return a input stream from a flat glob', function(done) {
+    it('returns a input stream from a flat glob', function(done) {
       var stream = gulp.src(join(__dirname, './fixtures/*.coffee'));
       stream.on('error', done);
       stream.on('data', function(file) {
@@ -29,7 +29,7 @@ describe('gulp input stream', function() {
       });
     });
 
-    it('should return a input stream for multiple globs', function(done) {
+    it('returns a input stream for multiple globs', function(done) {
       var globArray = [
         join(__dirname, './fixtures/stuff/run.dmc'),
         join(__dirname, './fixtures/stuff/test.dmc'),
@@ -51,7 +51,7 @@ describe('gulp input stream', function() {
       });
     });
 
-    it('should return a input stream for multiple globs, with negation', function(done) {
+    it('returns a input stream for multiple globs, with negation', function(done) {
       var expectedPath = join(__dirname, './fixtures/stuff/run.dmc');
       var globArray = [
         join(__dirname, './fixtures/stuff/*.dmc'),
@@ -73,7 +73,7 @@ describe('gulp input stream', function() {
       });
     });
 
-    it('should return a input stream with no contents when read is false', function(done) {
+    it('returns a input stream with no contents when read is false', function(done) {
       var stream = gulp.src(join(__dirname, './fixtures/*.coffee'), { read: false });
       stream.on('error', done);
       stream.on('data', function(file) {
@@ -86,7 +86,7 @@ describe('gulp input stream', function() {
         done();
       });
     });
-    it('should return a input stream with contents as stream when buffer is false', function(done) {
+    it('returns a input stream with contents as stream when buffer is false', function(done) {
       var stream = gulp.src(join(__dirname, './fixtures/*.coffee'), { buffer: false });
       stream.on('error', done);
       stream.on('data', function(file) {
@@ -104,7 +104,7 @@ describe('gulp input stream', function() {
         join(file.path, '').should.equal(join(__dirname, './fixtures/test.coffee'));
       });
     });
-    it('should return a input stream from a deep glob', function(done) {
+    it('returns a input stream from a deep glob', function(done) {
       var stream = gulp.src(join(__dirname, './fixtures/**/*.jade'));
       stream.on('error', done);
       stream.on('data', function(file) {
@@ -118,7 +118,7 @@ describe('gulp input stream', function() {
         done();
       });
     });
-    it('should return a input stream from a deeper glob', function(done) {
+    it('returns a input stream from a deeper glob', function(done) {
       var stream = gulp.src(join(__dirname, './fixtures/**/*.dmc'));
       var a = 0;
       stream.on('error', done);
@@ -131,7 +131,7 @@ describe('gulp input stream', function() {
       });
     });
 
-    it('should return a file stream from a flat path', function(done) {
+    it('returns a file stream from a flat path', function(done) {
       var a = 0;
       var stream = gulp.src(join(__dirname, './fixtures/test.coffee'));
       stream.on('error', done);

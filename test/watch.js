@@ -32,7 +32,7 @@ describe('gulp', function() {
       }, writeTimeout);
     }
 
-    it('should call the function when file changes: no options', function(done) {
+    it('calls the function when file changes: no options', function(done) {
       // Arrange
       var tempFile = path.join(outpath, 'watch-func.txt');
       fs.writeFile(tempFile, tempFileContent, function() {
@@ -62,7 +62,7 @@ describe('gulp', function() {
       });
     });
 
-    it('should call the function when file changes: w/ options', function(done) {
+    it('calls the function when file changes: w/ options', function(done) {
       // Arrange
       var tempFile = path.join(outpath, 'watch-func-options.txt');
       fs.writeFile(tempFile, tempFileContent, function() {
@@ -92,7 +92,7 @@ describe('gulp', function() {
       });
     });
 
-    it('should not drop options when no callback specified', function(done) {
+    it('does not drop options when no callback specified', function(done) {
       // Arrange
       var tempFile = path.join(outpath, 'watch-func-nodrop-options.txt');
       // By passing a cwd option, ensure options are not lost
@@ -126,7 +126,7 @@ describe('gulp', function() {
       });
     });
 
-    it('should run many tasks: w/ options', function(done) {
+    it('runs many tasks: w/ options', function(done) {
       // Arrange
       var tempFile = path.join(outpath, 'watch-task-options.txt');
       var task = 'task';
@@ -172,7 +172,7 @@ describe('gulp', function() {
       });
     });
 
-    it('should run many tasks: no options', function(done) {
+    it('runs many tasks: no options', function(done) {
       // Arrange
       var tempFile = path.join(outpath, 'watch-many-tasks-no-options.txt');
       var task = 'task';
