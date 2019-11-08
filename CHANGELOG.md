@@ -1,6 +1,8 @@
 # gulp changelog
 
 ### 3.9.8
+* Offloaded CLI to gulp-cli
+* Greatly reduced the number of NPM dependencies
 
 ### 3.9.7
 * Using vinyl-fs lts v3.0.4
