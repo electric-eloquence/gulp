@@ -32,7 +32,7 @@ describe('gulp input stream', function() {
     it('returns a input stream for multiple globs', function(done) {
       var globArray = [
         join(__dirname, './fixtures/stuff/run.dmc'),
-        join(__dirname, './fixtures/stuff/test.dmc'),
+        join(__dirname, './fixtures/stuff/test.dmc')
       ];
       var stream = gulp.src(globArray);
 
@@ -55,7 +55,7 @@ describe('gulp input stream', function() {
       var expectedPath = join(__dirname, './fixtures/stuff/run.dmc');
       var globArray = [
         join(__dirname, './fixtures/stuff/*.dmc'),
-        '!' + join(__dirname, './fixtures/stuff/test.dmc'),
+        '!' + join(__dirname, './fixtures/stuff/test.dmc')
       ];
       var stream = gulp.src(globArray);
 

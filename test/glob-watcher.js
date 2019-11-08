@@ -309,7 +309,7 @@ describe('globWatcher()', function() {
   it('passes ignores through to chokidar', function(done) {
     var ignored = [singleAdd];
     var watcher = globWatcher(outGlob, {
-      ignored: ignored,
+      ignored: ignored
     });
 
     watcher.once('change', function(evt) {

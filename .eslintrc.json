@@ -7,7 +7,7 @@
     "block-scoped-var": 2,
     "brace-style": [2, "1tbs"],
     "camelcase": 1,
-    "comma-dangle": [2, "always-multiline"],
+    "comma-dangle": [2, "never"],
     "computed-property-spacing": [2, "never"],
     "curly": 2,
     "eol-last": 2,
