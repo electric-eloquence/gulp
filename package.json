@@ -55,7 +55,6 @@
   "devDependencies": {
     "coveralls": "3.x",
     "eslint": "6.x",
-    "graceful-fs": "^4.1.15",
     "mkdirp": "^0.5.0",
     "mocha": "6.x",
     "nyc": "14.x",
