@@ -4,7 +4,6 @@
 var archy = require('archy');
 var argv = require('minimist')(process.argv.slice(2));
 var chalk = require('chalk');
-var interpret = require('interpret');
 var log = require('fancy-log');
 var prettyTime = require('pretty-hrtime');
 var semver = require('semver');
@@ -22,7 +21,6 @@ process.env.INIT_CWD = process.cwd();
 var cli = new Liftoff({
   name: 'gulp',
   completions: completion,
-  extensions: interpret.jsVariants,
   v8flags: v8flags
 });
 

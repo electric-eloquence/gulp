@@ -17,7 +17,6 @@ var fileSearch = require('./lib/file_search');
 var parseOptions = require('./lib/parse_options');
 var silentRequire = require('./lib/silent_require');
 var buildConfigName = require('./lib/build_config_name');
-var registerLoader = require('./lib/register_loader');
 var getNodeFlags = require('./lib/get_node_flags');
 
 function Liftoff(opts) {
@@ -122,9 +121,6 @@ Liftoff.prototype.buildEnvironment = function(opts) {
       var defaultObj = { name: name, cwd: cwd, extensions: exts };
       return mapValues(prop, function(pathObj) {
         var found = fined(pathObj, defaultObj) || notfound;
-        if (isPlainObject(found.extension)) {
-          registerLoader(eventEmitter, found.extension, found.path, cwd);
-        }
         return found.path;
       });
     });
@@ -199,7 +195,6 @@ Liftoff.prototype.execute = function(env, forcedFlags, fn) {
       }
       if (ready) {
         preloadModules(this, env);
-        registerLoader(this, this.extensions, env.configPath, env.cwd);
         fn.call(this, env, argv);
       }
     }
@@ -207,6 +202,7 @@ Liftoff.prototype.execute = function(env, forcedFlags, fn) {
 };
 
 Liftoff.prototype.launch = function(opts, fn) {
+  /* istanbul ignore if */
   if (typeof fn !== 'function') {
     throw new Error('You must provide a callback function.');
   }
