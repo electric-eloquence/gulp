@@ -18,6 +18,8 @@ describe('Liftoff', function() {
     searchPaths: ['test/fixtures/search_path']
   });
 
+  this.timeout(3000);
+
   describe('buildEnvironment', function() {
     it('locates local module using cwd if no config is found', function() {
       var test = new Liftoff({ name: 'should' });

@@ -17,7 +17,7 @@ describe('bin/gulp.js command line interface', function() {
   });
 
   it('runs the default task', function(done) {
-    exec('../../bin/gulp.js', function(err, stdout, stderr) {
+    exec('node ../../bin/gulp.js', function(err, stdout, stderr) {
       should(err).equal(null);
       should(stdout).containEql('hello world');
       should(stderr).equal('');
@@ -26,7 +26,7 @@ describe('bin/gulp.js command line interface', function() {
   });
 
   it('-v displays the global and local gulp versions', function(done) {
-    exec('../../bin/gulp.js -v', function(err, stdout, stderr) {
+    exec('node ../../bin/gulp.js -v', function(err, stdout, stderr) {
       should(err).equal(null);
       should(stdout).containEql('CLI version');
       should(stdout).containEql('Local version');
@@ -36,7 +36,7 @@ describe('bin/gulp.js command line interface', function() {
   });
 
   it('--version displays the global and local gulp versions', function(done) {
-    exec('../../bin/gulp.js --version', function(err, stdout, stderr) {
+    exec('node ../../bin/gulp.js --version', function(err, stdout, stderr) {
       should(err).equal(null);
       should(stdout).containEql('CLI version');
       should(stdout).containEql('Local version');
@@ -46,7 +46,7 @@ describe('bin/gulp.js command line interface', function() {
   });
 
   it('-T displays the task dependency tree', function(done) {
-    exec('../../bin/gulp.js -T', function(err, stdout, stderr) {
+    exec('node ../../bin/gulp.js -T', function(err, stdout, stderr) {
       should(err).equal(null);
       should(stdout).containEql(' ├── default\n');
       should(stdout).containEql(' └── error\n');
@@ -56,7 +56,7 @@ describe('bin/gulp.js command line interface', function() {
   });
 
   it('--tasks displays the task dependency tree', function(done) {
-    exec('../../bin/gulp.js --tasks', function(err, stdout, stderr) {
+    exec('node ../../bin/gulp.js --tasks', function(err, stdout, stderr) {
       should(err).equal(null);
       should(stdout).containEql(' ├── default\n');
       should(stdout).containEql(' └── error\n');
@@ -66,7 +66,7 @@ describe('bin/gulp.js command line interface', function() {
   });
 
   it('--tasks-simple displays a plain-text list of tasks', function(done) {
-    exec('../../bin/gulp.js --tasks-simple', function(err, stdout, stderr) {
+    exec('node ../../bin/gulp.js --tasks-simple', function(err, stdout, stderr) {
       should(err).equal(null);
       should(stdout).containEql('default\nerror\n');
       should(stderr).equal('');
@@ -75,8 +75,8 @@ describe('bin/gulp.js command line interface', function() {
   });
 
   it('errors when passed an erroring task', function(done) {
-    exec('../../bin/gulp.js error', function(err, stdout, stderr) {
-      should(err.message).equal('Command failed: ../../bin/gulp.js error\n');
+    exec('node ../../bin/gulp.js error', function(err, stdout, stderr) {
+      should(err.message).equal('Command failed: node ../../bin/gulp.js error\n');
       should(stdout).containEql('SyntaxError: Unexpected end of JSON input');
       should(stderr).equal('');
       done();
@@ -84,8 +84,8 @@ describe('bin/gulp.js command line interface', function() {
   });
 
   it('errors when passed a non-existent task', function(done) {
-    exec('../../bin/gulp.js non-existent', function(err, stdout, stderr) {
-      should(err.message).equal('Command failed: ../../bin/gulp.js non-existent\n');
+    exec('node ../../bin/gulp.js non-existent', function(err, stdout, stderr) {
+      should(err.message).equal('Command failed: node ../../bin/gulp.js non-existent\n');
       should(stdout).containEql('Task \'non-existent\' is not in your gulpfile');
       should(stderr).equal('');
       done();
@@ -94,7 +94,7 @@ describe('bin/gulp.js command line interface', function() {
 
   // tests that change cwd must be last.
   it('--cwd changes the working directory', function(done) {
-    exec('../../bin/gulp.js --cwd=' + path.join(__dirname, 'fixtures', 'test'), function(err, stdout, stderr) {
+    exec('node ../../bin/gulp.js --cwd=' + path.join(__dirname, 'fixtures', 'test'), function(err, stdout, stderr) {
       should(err).equal(null);
       should(stdout).containEql('hello world');
       should(stderr).equal('');
@@ -104,8 +104,8 @@ describe('bin/gulp.js command line interface', function() {
 
   it('errors when finding no gulpfile', function(done) {
     process.chdir(__dirname);
-    exec('../bin/gulp.js', function(err, stdout, stderr) {
-      should(err.message).containEql('Command failed: ../bin/gulp.js');
+    exec('node ../bin/gulp.js', function(err, stdout, stderr) {
+      should(err.message).containEql('Command failed: node ../bin/gulp.js');
       should(stdout).containEql('No gulpfile found in');
       should(stderr).equal('');
       done();
