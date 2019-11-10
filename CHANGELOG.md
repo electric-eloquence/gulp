@@ -1,5 +1,7 @@
 # gulp changelog
 
+### 3.9.9
+
 ### 3.9.8
 * Offloaded CLI to gulp-cli
 * Greatly reduced the number of NPM dependencies
