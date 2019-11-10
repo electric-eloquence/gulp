@@ -5,8 +5,8 @@ var path = require('path');
 
 var fileSearch = require('./file_search');
 
-module.exports = function(opts) {
-  opts = opts || {};
+module.exports = function(opts_) {
+  var opts = opts_ || {};
   var configNameSearch = opts.configNameSearch;
   var configPath = opts.configPath;
   var searchPaths = opts.searchPaths;

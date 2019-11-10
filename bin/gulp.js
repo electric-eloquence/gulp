@@ -6,7 +6,6 @@ var argv = require('minimist')(process.argv.slice(2));
 var chalk = require('chalk');
 var log = require('fancy-log');
 var prettyTime = require('pretty-hrtime');
-var semver = require('semver');
 var tildify = require('tildify');
 var v8flags = require('v8flags');
 

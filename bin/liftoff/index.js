@@ -35,8 +35,8 @@ Liftoff.prototype.requireLocal = function(module, basedir) {
   }
 };
 
-Liftoff.prototype.buildEnvironment = function(opts) {
-  opts = opts || {};
+Liftoff.prototype.buildEnvironment = function(opts_) {
+  var opts = opts_ || {};
 
   // get modules we want to preload
   var preload = opts.require || [];
@@ -63,14 +63,14 @@ Liftoff.prototype.buildEnvironment = function(opts) {
   // calculate the regex to use for finding the config file
   var configNameSearch = buildConfigName({
     configName: this.configName,
-    extensions: Object.keys(this.extensions),
+    extensions: Object.keys(this.extensions)
   });
 
   // calculate configPath
   var configPath = findConfig({
     configNameSearch: configNameSearch,
     searchPaths: searchPaths,
-    configPath: opts.configPath,
+    configPath: opts.configPath
   });
 
   // if we have a config path, save the directory it resides in.
@@ -112,7 +112,6 @@ Liftoff.prototype.buildEnvironment = function(opts) {
   }
 
   var exts = this.extensions;
-  var eventEmitter = this;
 
   var configFiles = {};
   if (isPlainObject(this.configFiles)) {
@@ -134,7 +133,7 @@ Liftoff.prototype.buildEnvironment = function(opts) {
     configBase: configBase,
     modulePath: modulePath,
     modulePackage: modulePackage || {},
-    configFiles: configFiles,
+    configFiles: configFiles
   };
 };
 
@@ -171,20 +170,24 @@ Liftoff.prototype.prepare = function(opts, fn) {
   fn.call(this, env);
 };
 
-Liftoff.prototype.execute = function(env, forcedFlags, fn) {
-  if (typeof forcedFlags === 'function') {
+Liftoff.prototype.execute = function(env, forcedFlags_, fn_) {
+  var forcedFlags = forcedFlags_;
+  var fn = fn_;
+
+  if (typeof forcedFlags_ === 'function') {
+    forcedFlags = void 0;
     fn = forcedFlags;
-    forcedFlags = undefined;
   }
-  if (typeof fn !== 'function') {
+  if (typeof fn_ !== 'function') {
     throw new Error('You must provide a callback function.');
   }
 
-  this.handleFlags(function(err, flags) {
+  this.handleFlags(function(err, flags_) {
     if (err) {
       throw err;
     }
-    flags = flags || [];
+
+    var flags = flags_ || [];
 
     flaggedRespawn(flags, process.argv, forcedFlags, execute.bind(this));
 

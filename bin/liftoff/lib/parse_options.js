@@ -1,16 +1,17 @@
+'use strict';
+
 var extend = require('extend');
 
-module.exports = function(opts) {
+module.exports = function(opts_) {
+  var opts = opts_ || {};
   var defaults = {
     extensions: {
       '.js': null,
-      '.json': null,
+      '.json': null
     },
-    searchPaths: [],
+    searchPaths: []
   };
-  if (!opts) {
-    opts = {};
-  }
+
   if (opts.name) {
     if (!opts.processTitle) {
       opts.processTitle = opts.name;
@@ -31,5 +32,6 @@ module.exports = function(opts) {
   if (!opts.moduleName) {
     throw new Error('You must specify a moduleName.');
   }
+
   return extend(defaults, opts);
 };

@@ -1,11 +1,12 @@
+'use strict';
+
 var path = require('path');
 
-module.exports = function(opts) {
-  if (!opts) {
-    opts = {};
-  }
+module.exports = function(opts_) {
+  var opts = opts_ || {};
   var cwd = opts.cwd;
   var configPath = opts.configPath;
+
   // if a path to the desired config was specified
   // but no cwd was provided, use configPath dir
   if (typeof configPath === 'string' && !cwd) {
@@ -14,5 +15,6 @@ module.exports = function(opts) {
   if (typeof cwd === 'string') {
     return path.resolve(cwd);
   }
+
   return process.cwd();
 };

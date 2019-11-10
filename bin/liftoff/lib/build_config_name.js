@@ -1,5 +1,7 @@
-module.exports = function(opts) {
-  opts = opts || {};
+'use strict';
+
+module.exports = function(opts_) {
+  var opts = opts_ || {};
   var configName = opts.configName;
   var extensions = opts.extensions;
   if (!configName) {

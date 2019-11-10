@@ -1,3 +1,5 @@
+'use strict';
+
 function arrayOrFunction(arrayOrFunc, env) {
   if (typeof arrayOrFunc === 'function') {
     return arrayOrFunc.call(this, env);
@@ -25,6 +27,6 @@ function fromReorderedArgv(reorderedArgv) {
 
 module.exports = {
   arrayOrFunction: arrayOrFunction,
-  fromReorderedArgv: fromReorderedArgv,
+  fromReorderedArgv: fromReorderedArgv
 };
 

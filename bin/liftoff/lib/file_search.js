@@ -5,7 +5,7 @@ var path = require('path');
 
 // Recurse up the directory tree to find the parent directory of a given file.
 function findup(filenames_, workPath_) {
-  var filenames = Array.isArray(filenames_) ? filenames_  : [filenames_];
+  var filenames = Array.isArray(filenames_) ? filenames_ : [filenames_];
   var workPath = path.resolve(workPath_);
 
   for (var i = 0; i < filenames.length; i++) {
@@ -18,7 +18,7 @@ function findup(filenames_, workPath_) {
       } else {
         workDir = path.dirname(workPath);
       }
-    } catch {
+    } catch (e) {
       return null;
     }
 
@@ -28,7 +28,7 @@ function findup(filenames_, workPath_) {
 
     for (j = 0; j < workDirFiles.length; j++) {
       if (workDirFiles[j].toLowerCase() === filenameLower) {
-        return {dir: workDir, file: filename};
+        return { dir: workDir, file: filename };
       }
     }
 
@@ -39,7 +39,7 @@ function findup(filenames_, workPath_) {
     // Return the found directory if filename has been found.
     for (j = 0; j < workDirUpFiles.length; j++) {
       if (workDirUpFiles[j].toLowerCase() === filenameLower) {
-        return {dir: workDirUp, file: filename};
+        return { dir: workDirUp, file: filename };
       }
     }
 
@@ -52,9 +52,7 @@ function findup(filenames_, workPath_) {
       workDirUp.slice(0, 2) === '\\\\'
     ) {
       return null;
-    }
-    // Otherwise, keep trying.
-    else {
+    } else { // Otherwise, keep trying.
       var result = findup(filename, workDirUp);
 
       if (result) {
@@ -64,7 +62,7 @@ function findup(filenames_, workPath_) {
       }
     }
 
-    return {dir: dirMatch, file: filename};
+    return { dir: dirMatch, file: filename };
   }
 }
 
@@ -81,8 +79,7 @@ module.exports = function(filenames, workPaths) {
 
   if (result && result.dir && result.file) {
     return path.join(result.dir, result.file);
-  }
-  else {
+  } else {
     return null;
   }
 };
