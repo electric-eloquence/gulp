@@ -5,7 +5,6 @@ var path = require('path');
 
 var should = require('should');
 
-var NODE_PATH = process.env.NODE_PATH;
 var cwd = process.cwd();
 
 describe('`bin/gulp.js` command line interface', function() {
