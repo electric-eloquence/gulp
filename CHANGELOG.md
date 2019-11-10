@@ -1,10 +1,12 @@
 # gulp changelog
 
 ### 3.9.9
+* Updated package.json to fix installation of bin file
 
 ### 3.9.8
-* Offloaded CLI to gulp-cli
-* Greatly reduced the number of NPM dependencies
+* Lessened the weight of dependencies for the bin CLI
+* Added tests for the lib CLI
+* Greatly reduced the overall number of NPM dependencies
 
 ### 3.9.7
 * Using vinyl-fs lts v3.0.4
