@@ -5,7 +5,7 @@
 
 ### 3.9.8
 * Lessened the weight of dependencies for the bin CLI
-* Added tests for the lib CLI
+* Added tests for the bin CLI
 * Greatly reduced the overall number of NPM dependencies
 
 ### 3.9.7
