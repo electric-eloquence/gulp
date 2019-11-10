@@ -176,9 +176,9 @@ Liftoff.prototype.execute = function(env, forcedFlags_, fn_) {
 
   if (typeof forcedFlags_ === 'function') {
     forcedFlags = void 0;
-    fn = forcedFlags;
+    fn = forcedFlags_;
   }
-  if (typeof fn_ !== 'function') {
+  if (typeof fn !== 'function') {
     throw new Error('You must provide a callback function.');
   }
 
