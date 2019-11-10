@@ -25,7 +25,7 @@ describe('Liftoff', function() {
     process.env.NODE_PATH = NODE_PATH;
   });
 
-  describe('buildEnvironment', function() {
+  describe('buildEnvironment()', function() {
     it('locates local module using cwd if no config is found', function() {
       var test = new Liftoff({ name: 'should' });
       var cwd = 'explicit/cwd';
@@ -119,7 +119,7 @@ describe('Liftoff', function() {
     });
   });
 
-  describe('prepare', function() {
+  describe('prepare()', function() {
     it('sets the process.title to the moduleName', function() {
       app.prepare({}, function() {});
       should(process.title).equal(app.moduleName);
@@ -157,7 +157,7 @@ describe('Liftoff', function() {
   });
 
 
-  describe('execute', function() {
+  describe('execute()', function() {
     it('passes environment to first argument of execute callback', function(done) {
       var testEnv = app.buildEnvironment();
       app.execute(testEnv, function(env) {
@@ -252,7 +252,7 @@ describe('Liftoff', function() {
     });
   });
 
-  describe('requireLocal', function() {
+  describe('requireLocal()', function() {
     it('attempts pre-loading local modules but fails', function(done) {
       var app = new Liftoff({ name: 'test' });
       var logs = [];
@@ -409,329 +409,329 @@ describe('Liftoff', function() {
       });
     });
   });
-});
 
-describe('buildConfigName', function() {
-  var buildConfigName = require('../bin/liftoff/lib/build_config_name');
+  describe('buildConfigName()', function() {
+    var buildConfigName = require('../bin/liftoff/lib/build_config_name');
 
-  it('throws if no configName is provided', function() {
-    should(function() { buildConfigName(); }).throw();
+    it('throws if no configName is provided', function() {
+      should(function() { buildConfigName(); }).throw();
+    });
+
+    it('uses configName directly if it is a regex', function() {
+      var configNameSearch = /mocha/;
+      should(buildConfigName({ configName: configNameSearch })).deepEqual([configNameSearch]);
+    });
+
+    it('throws if no array of extensions are provided and config is not a regex already', function() {
+      should(function() { buildConfigName({ configName: 'foo' });}).throw();
+      should(function() { buildConfigName({ configName: 'foo', extensions: '?' }); }).throw();
+      should(function() { buildConfigName({ configName: 'foo', extensions: ['.js'] }); }).not.throw();
+    });
+
+    it('builds an array of possible config names', function() {
+      var multiExtension = buildConfigName({ configName: 'foo', extensions: ['.js', '.coffee'] });
+      should(multiExtension).deepEqual(['foo.js', 'foo.coffee']);
+      var singleExtension = buildConfigName({ configName: 'foo', extensions: ['.js'] });
+      should(singleExtension).deepEqual(['foo.js']);
+    });
+
+    it('throws error if opts is null or empty', function() {
+      should(function() {
+        buildConfigName();
+      }).throw();
+      should(function() {
+        buildConfigName(null);
+      }).throw();
+      should(function() {
+        buildConfigName({});
+      }).throw();
+    });
+
+    it('throws error if .configName is null', function() {
+      should(function() {
+        buildConfigName({ extensions: ['.js'] });
+      }).throw();
+    });
+
+    it('throws error if .extension is not an array', function() {
+      should(function() {
+        buildConfigName({ configName: 'foo' });
+      }).throw();
+      should(function() {
+        buildConfigName({ configName: 'foo', extensions: null });
+      }).throw();
+      should(function() {
+        buildConfigName({ configName: 'foo', extensions: '.js' });
+      }).throw();
+    });
   });
 
-  it('uses configName directly if it is a regex', function() {
-    var configNameSearch = /mocha/;
-    should(buildConfigName({ configName: configNameSearch })).deepEqual([configNameSearch]);
+  describe('fileSearch()', function() {
+    var fileSearch = require('../bin/liftoff/lib/file_search');
+
+    it('locates a file using findup from an array of possible base paths', function() {
+      should(fileSearch('mochafile.js', ['../../'])).be.null;
+      should(fileSearch('package.json', [process.cwd()])).equal(path.resolve(__dirname, '..', 'package.json'));
+    });
+
+
+    it('recursively locates a file using findup through nested directories', function() {
+      should(fileSearch('package.json', [path.join(__dirname, 'fixtures')]))
+        .equal(path.resolve(__dirname, '..', 'package.json'));
+    });
   });
 
-  it('throws if no array of extensions are provided and config is not a regex already', function() {
-    should(function() { buildConfigName({ configName: 'foo' });}).throw();
-    should(function() { buildConfigName({ configName: 'foo', extensions: '?' }); }).throw();
-    should(function() { buildConfigName({ configName: 'foo', extensions: ['.js'] }); }).not.throw();
-  });
+  describe('findConfig()', function() {
+    var findConfig = require('../bin/liftoff/lib/find_config');
 
-  it('builds an array of possible config names', function() {
-    var multiExtension = buildConfigName({ configName: 'foo', extensions: ['.js', '.coffee'] });
-    should(multiExtension).deepEqual(['foo.js', 'foo.coffee']);
-    var singleExtension = buildConfigName({ configName: 'foo', extensions: ['.js'] });
-    should(singleExtension).deepEqual(['foo.js']);
-  });
+    it('throws if searchPaths or configNameRegex are empty when configName isn\'t explicltly provided', function() {
+      should(function() { findConfig(); }).throw();
+      should(function() { findConfig({ searchPaths: ['../'] }); }).throw();
+      should(function() { findConfig({ configNameRegex: 'dude' }); }).throw();
+    });
 
-  it('throws error if opts is null or empty', function() {
-    should(function() {
-      buildConfigName();
-    }).throw();
-    should(function() {
-      buildConfigName(null);
-    }).throw();
-    should(function() {
-      buildConfigName({});
-    }).throw();
-  });
+    it('if configPath is explicitly provided, return the absolute path to the file or null if it doesn\'t actually exist\
+  ', function() {
+      var configPath = path.resolve('test/fixtures/mochafile.js');
+      should(findConfig({ configPath: configPath })).equal(configPath);
+      should(findConfig({ configPath: 'path/to/nowhere' })).equal(null);
+    });
 
-  it('throws error if .configName is null', function() {
-    should(function() {
-      buildConfigName({ extensions: ['.js'] });
-    }).throw();
-  });
-
-  it('throws error if .extension is not an array', function() {
-    should(function() {
-      buildConfigName({ configName: 'foo' });
-    }).throw();
-    should(function() {
-      buildConfigName({ configName: 'foo', extensions: null });
-    }).throw();
-    should(function() {
-      buildConfigName({ configName: 'foo', extensions: '.js' });
-    }).throw();
-  });
-});
-
-describe('fileSearch', function() {
-  var fileSearch = require('../bin/liftoff/lib/file_search');
-
-  it('locates a file using findup from an array of possible base paths', function() {
-    should(fileSearch('mochafile.js', ['../../'])).be.null;
-    should(fileSearch('package.json', [process.cwd()])).equal(path.resolve(__dirname, '..', 'package.json'));
-  });
-
-
-  it('recursively locates a file using findup through nested directories', function() {
-    should(fileSearch('package.json', [path.join(__dirname, 'fixtures')]))
-      .equal(path.resolve(__dirname, '..', 'package.json'));
-  });
-});
-
-describe('findConfig', function() {
-  var findConfig = require('../bin/liftoff/lib/find_config');
-
-  it('throws if searchPaths or configNameRegex are empty when configName isn\'t explicltly provided', function() {
-    should(function() { findConfig(); }).throw();
-    should(function() { findConfig({ searchPaths: ['../'] }); }).throw();
-    should(function() { findConfig({ configNameRegex: 'dude' }); }).throw();
-  });
-
-  it('if configPath is explicitly provided, return the absolute path to the file or null if it doesn\'t actually exist\
-', function() {
-    var configPath = path.resolve('test/fixtures/mochafile.js');
-    should(findConfig({ configPath: configPath })).equal(configPath);
-    should(findConfig({ configPath: 'path/to/nowhere' })).equal(null);
-  });
-
-  it('returns the absolute path to the first config file found in searchPaths', function() {
-    should(findConfig({
-      configNameSearch: ['mochafile.js', 'mochafile.coffee'],
-      searchPaths: ['test/fixtures']
-    })).equal(path.resolve('test/fixtures/mochafile.js'));
-    should(findConfig({
-      configNameSearch: ['mochafile.js', 'mochafile.coffee'],
-      searchPaths: ['test/fixtures/search_path', 'test/fixtures/coffee']
-    })).equal(path.resolve('test/fixtures/search_path/mochafile.js'));
-    should(findConfig({
-      configNameSearch: 'mochafile.js',
-      searchPaths: ['test/fixtures/search_path', 'test/fixtures/coffee']
-    })).equal(path.resolve('test/fixtures/search_path/mochafile.js'));
-  });
-
-  it('throws error if .searchPaths is not an array', function() {
-    should(function() {
-      findConfig({
-        configNameSearch: ['mochafile.js', 'mochafile.coffee']
-      });
-    }).throw();
-    should(function() {
-      findConfig({
+    it('returns the absolute path to the first config file found in searchPaths', function() {
+      should(findConfig({
         configNameSearch: ['mochafile.js', 'mochafile.coffee'],
-        searchPaths: null
-      });
-    }).throw();
-    should(function() {
-      findConfig({
+        searchPaths: ['test/fixtures']
+      })).equal(path.resolve('test/fixtures/mochafile.js'));
+      should(findConfig({
         configNameSearch: ['mochafile.js', 'mochafile.coffee'],
-        searchPaths: 'test/fixtures/search_path'
-      });
-    }).throw();
-  });
-
-  it('throws error if .configNameSearch is null', function() {
-    should(function() {
-      findConfig({
         searchPaths: ['test/fixtures/search_path', 'test/fixtures/coffee']
-      });
-    }).throw();
-    should(function() {
-      findConfig({
-        configNameSearch: null,
+      })).equal(path.resolve('test/fixtures/search_path/mochafile.js'));
+      should(findConfig({
+        configNameSearch: 'mochafile.js',
         searchPaths: ['test/fixtures/search_path', 'test/fixtures/coffee']
+      })).equal(path.resolve('test/fixtures/search_path/mochafile.js'));
+    });
+
+    it('throws error if .searchPaths is not an array', function() {
+      should(function() {
+        findConfig({
+          configNameSearch: ['mochafile.js', 'mochafile.coffee']
+        });
+      }).throw();
+      should(function() {
+        findConfig({
+          configNameSearch: ['mochafile.js', 'mochafile.coffee'],
+          searchPaths: null
+        });
+      }).throw();
+      should(function() {
+        findConfig({
+          configNameSearch: ['mochafile.js', 'mochafile.coffee'],
+          searchPaths: 'test/fixtures/search_path'
+        });
+      }).throw();
+    });
+
+    it('throws error if .configNameSearch is null', function() {
+      should(function() {
+        findConfig({
+          searchPaths: ['test/fixtures/search_path', 'test/fixtures/coffee']
+        });
+      }).throw();
+      should(function() {
+        findConfig({
+          configNameSearch: null,
+          searchPaths: ['test/fixtures/search_path', 'test/fixtures/coffee']
+        });
+      }).throw();
+      should(function() {
+        findConfig({
+          configNameSearch: '',
+          searchPaths: ['test/fixtures/search_path', 'test/fixtures/coffee']
+        });
+      }).throw();
+    });
+
+    it('throws error if opts is null or empty', function() {
+      should(function() {
+        findConfig();
+      }).throw();
+      should(function() {
+        findConfig(null);
+      }).throw();
+      should(function() {
+        findConfig({});
+      }).throw();
+    });
+  });
+
+  describe('findCwd()', function() {
+    var findCwd = require('../bin/liftoff/lib/find_cwd');
+
+    it('returns process.cwd if no options are passed', function() {
+      should(findCwd()).equal(process.cwd());
+    });
+
+    it('returns path from cwd if supplied', function() {
+      should(findCwd({ cwd: '../' })).equal(path.resolve('../'));
+    });
+
+    it('returns directory of config if configPath defined', function() {
+      should(findCwd({ configPath: 'test/fixtures/mochafile.js' })).equal(path.resolve('test/fixtures'));
+    });
+
+    it('returns path from cwd if both it and configPath are defined', function() {
+      should(findCwd({ cwd: '../', configPath: 'test/fixtures/mochafile.js' })).equal(path.resolve('../'));
+    });
+
+    it('ignores cwd if it isn\'t a string', function() {
+      should(findCwd({ cwd: true })).equal(process.cwd());
+    });
+
+    it('ignores configPath if it isn\'t a string', function() {
+      should(findCwd({ configPath: true })).equal(process.cwd());
+    });
+  });
+
+  describe('getNodeFlags', function() {
+    var getNodeFlags = require('../bin/liftoff/lib/get_node_flags');
+
+    describe('arrayOrFunction', function() {
+      it('returns the first argument when it is an array', function() {
+        var env = { cwd: 'aaa' };
+        should(getNodeFlags.arrayOrFunction([], env)).be.empty();
+        should(getNodeFlags.arrayOrFunction(['--lazy', '--use_strict', '--harmony'], env))
+          .containDeep(['--lazy', '--harmony', '--use_strict']);
+
       });
-    }).throw();
-    should(function() {
-      findConfig({
-        configNameSearch: '',
-        searchPaths: ['test/fixtures/search_path', 'test/fixtures/coffee']
+
+      it('returns the exection result of the first argument when it is a function', function() {
+        var env = { cwd: 'aaa' };
+        should(getNodeFlags.arrayOrFunction(function() {
+          return [];
+        }, env)).be.empty();
+        should(getNodeFlags.arrayOrFunction(function(arg) {
+          should(arg).equal(env);
+          return ['--lazy', '--harmony'];
+        }, env)).containDeep(['--lazy', '--harmony']);
       });
-    }).throw();
-  });
 
-  it('throws error if opts is null or empty', function() {
-    should(function() {
-      findConfig();
-    }).throw();
-    should(function() {
-      findConfig(null);
-    }).throw();
-    should(function() {
-      findConfig({});
-    }).throw();
-  });
-});
-
-describe('findCwd', function() {
-  var findCwd = require('../bin/liftoff/lib/find_cwd');
-
-  it('returns process.cwd if no options are passed', function() {
-    should(findCwd()).equal(process.cwd());
-  });
-
-  it('returns path from cwd if supplied', function() {
-    should(findCwd({ cwd: '../' })).equal(path.resolve('../'));
-  });
-
-  it('returns directory of config if configPath defined', function() {
-    should(findCwd({ configPath: 'test/fixtures/mochafile.js' })).equal(path.resolve('test/fixtures'));
-  });
-
-  it('returns path from cwd if both it and configPath are defined', function() {
-    should(findCwd({ cwd: '../', configPath: 'test/fixtures/mochafile.js' })).equal(path.resolve('../'));
-  });
-
-  it('ignores cwd if it isn\'t a string', function() {
-    should(findCwd({ cwd: true })).equal(process.cwd());
-  });
-
-  it('ignores configPath if it isn\'t a string', function() {
-    should(findCwd({ configPath: true })).equal(process.cwd());
-  });
-});
-
-describe('getNodeFlags', function() {
-  var getNodeFlags = require('../bin/liftoff/lib/get_node_flags');
-
-  describe('arrayOrFunction', function() {
-    it('returns the first argument when it is an array', function() {
-      var env = { cwd: 'aaa' };
-      should(getNodeFlags.arrayOrFunction([], env)).be.empty();
-      should(getNodeFlags.arrayOrFunction(['--lazy', '--use_strict', '--harmony'], env))
-        .containDeep(['--lazy', '--harmony', '--use_strict']);
-
-    });
-
-    it('returns the exection result of the first argument when it is a function', function() {
-      var env = { cwd: 'aaa' };
-      should(getNodeFlags.arrayOrFunction(function() {
-        return [];
-      }, env)).be.empty();
-      should(getNodeFlags.arrayOrFunction(function(arg) {
-        should(arg).equal(env);
-        return ['--lazy', '--harmony'];
-      }, env)).containDeep(['--lazy', '--harmony']);
-    });
-
-    it('returns an array which has an element of the first argument when the first argument is a string', function() {
-      var env = { cwd: 'aaa' };
-      should(getNodeFlags.arrayOrFunction('--lazy', env)).containDeep(['--lazy']);
-    });
-
-    it('returns an empty array when the first argument is neither an array, a function nor a string', function() {
-      var env = { cwd: 'aaa' };
-      should(getNodeFlags.arrayOrFunction(void 0, env)).be.empty();
-      should(getNodeFlags.arrayOrFunction(null, env)).be.empty();
-      should(getNodeFlags.arrayOrFunction(true, env)).be.empty();
-      should(getNodeFlags.arrayOrFunction(false, env)).be.empty();
-      should(getNodeFlags.arrayOrFunction(0, env)).be.empty();
-      should(getNodeFlags.arrayOrFunction(123, env)).be.empty();
-      should(getNodeFlags.arrayOrFunction({}, env)).be.empty();
-      should(getNodeFlags.arrayOrFunction({ length: 1 }, env)).be.empty();
-    });
-  });
-
-  describe('fromReorderedArgv', function() {
-    it('returns only node flags from respawning arguments', function() {
-      var env = { cwd: 'aaa' };
-      var cmd = ['node', '--lazy', '--harmony', '--use_strict', './aaa/bbb/app.js', '--ccc', 'ddd', '-e', 'fff'];
-      should(getNodeFlags.fromReorderedArgv(cmd, env)).deepEqual(['--lazy', '--harmony', '--use_strict']);
-    });
-
-    it('ends node flags before "--"', function() {
-      var env = { cwd: 'aaa' };
-      var cmd = ['node', '--lazy', '--', '--harmony', '--use_strict', './aaa/bbb/app.js', '--ccc', 'ddd', '-e', 'fff'];
-      should(getNodeFlags.fromReorderedArgv(cmd, env)).deepEqual(['--lazy']);
-
-    });
-
-    it('returns node flags when arguments are only node flags', function() {
-      var env = { cwd: 'aaa' };
-      var cmd = ['node', '--lazy', '--harmony', '--use_strict'];
-      should(getNodeFlags.fromReorderedArgv(cmd, env)).deepEqual(['--lazy', '--harmony', '--use_strict']);
-    });
-
-    it('returns an empty array when no node flags', function() {
-      var env = { cwd: 'aaa' };
-      var cmd = ['node', './aaa/bbb/app.js', '--aaa', 'bbb', '-c', 'd'];
-      should(getNodeFlags.fromReorderedArgv(cmd, env)).deepEqual([]);
-    });
-  });
-});
-
-describe('parseOptions', function() {
-  var parseOptions = require('../bin/liftoff/lib/parse_options');
-
-  it('auto-sets processTitle, moduleName, & configFile if `name` is provided.', function() {
-    var opts = parseOptions({ name: NAME });
-    should(opts.processTitle).equal(NAME);
-    should(opts.configName).equal(NAME + 'file');
-    should(opts.moduleName).equal(NAME);
-  });
-
-  it('sets a title to be used for the process at launch', function() {
-    var opts = parseOptions({ name: NAME });
-    should(opts.processTitle).equal(NAME);
-    should(function() {
-      parseOptions();
-    }).throw('You must specify a processTitle.');
-  });
-
-  it('sets the configuration file to look for at launch', function() {
-    var opts = parseOptions({ name: NAME });
-    should(opts.configName).equal(NAME + 'file');
-    should(function() {
-      parseOptions({ processTitle: NAME });
-    }).throw('You must specify a configName.');
-  });
-
-  it('sets a local module to resolve at launch', function() {
-    var opts = parseOptions({ name: NAME });
-    should(opts.moduleName).equal(NAME);
-  });
-
-  it('uses .processTitle/.configName/.moduleName preferencially', function() {
-    var opts = parseOptions({
-      name: 'a',
-      processTitle: 'b',
-      configName: 'c',
-      moduleName: 'd'
-    });
-    should(opts.processTitle).equal('b');
-    should(opts.configName).equal('c');
-    should(opts.moduleName).equal('d');
-  });
-
-  it('throws error if opts does not have .name and .moduleName', function() {
-    should(function() {
-      parseOptions({
-        processTitle: 'a',
-        configName: 'b'
+      it('returns an array which has an element of the first argument when the first argument is a string', function() {
+        var env = { cwd: 'aaa' };
+        should(getNodeFlags.arrayOrFunction('--lazy', env)).containDeep(['--lazy']);
       });
-    }).throw();
+
+      it('returns an empty array when the first argument is neither an array, a function nor a string', function() {
+        var env = { cwd: 'aaa' };
+        should(getNodeFlags.arrayOrFunction(void 0, env)).be.empty();
+        should(getNodeFlags.arrayOrFunction(null, env)).be.empty();
+        should(getNodeFlags.arrayOrFunction(true, env)).be.empty();
+        should(getNodeFlags.arrayOrFunction(false, env)).be.empty();
+        should(getNodeFlags.arrayOrFunction(0, env)).be.empty();
+        should(getNodeFlags.arrayOrFunction(123, env)).be.empty();
+        should(getNodeFlags.arrayOrFunction({}, env)).be.empty();
+        should(getNodeFlags.arrayOrFunction({ length: 1 }, env)).be.empty();
+      });
+    });
+
+    describe('fromReorderedArgv', function() {
+      it('returns only node flags from respawning arguments', function() {
+        var env = { cwd: 'aaa' };
+        var cmd = ['node', '--lazy', '--harmony', '--use_strict', './aaa/bbb/app.js', '--ccc', 'ddd', '-e', 'fff'];
+        should(getNodeFlags.fromReorderedArgv(cmd, env)).deepEqual(['--lazy', '--harmony', '--use_strict']);
+      });
+
+      it('ends node flags before "--"', function() {
+        var env = { cwd: 'aaa' };
+        var cmd = ['node', '--lazy', '--', '--harmony', '--use_strict', './aaa/bbb/app.js', '--ccc', 'ddd', '-e', 'fff'];
+        should(getNodeFlags.fromReorderedArgv(cmd, env)).deepEqual(['--lazy']);
+
+      });
+
+      it('returns node flags when arguments are only node flags', function() {
+        var env = { cwd: 'aaa' };
+        var cmd = ['node', '--lazy', '--harmony', '--use_strict'];
+        should(getNodeFlags.fromReorderedArgv(cmd, env)).deepEqual(['--lazy', '--harmony', '--use_strict']);
+      });
+
+      it('returns an empty array when no node flags', function() {
+        var env = { cwd: 'aaa' };
+        var cmd = ['node', './aaa/bbb/app.js', '--aaa', 'bbb', '-c', 'd'];
+        should(getNodeFlags.fromReorderedArgv(cmd, env)).deepEqual([]);
+      });
+    });
   });
 
-  it('throws error if opts is null or empty', function() {
-    should(function() { parseOptions(null); }).throw();
-    should(function() { parseOptions(void 0); }).throw();
-    should(function() { parseOptions({}); }).throw();
+  describe('parseOptions()', function() {
+    var parseOptions = require('../bin/liftoff/lib/parse_options');
+
+    it('auto-sets processTitle, moduleName, & configFile if `name` is provided.', function() {
+      var opts = parseOptions({ name: NAME });
+      should(opts.processTitle).equal(NAME);
+      should(opts.configName).equal(NAME + 'file');
+      should(opts.moduleName).equal(NAME);
+    });
+
+    it('sets a title to be used for the process at launch', function() {
+      var opts = parseOptions({ name: NAME });
+      should(opts.processTitle).equal(NAME);
+      should(function() {
+        parseOptions();
+      }).throw('You must specify a processTitle.');
+    });
+
+    it('sets the configuration file to look for at launch', function() {
+      var opts = parseOptions({ name: NAME });
+      should(opts.configName).equal(NAME + 'file');
+      should(function() {
+        parseOptions({ processTitle: NAME });
+      }).throw('You must specify a configName.');
+    });
+
+    it('sets a local module to resolve at launch', function() {
+      var opts = parseOptions({ name: NAME });
+      should(opts.moduleName).equal(NAME);
+    });
+
+    it('uses .processTitle/.configName/.moduleName preferencially', function() {
+      var opts = parseOptions({
+        name: 'a',
+        processTitle: 'b',
+        configName: 'c',
+        moduleName: 'd'
+      });
+      should(opts.processTitle).equal('b');
+      should(opts.configName).equal('c');
+      should(opts.moduleName).equal('d');
+    });
+
+    it('throws error if opts does not have .name and .moduleName', function() {
+      should(function() {
+        parseOptions({
+          processTitle: 'a',
+          configName: 'b'
+        });
+      }).throw();
+    });
+
+    it('throws error if opts is null or empty', function() {
+      should(function() { parseOptions(null); }).throw();
+      should(function() { parseOptions(void 0); }).throw();
+      should(function() { parseOptions({}); }).throw();
+    });
   });
-});
 
-describe('silentRequire', function() {
-  var silentRequire = require('../bin/liftoff/lib/silent_require');
+  describe('silentRequire()', function() {
+    var silentRequire = require('../bin/liftoff/lib/silent_require');
 
-  it('requires a file', function() {
-    should(silentRequire(path.resolve('./package'))).deepEqual(require('../package'));
-  });
+    it('requires a file', function() {
+      should(silentRequire(path.resolve('./package'))).deepEqual(require('../package'));
+    });
 
-  it('does not throw if file is not found', function() {
-    should(function() {
-      silentRequire('path/to/nowhere');
-    }).not.throw();
+    it('does not throw if file is not found', function() {
+      should(function() {
+        silentRequire('path/to/nowhere');
+      }).not.throw();
+    });
   });
 });
