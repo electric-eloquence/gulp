@@ -3,23 +3,23 @@
 var EE = require('events').EventEmitter;
 var exec = require('child_process').exec;
 var path = require('path');
-var resolve = require('resolve');
 var util = require('util');
 
+var resolve = require('resolve');
 var should = require('should');
 var sinon = require('sinon');
 
-var Liftoff = require('../bin/liftoff');
-
 var NAME = 'mocha';
-var app = new Liftoff({
-  processTitle: NAME,
-  configName: NAME + 'file',
-  moduleName: NAME,
-  searchPaths: ['test/fixtures/search_path'],
-});
 
 describe('Liftoff', function() {
+  var Liftoff = require('../bin/liftoff');
+  var app = new Liftoff({
+    processTitle: NAME,
+    configName: NAME + 'file',
+    moduleName: NAME,
+    searchPaths: ['test/fixtures/search_path'],
+  });
+
   describe('buildEnvironment', function() {
     it('locates local module using cwd if no config is found', function() {
       var test = new Liftoff({ name: 'should' });
@@ -186,18 +186,6 @@ describe('Liftoff', function() {
         });
       });
     });
-
-/*
-    xit('should respawn if process.argv has values from v8flags in it', function(done) {
-      exec('node test/fixtures/prepare-execute/v8flags.js --lazy', function(err, stdout, stderr) {
-        should(stderr).equal('--lazy\n');
-        exec('node test/fixtures/prepare-execute/v8flags_function.js --lazy', function(err, stdout, stderr) {
-          should(stderr).equal('--lazy\n');
-          done();
-        });
-      });
-    });
-    */
 
     it('should throw if v8flags is a function and it causes an error', function(done) {
       exec('node test/fixtures/prepare-execute/v8flags_error.js --lazy', function(err, stdout, stderr) {
@@ -397,21 +385,18 @@ describe('Liftoff', function() {
 
     it('should use default extensions if not specified', function(done) {
       var app = new Liftoff({
-        extensions: { '.md': null, '.txt': null },
+        extensions: { '.md': null, },
         name: 'myapp',
         configFiles: {
           README: {
             markdown: {
-              path: '.',
-            },
-            text: {
               path: 'test/fixtures/configfiles',
             },
             markdown2: {
               path: '.',
               extensions: ['.json', '.js'],
             },
-            text2: {
+            text: {
               path: 'test/fixtures/configfiles',
               extensions: ['.json', '.js'],
             },
@@ -421,10 +406,9 @@ describe('Liftoff', function() {
       app.prepare({}, function(env) {
         should(env.configFiles).deepEqual({
           README: {
-            markdown: path.resolve('./README.md'),
-            text: path.resolve('./test/fixtures/configfiles/README.txt'),
+            markdown: path.resolve('./test/fixtures/configfiles/README.md'),
             markdown2: null,
-            text2: null,
+            text: null,
           },
         });
         done();
@@ -503,12 +487,8 @@ describe('fileSearch', function() {
   });
 
 
-  it('should recursively locate a file using findup through multiple directories', function() {
-    var cwd = process.cwd();
-    process.chdir('./test/fixtures');
-    console.warn(fileSearch('package.json', ['.']));
-    should(fileSearch('package.json', ['.'])).equal(path.resolve(__dirname,'..','package.json'));
-    process.chdir(cwd);
+  it('should recursively locate a file using findup through nested directories', function() {
+    should(fileSearch('package.json', [path.join(__dirname, 'fixtures')])).equal(path.resolve(__dirname,'..','package.json'));
   });
 });
 
@@ -699,7 +679,6 @@ describe('getNodeFlags', function() {
 describe('parseOptions', function() {
 
   var parseOptions = require('../bin/liftoff/lib/parse_options');
-  var NAME = 'mocha';
 
   it('should auto-set processTitle, moduleName, & configFile if `name` is provided.', function() {
     var opts = parseOptions({ name: NAME });

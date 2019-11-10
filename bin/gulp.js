@@ -49,14 +49,19 @@ if (!shouldLog) {
   log = function() {};
 }
 
+// Will probably never require external modules
+/* istanbul ignore next */
 cli.on('require', function(name) {
   log('Requiring external module', chalk.magenta(name));
 });
 
+/* istanbul ignore next */
 cli.on('requireFail', function(name) {
   log(chalk.red('Failed to load external module'), chalk.magenta(name));
 });
 
+// Might not ever be able to test
+/* istanbul ignore next */
 cli.on('respawn', function(flags, child) {
   var nodeFlags = chalk.magenta(flags.join(', '));
   var pid = chalk.magenta(child.pid);
@@ -84,25 +89,19 @@ function handleArguments(env) {
 
   if (!env.modulePath) {
     log(
-      chalk.red('Local gulp not found in'),
+      chalk.red('No gulpfile found in'),
       chalk.magenta(tildify(env.cwd))
     );
-    log(chalk.red('Try running: npm install gulp'));
     // eslint-disable-next-line no-process-exit
     process.exit(1);
   }
 
+  // Nearly impossible to have no env.configPath
+  /* istanbul ignore if */
   if (!env.configPath) {
     log(chalk.red('No gulpfile found'));
     // eslint-disable-next-line no-process-exit
     process.exit(1);
-  }
-
-  // Check for semver difference between cli and local installation
-  if (semver.gt(cliPackage.version, env.modulePackage.version)) {
-    log(chalk.red('Warning: gulp version mismatch:'));
-    log(chalk.red('Global gulp is', cliPackage.version));
-    log(chalk.red('Local gulp is', env.modulePackage.version));
   }
 
   // Chdir before requiring gulpfile to make sure
@@ -154,7 +153,7 @@ function logTasksSimple(env, localGulp) {
 }
 
 // Format orchestrator errors
-function formatError(e) {
+function formatError(e) /* istanbul ignore next */ {
   if (!e.err) {
     return e.message;
   }

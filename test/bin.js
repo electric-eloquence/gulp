@@ -1,0 +1,114 @@
+'use strict';
+
+var exec = require('child_process').exec;
+var path = require('path');
+
+var should = require('should');
+
+var cwd = process.cwd();
+
+describe('bin/gulp.js command line interface', function() {
+  before(function() {
+    process.chdir('./test/fixtures');
+  });
+
+  after(function() {
+    process.chdir(cwd);
+  });
+
+  it('runs the default task', function(done) {
+    exec('../../bin/gulp.js', function(err, stdout, stderr) {
+      should(err).equal(null);
+      should(stdout).containEql('hello world');
+      should(stderr).equal('');
+      done();
+    });
+  });
+
+  it('-v displays the global and local gulp versions', function(done) {
+    exec('../../bin/gulp.js -v', function(err, stdout, stderr) {
+      should(err).equal(null);
+      should(stdout).containEql('CLI version');
+      should(stdout).containEql('Local version');
+      should(stderr).equal('');
+      done();
+    });
+  });
+
+  it('--version displays the global and local gulp versions', function(done) {
+    exec('../../bin/gulp.js --version', function(err, stdout, stderr) {
+      should(err).equal(null);
+      should(stdout).containEql('CLI version');
+      should(stdout).containEql('Local version');
+      should(stderr).equal('');
+      done();
+    });
+  });
+
+  it('-T displays the task dependency tree', function(done) {
+    exec('../../bin/gulp.js -T', function(err, stdout, stderr) {
+      should(err).equal(null);
+      should(stdout).containEql(' ├── default\n');
+      should(stdout).containEql(' └── error\n');
+      should(stderr).equal('');
+      done();
+    });
+  });
+
+  it('--tasks displays the task dependency tree', function(done) {
+    exec('../../bin/gulp.js --tasks', function(err, stdout, stderr) {
+      should(err).equal(null);
+      should(stdout).containEql(' ├── default\n');
+      should(stdout).containEql(' └── error\n');
+      should(stderr).equal('');
+      done();
+    });
+  });
+
+  it('--tasks-simple displays a plain-text list of tasks', function(done) {
+    exec('../../bin/gulp.js --tasks-simple', function(err, stdout, stderr) {
+      should(err).equal(null);
+      should(stdout).containEql('default\nerror\n');
+      should(stderr).equal('');
+      done();
+    });
+  });
+
+  it('errors when passed an erroring task', function(done) {
+    exec('../../bin/gulp.js error', function(err, stdout, stderr) {
+      should(err.message).equal('Command failed: ../../bin/gulp.js error\n');
+      should(stdout).containEql('SyntaxError: Unexpected end of JSON input');
+      should(stderr).equal('');
+      done();
+    });
+  });
+
+  it('errors when passed a non-existent task', function(done) {
+    exec('../../bin/gulp.js non-existent', function(err, stdout, stderr) {
+      should(err.message).equal('Command failed: ../../bin/gulp.js non-existent\n');
+      should(stdout).containEql('Task \'non-existent\' is not in your gulpfile');
+      should(stderr).equal('');
+      done();
+    });
+  });
+
+  // tests that change cwd must be last.
+  it('--cwd changes the working directory', function(done) {
+    exec('../../bin/gulp.js --cwd=' + path.join(__dirname, 'fixtures', 'test'), function(err, stdout, stderr) {
+      should(err).equal(null);
+      should(stdout).containEql('hello world');
+      should(stderr).equal('');
+      done();
+    });
+  });
+
+  it('errors when finding no gulpfile', function(done) {
+    process.chdir(__dirname);
+    exec('../bin/gulp.js', function(err, stdout, stderr) {
+      should(err.message).containEql('Command failed: ../bin/gulp.js');
+      should(stdout).containEql('No gulpfile found in');
+      should(stderr).equal('');
+      done();
+    });
+  });
+});
