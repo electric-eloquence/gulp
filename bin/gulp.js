@@ -1,18 +1,17 @@
 #!/usr/bin/env node
-
 'use strict';
+
+var archy = require('archy');
+var argv = require('minimist')(process.argv.slice(2));
+var chalk = require('chalk');
 var log = require('fancy-log');
 var prettyTime = require('pretty-hrtime');
-var chalk = require('chalk');
-var semver = require('semver');
-var archy = require('archy');
-var Liftoff = require('liftoff');
 var tildify = require('tildify');
-var interpret = require('interpret');
 var v8flags = require('v8flags');
+
 var completion = require('../lib/completion');
-var argv = require('minimist')(process.argv.slice(2));
 var taskTree = require('../lib/task-tree');
+var Liftoff = require('./liftoff');
 
 // Set env var for ORIGINAL cwd
 // before anything touches it
@@ -21,8 +20,7 @@ process.env.INIT_CWD = process.cwd();
 var cli = new Liftoff({
   name: 'gulp',
   completions: completion,
-  extensions: interpret.jsVariants,
-  v8flags: v8flags,
+  v8flags: v8flags
 });
 
 // Exit with 0 or 1
@@ -50,14 +48,19 @@ if (!shouldLog) {
   log = function() {};
 }
 
+// Will probably never require external modules
+/* istanbul ignore next */
 cli.on('require', function(name) {
   log('Requiring external module', chalk.magenta(name));
 });
 
+/* istanbul ignore next */
 cli.on('requireFail', function(name) {
   log(chalk.red('Failed to load external module'), chalk.magenta(name));
 });
 
+// Might not ever be able to test
+/* istanbul ignore next */
 cli.on('respawn', function(flags, child) {
   var nodeFlags = chalk.magenta(flags.join(', '));
   var pid = chalk.magenta(child.pid);
@@ -69,7 +72,7 @@ cli.launch({
   cwd: argv.cwd,
   configPath: argv.gulpfile,
   require: argv.require,
-  completion: argv.completion,
+  completion: argv.completion
 }, handleArguments);
 
 // The actual logic
@@ -97,13 +100,6 @@ function handleArguments(env) {
     log(chalk.red('No gulpfile found'));
     // eslint-disable-next-line no-process-exit
     process.exit(1);
-  }
-
-  // Check for semver difference between cli and local installation
-  if (semver.gt(cliPackage.version, env.modulePackage.version)) {
-    log(chalk.red('Warning: gulp version mismatch:'));
-    log(chalk.red('Global gulp is', cliPackage.version));
-    log(chalk.red('Local gulp is', env.modulePackage.version));
   }
 
   // Chdir before requiring gulpfile to make sure
@@ -155,6 +151,7 @@ function logTasksSimple(env, localGulp) {
 }
 
 // Format orchestrator errors
+/* istanbul ignore next */
 function formatError(e) {
   if (!e.err) {
     return e.message;

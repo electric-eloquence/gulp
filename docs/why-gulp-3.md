@@ -11,7 +11,7 @@ especially the case if
 
 There are some cases where it does not make sense to upgrade to gulp 4 even if 
 your resources allow for the refactor. gulp is essential to the 
-<a href="http://fepper.io" target="_blank">Fepper frontend prototyper</a> 
+<a href="https://fepper.io" target="_blank">Fepper frontend prototyper</a> 
 because it enables extensibility. Fepper compiles templates and JSON data into 
 HTML, like millions of other projects. And like millions of other projects, 
 simply compiling markup does not require gulp or any other third-party task 

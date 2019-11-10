@@ -39,7 +39,7 @@ describe('globWatcher()', function() {
     fs.writeFileSync(outFile1, 'hello world');
   });
 
-  it('should return a file system watcher', function() {
+  it('returns a file system watcher', function() {
     var watcher = globWatcher(outGlob);
 
     should.exist(watcher);
@@ -309,7 +309,7 @@ describe('globWatcher()', function() {
   it('passes ignores through to chokidar', function(done) {
     var ignored = [singleAdd];
     var watcher = globWatcher(outGlob, {
-      ignored: ignored,
+      ignored: ignored
     });
 
     watcher.once('change', function(evt) {
