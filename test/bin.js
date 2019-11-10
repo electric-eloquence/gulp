@@ -5,16 +5,19 @@ var path = require('path');
 
 var should = require('should');
 
+var NODE_PATH = process.env.NODE_PATH;
 var cwd = process.cwd();
 
 describe('bin/gulp.js command line interface', function() {
   this.timeout(3000);
 
-  before(function() {
-    process.chdir('./test/fixtures');
+  beforeEach(function() {
+    process.env.NODE_PATH = path.resolve(__dirname, '..', '..');
+    process.chdir(path.join(__dirname, 'fixtures'));
   });
 
-  after(function() {
+  afterEach(function() {
+    process.env.NODE_PATH = NODE_PATH;
     process.chdir(cwd);
   });
 
@@ -94,7 +97,7 @@ describe('bin/gulp.js command line interface', function() {
     });
   });
 
-  // tests that change cwd must be last.
+  // tests changes cwd and NODE_PATH last
   it('--cwd changes the working directory', function(done) {
     exec('node ../../bin/gulp.js --cwd=' + path.join(__dirname, 'fixtures', 'test'), function(err, stdout, stderr) {
       should(err).equal(null);
@@ -104,11 +107,23 @@ describe('bin/gulp.js command line interface', function() {
     });
   });
 
-  it('errors when finding no gulpfile', function(done) {
+  it('errors when finding no local gulpfile', function(done) {
     process.chdir(__dirname);
     exec('node ../bin/gulp.js', function(err, stdout, stderr) {
       should(err.message).containEql('Command failed: node ../bin/gulp.js');
-      should(stdout).containEql('No gulpfile found in');
+      should(stdout).containEql('No gulpfile found');
+      should(stderr).equal('');
+      done();
+    });
+  });
+
+  it('errors when finding no local gulp', function(done) {
+    process.env.NODE_PATH = '';
+
+    exec('node ../../bin/gulp.js', function(err, stdout, stderr) {
+      should(err.message).containEql('Command failed: node ../../bin/gulp.js');
+      should(stdout).containEql('Local gulp not found in');
+      should(stdout).containEql('Try running: npm install gulp');
       should(stderr).equal('');
       done();
     });

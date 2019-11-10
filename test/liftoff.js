@@ -8,6 +8,7 @@ var should = require('should');
 var sinon = require('sinon');
 
 var NAME = 'mocha';
+var NODE_PATH = process.env.NODE_PATH;
 
 describe('Liftoff', function() {
   var Liftoff = require('../bin/liftoff');
@@ -19,6 +20,10 @@ describe('Liftoff', function() {
   });
 
   this.timeout(3000);
+
+  afterEach(function() {
+    process.env.NODE_PATH = NODE_PATH;
+  });
 
   describe('buildEnvironment', function() {
     it('locates local module using cwd if no config is found', function() {
