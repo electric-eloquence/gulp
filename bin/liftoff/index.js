@@ -75,6 +75,7 @@ Liftoff.prototype.buildEnvironment = function(opts_) {
 
   // if we have a config path, save the directory it resides in.
   var configBase;
+
   if (configPath) {
     configBase = path.dirname(configPath);
     // if cwd wasn't provided explicitly, it should match configBase
@@ -83,10 +84,10 @@ Liftoff.prototype.buildEnvironment = function(opts_) {
     }
   }
 
-  // TODO: break this out into lib/
   // locate local module and package next to config or explicitly provided cwd
-  /* eslint one-var: 0 */
-  var modulePath, modulePackage;
+  var modulePath;
+  var modulePackage;
+
   try {
     var delim = path.delimiter;
     var paths = (process.env.NODE_PATH ? process.env.NODE_PATH.split(delim) : []);
@@ -101,6 +102,7 @@ Liftoff.prototype.buildEnvironment = function(opts_) {
     // matches the module we're looking for
     var modulePackagePath = fileSearch('package.json', [configBase]);
     modulePackage = silentRequire(modulePackagePath);
+
     if (modulePackage && modulePackage.name === this.moduleName) {
       // if it does, our module path is `main` inside package.json
       modulePath = path.join(path.dirname(modulePackagePath), modulePackage.main || 'index.js');

@@ -46,11 +46,6 @@ describe('Liftoff', function() {
       should(app.buildEnvironment({ cwd: './' }).configPath).equal(null);
     });
 
-    it('finds case sensitive configPath', function() {
-      var configPath = path.resolve(__dirname, 'fixtures', 'case', (process.platform === 'linux' ? 'Mochafile.js' : 'mochafile.js'));
-      should(app.buildEnvironment({ cwd: path.join(__dirname, 'fixtures', 'case') }).configPath).equal(configPath);
-    });
-
     it('should find module in the directory next to config', function() {
       should(app.buildEnvironment().modulePath).equal(path.resolve('node_modules/mocha/index.js'));
     });
