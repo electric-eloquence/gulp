@@ -1,7 +1,7 @@
 {
-  "name": "@electric-eloquence/gulp",
+  "name": "gulp",
   "description": "The streaming build system",
-  "version": "3.9.8",
+  "version": "3.9.9",
   "homepage": "https://github.com/electric-eloquence/gulp",
   "repository": {
     "type": "git",
@@ -32,7 +32,7 @@
     "completion"
   ],
   "bin": {
-    "gulp": "./bin/gulp.js"
+    "gulp": "bin/gulp.js"
   },
   "dependencies": {
     "@electric-eloquence/chokidar": "^1.7.10",

@@ -86,18 +86,18 @@ function handleArguments(env) {
     process.exit(0);
   }
 
+  if (!env.configPath) {
+    log(chalk.red('No gulpfile found'));
+    // eslint-disable-next-line no-process-exit
+    process.exit(1);
+  }
+
   if (!env.modulePath) {
     log(
       chalk.red('Local gulp not found in'),
       chalk.magenta(tildify(env.cwd))
     );
     log(chalk.red('Try running: npm install gulp'));
-    // eslint-disable-next-line no-process-exit
-    process.exit(1);
-  }
-
-  if (!env.configPath) {
-    log(chalk.red('No gulpfile found'));
     // eslint-disable-next-line no-process-exit
     process.exit(1);
   }

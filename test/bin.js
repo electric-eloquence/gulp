@@ -12,12 +12,10 @@ describe('`bin/gulp.js` command line interface', function() {
   this.timeout(3000);
 
   beforeEach(function() {
-    process.env.NODE_PATH = path.resolve(__dirname, '..', '..');
     process.chdir(path.join(__dirname, 'fixtures'));
   });
 
   afterEach(function() {
-    process.env.NODE_PATH = NODE_PATH;
     process.chdir(cwd);
   });
 
@@ -117,10 +115,10 @@ describe('`bin/gulp.js` command line interface', function() {
   });
 
   it('errors when finding no local gulp', function(done) {
-    process.env.NODE_PATH = '';
+    process.chdir(path.join(__dirname, 'fixtures', 'developing_yourself'));
 
-    exec('node ../../bin/gulp.js', function(err, stdout, stderr) {
-      should(err.message).containEql('Command failed: node ../../bin/gulp.js');
+    exec('node ../../../bin/gulp.js', function(err, stdout, stderr) {
+      should(err.message).containEql('Command failed: node ../../../bin/gulp.js');
       should(stdout).containEql('Local gulp not found in');
       should(stdout).containEql('Try running: npm install gulp');
       should(stderr).equal('');
