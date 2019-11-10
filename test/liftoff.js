@@ -596,7 +596,7 @@ describe('Liftoff', function() {
   describe('getNodeFlags', function() {
     var getNodeFlags = require('../bin/liftoff/lib/get_node_flags');
 
-    describe('arrayOrFunction', function() {
+    describe('arrayOrFunction()', function() {
       it('returns the first argument when it is an array', function() {
         var env = { cwd: 'aaa' };
         should(getNodeFlags.arrayOrFunction([], env)).be.empty();
@@ -634,7 +634,7 @@ describe('Liftoff', function() {
       });
     });
 
-    describe('fromReorderedArgv', function() {
+    describe('fromReorderedArgv()', function() {
       it('returns only node flags from respawning arguments', function() {
         var env = { cwd: 'aaa' };
         var cmd = ['node', '--lazy', '--harmony', '--use_strict', './aaa/bbb/app.js', '--ccc', 'ddd', '-e', 'fff'];
