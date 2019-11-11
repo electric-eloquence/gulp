@@ -1,6 +1,7 @@
 # gulp changelog
 
 ### 3.9.10
+* Fixed bin CLI for npm usage
 
 ### 3.9.9
 * Updated package.json to fix installation of bin file
