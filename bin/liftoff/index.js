@@ -85,15 +85,22 @@ Liftoff.prototype.buildEnvironment = function(opts_) {
   }
 
   // locate local module and package next to config or explicitly provided cwd
+  var delim = path.delimiter;
+  var paths = (process.env.NODE_PATH ? process.env.NODE_PATH.split(delim) : []);
   var modulePath;
   var modulePackage;
 
   try {
-    var delim = path.delimiter;
-    var paths = (process.env.NODE_PATH ? process.env.NODE_PATH.split(delim) : []);
     modulePath = resolve.sync(this.moduleName, { basedir: configBase || cwd, paths: paths });
     modulePackage = silentRequire(fileSearch('package.json', [modulePath]));
   } catch (e) {}
+
+  if (!modulePath && !modulePackage) {
+    try {
+      modulePath = resolve.sync('@electric-eloquence/' + this.moduleName, { basedir: configBase || cwd, paths: paths });
+      modulePackage = silentRequire(fileSearch('package.json', [modulePath]));
+    } catch (e) {}
+  }
 
   // if we have a configuration but we failed to find a local module, maybe
   // we are developing against ourselves?
