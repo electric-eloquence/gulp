@@ -1,5 +1,7 @@
 # gulp changelog
 
+### 3.9.11
+
 ### 3.9.10
 * Fixed bin CLI for npm usage
 
