@@ -4,11 +4,12 @@
 
 ### 3.9.9
 * Updated package.json to fix installation of bin file
-
-### 3.9.8
 * Lessened the weight of dependencies for the bin CLI
 * Added tests for the bin CLI
 * Greatly reduced the overall number of NPM dependencies
+
+### 3.9.8
+* Unpublished
 
 ### 3.9.7
 * Using vinyl-fs lts v3.0.4
