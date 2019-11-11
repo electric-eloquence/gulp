@@ -19,7 +19,7 @@ describe('Liftoff', function() {
     searchPaths: ['test/fixtures/search_path']
   });
 
-  this.timeout(3000);
+  this.timeout(4000);
 
   afterEach(function() {
     process.env.NODE_PATH = NODE_PATH;

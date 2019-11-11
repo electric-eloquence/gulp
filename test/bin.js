@@ -8,7 +8,7 @@ var should = require('should');
 var cwd = process.cwd();
 
 describe('`bin/gulp.js` command line interface', function() {
-  this.timeout(3000);
+  this.timeout(4000);
 
   beforeEach(function() {
     process.chdir(path.join(__dirname, 'fixtures'));
