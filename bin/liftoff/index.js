@@ -95,6 +95,7 @@ Liftoff.prototype.buildEnvironment = function(opts_) {
     modulePackage = silentRequire(fileSearch('package.json', [modulePath]));
   } catch (e) {}
 
+  /* istanbul ignore if */
   if (!modulePath && !modulePackage) {
     try {
       modulePath = resolve.sync('@electric-eloquence/' + this.moduleName, { basedir: configBase || cwd, paths: paths });

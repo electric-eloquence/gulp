@@ -13,6 +13,8 @@ require('mocha');
 var timeout = 200;
 
 describe('globWatcher()', function() {
+  this.timeout(4000);
+
   var outDir = path.join(__dirname, './fixtures/');
   var outFile1 = path.join(outDir, 'changed.js');
   var outFile2 = path.join(outDir, 'added.js');
