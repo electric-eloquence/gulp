@@ -1,5 +1,7 @@
 # gulp changelog
 
+### 3.9.10
+
 ### 3.9.9
 * Updated package.json to fix installation of bin file
 
