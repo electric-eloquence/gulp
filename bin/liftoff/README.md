@@ -172,7 +172,7 @@ The [`fined`](https://github.com/js-cli/fined) module accepts a string represent
   Type: `String|Array|Object`  
   Default: The value of [`opts.extensions`](#optsextensions)
 
-* `cwd` 
+* `cwd`
 
   The base directory of `path` (if relative).
 
