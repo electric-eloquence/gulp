@@ -1,5 +1,8 @@
 # gulp changelog
 
+### 3.9.11
+* Nested dependencies downgraded to avoid redundant npm downloads
+
 ### 3.9.10
 * Fixed bin CLI for npm usage
 

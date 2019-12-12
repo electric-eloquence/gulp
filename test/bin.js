@@ -9,7 +9,7 @@ var NODE_PATH = process.env.NODE_PATH;
 var cwd = process.cwd();
 
 describe('`bin/gulp.js` command line interface', function() {
-  this.timeout(3000);
+  this.timeout(4000);
 
   beforeEach(function() {
     process.env.NODE_PATH = path.resolve(__dirname, '..', '..');
