@@ -1,5 +1,7 @@
 # gulp changelog
 
+### 3.9.12
+
 ### 3.9.11
 * Nested dependencies downgraded to avoid redundant npm downloads
 
