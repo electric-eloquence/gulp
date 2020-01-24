@@ -6,7 +6,6 @@
 [![Mac/Linux Build Status][travis-image]][travis-url]
 [![Windows Build Status][appveyor-image]][appveyor-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
-![Node Version][node-version-image]
 [![License][license-image]][license-url]
 
 ### This package provides long-term support for gulp at major version 3.
@@ -138,8 +137,6 @@ project, which may otherwise be burdensome for them to commit time to.
 
 [coveralls-image]: https://img.shields.io/coveralls/electric-eloquence/gulp/v3-lts.svg
 [coveralls-url]: https://coveralls.io/github/electric-eloquence/gulp?branch=v3-lts
-
-[node-version-image]: https://img.shields.io/node/v/@electric-eloquence/gulp.svg
 
 [license-image]: https://img.shields.io/github/license/electric-eloquence/gulp.svg
 [license-url]: https://raw.githubusercontent.com/electric-eloquence/gulp/v3-lts/LICENSE
