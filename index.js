@@ -1,7 +1,7 @@
 'use strict';
 
 var util = require('util');
-var Orchestrator = require('orchestrator');
+var Orchestrator = require('./lib/orchestrator');
 var runSequence = require('./lib/run-sequence');
 var vfs = require('@electric-eloquence/vinyl-fs');
 var globWatcher = require('./lib/glob-watcher');
