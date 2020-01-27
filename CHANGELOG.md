@@ -1,6 +1,7 @@
 # gulp changelog
 
 ### 3.9.13
+* Update internal run-sequence (gulp.runSeq) to run in Node 13
 
 ### 3.9.12
 * Nested dependencies downgraded to avoid redundant npm downloads
