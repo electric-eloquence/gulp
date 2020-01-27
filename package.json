@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@electric-eloquence/chokidar": "^1.7.10",
-    "@electric-eloquence/vinyl-fs": "^3.0.6",
+    "@electric-eloquence/vinyl-fs": "^3.0.7",
     "archy": "^1.0.0",
     "chalk": "1.1.3",
     "end-of-stream": "^1.4.4",
@@ -59,8 +59,8 @@
     "coveralls": "3.x",
     "eslint": "6.x",
     "mkdirp": "^0.5.0",
-    "mocha": "6.x",
-    "nyc": "14.x",
+    "mocha": "7.x",
+    "nyc": "15.x",
     "rimraf": "^2.7.1",
     "should": "13.x",
     "sinon": "7.x"
