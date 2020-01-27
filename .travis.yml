@@ -3,9 +3,9 @@ os:
   - linux
   - osx
 node_js:
-  - "8"
   - "10"
   - "12"
+  - "13"
 after_script:
   - npm run coverage
 branches:
@@ -14,4 +14,4 @@ branches:
   - npm
   - v3-lts
   # After releasing, bump to next anticpated version.
-  - v3-lts@3.9.12
+  - v3-lts@3.9.13

@@ -28,7 +28,7 @@ readable and writable; they manipulate objects as they're being passed through.
 All gulp plugins essentially boil down to this:
 
 ```javascript
-var Transform = require('transform');
+var Transform = require('stream').Transform;
 
 module.exports = function() {
   // Monkey patch Transform or create your own subclass, 
@@ -44,7 +44,7 @@ module.exports = function() {
     var error = null, 
         output = doSomethingWithTheFile(file);
     callback(error, output);
-  });
+  };
   
   return transformStream;
 };

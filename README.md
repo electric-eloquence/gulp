@@ -6,7 +6,6 @@
 [![Mac/Linux Build Status][travis-image]][travis-url]
 [![Windows Build Status][appveyor-image]][appveyor-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
-![Node Version][node-version-image]
 [![License][license-image]][license-url]
 
 ### This package provides long-term support for gulp at major version 3.
@@ -22,15 +21,15 @@ Instead, follow these instructions:
 ## Install
 
 * Latest version (without Git):
-  * `npm install https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.12`
-  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.12"`
+  * `npm install https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.13`
+  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.13"`
     as a dependency in package.json.
 * Latest version (with Git):
   * `npm install electric-eloquence/gulp`
 * Specific version (with Git):
-  * `npm install electric-eloquence/gulp#3.9.12`
+  * `npm install electric-eloquence/gulp#3.9.13`
 * Semver range (with Git):
-  * `npm install electric-eloquence/gulp#semver:^3.9.12`
+  * `npm install electric-eloquence/gulp#semver:^3.9.13`
 * When installed one of these ways, other packages depending on gulp will get
   gulp 3 with long-term support.
 
@@ -144,8 +143,6 @@ project, which may otherwise be burdensome for them to commit time to.
 
 [coveralls-image]: https://img.shields.io/coveralls/electric-eloquence/gulp/v3-lts.svg
 [coveralls-url]: https://coveralls.io/github/electric-eloquence/gulp?branch=v3-lts
-
-[node-version-image]: https://img.shields.io/node/v/@electric-eloquence/gulp.svg
 
 [license-image]: https://img.shields.io/github/license/electric-eloquence/gulp.svg
 [license-url]: https://raw.githubusercontent.com/electric-eloquence/gulp/v3-lts/LICENSE
