@@ -47,7 +47,7 @@
     "minimist": "0.0.8",
     "object.defaults": "^1.1.0",
     "object.map": "^1.0.1",
-    "plugin-error": "0.1.2",
+    "plugin-error": "^1.0.1",
     "pretty-hrtime": "^1.0.3",
     "resolve": "^1.12.0",
     "sequencify": "0.0.7",
