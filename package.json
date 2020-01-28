@@ -63,7 +63,7 @@
     "nyc": "15.x",
     "rimraf": "^2.7.1",
     "should": "13.x",
-    "sinon": "7.x"
+    "sinon": "8.x"
   },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
