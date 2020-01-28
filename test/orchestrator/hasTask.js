@@ -5,53 +5,61 @@ require('should');
 require('mocha');
 
 describe('orchestrator', function() {
-	describe('hasTask()', function() {
+  describe('hasTask()', function() {
 
-		it('should return true if there is a task', function(done) {
-			var orchestrator, name, task1, expected, actual;
+    it('should return true if there is a task', function(done) {
+      var orchestrator;
+      var name;
+      var task1;
+      var expected;
+      var actual;
 
-			// Arrange
-			name = 'task1';
-			task1 = {
-				name: name,
-				fn: function() {}
-			};
+      // Arrange
+      name = 'task1';
+      task1 = {
+        name: name,
+        fn: function() {}
+      };
 
-			// the thing under test
-			orchestrator = new Orchestrator();
-			orchestrator.tasks[name] = task1;
+      // the thing under test
+      orchestrator = new Orchestrator();
+      orchestrator.tasks[name] = task1;
 
-			// Act
-			expected = true;
-			actual = orchestrator.hasTask(name);
+      // Act
+      expected = true;
+      actual = orchestrator.hasTask(name);
 
-			// Assert
-			actual.should.equal(expected);
-			done();
-		});
+      // Assert
+      actual.should.equal(expected);
+      done();
+    });
 
-		it('should return false if there is no such task', function(done) {
-			var orchestrator, name, task1, expected, actual;
+    it('should return false if there is no such task', function(done) {
+      var orchestrator;
+      var name;
+      var task1;
+      var expected;
+      var actual;
 
-			// Arrange
-			name = 'task1';
-			task1 = {
-				name: name,
-				fn: function() {}
-			};
+      // Arrange
+      name = 'task1';
+      task1 = {
+        name: name,
+        fn: function() {}
+      };
 
-			// the thing under test
-			orchestrator = new Orchestrator();
-			orchestrator.tasks[name] = task1;
+      // the thing under test
+      orchestrator = new Orchestrator();
+      orchestrator.tasks[name] = task1;
 
-			// Act
-			expected = false;
-			actual = orchestrator.hasTask('not'+name);
+      // Act
+      expected = false;
+      actual = orchestrator.hasTask('not' + name);
 
-			// Assert
-			actual.should.equal(expected);
-			done();
-		});
+      // Assert
+      actual.should.equal(expected);
+      done();
+    });
 
-	});
+  });
 });

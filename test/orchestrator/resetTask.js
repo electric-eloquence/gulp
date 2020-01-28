@@ -5,145 +5,151 @@ var should = require('should');
 require('mocha');
 
 describe('orchestrator', function() {
-	describe('_resetTask()', function() {
+  describe('_resetTask()', function() {
 
-		it('should set done = false on done task', function(done) {
-			var orchestrator, task;
+    it('should set done = false on done task', function(done) {
+      var orchestrator;
+      var task;
 
-			// Arrange
-			task = {
-				name: 'test',
-				fn: function() {},
-				done: true
-			};
+      // Arrange
+      task = {
+        name: 'test',
+        fn: function() {},
+        done: true
+      };
 
-			// the thing under test
-			orchestrator = new Orchestrator();
+      // the thing under test
+      orchestrator = new Orchestrator();
 
-			// Act
-			orchestrator._resetTask(task);
+      // Act
+      orchestrator._resetTask(task);
 
-			// Assert
-			task.done.should.equal(false);
-			done();
-		});
+      // Assert
+      task.done.should.equal(false);
+      done();
+    });
 
-		it('should not set done = false if done does not exist', function(done) {
-			var orchestrator, task;
+    it('should not set done = false if done does not exist', function(done) {
+      var orchestrator;
+      var task;
 
-			// Arrange
-			task = {
-				name: 'test',
-				fn: function() {}
-				// no done
-			};
+      // Arrange
+      task = {
+        name: 'test',
+        fn: function() {}
+        // no done
+      };
 
-			// the thing under test
-			orchestrator = new Orchestrator();
+      // the thing under test
+      orchestrator = new Orchestrator();
 
-			// Act
-			orchestrator._resetTask(task);
+      // Act
+      orchestrator._resetTask(task);
 
-			// Assert
-			should.not.exist(task.done);
-			done();
-		});
+      // Assert
+      should.not.exist(task.done);
+      done();
+    });
 
-		it('should remove start', function(done) {
-			var orchestrator, task;
+    it('should remove start', function(done) {
+      var orchestrator;
+      var task;
 
-			// Arrange
-			task = {
-				name: 'test',
-				fn: function() {},
-				start: new Date()
-			};
+      // Arrange
+      task = {
+        name: 'test',
+        fn: function() {},
+        start: new Date()
+      };
 
-			// the thing under test
-			orchestrator = new Orchestrator();
+      // the thing under test
+      orchestrator = new Orchestrator();
 
-			// Act
-			orchestrator._resetTask(task);
+      // Act
+      orchestrator._resetTask(task);
 
-			// Assert
-			should.not.exist(task.start);
-			done();
-		});
+      // Assert
+      should.not.exist(task.start);
+      done();
+    });
 
-		it('should remove stop', function(done) {
-			var orchestrator, task;
+    it('should remove stop', function(done) {
+      var orchestrator;
+      var task;
 
-			// Arrange
-			task = {
-				name: 'test',
-				fn: function() {},
-				stop: new Date()
-			};
+      // Arrange
+      task = {
+        name: 'test',
+        fn: function() {},
+        stop: new Date()
+      };
 
-			// the thing under test
-			orchestrator = new Orchestrator();
+      // the thing under test
+      orchestrator = new Orchestrator();
 
-			// Act
-			orchestrator._resetTask(task);
+      // Act
+      orchestrator._resetTask(task);
 
-			// Assert
-			should.not.exist(task.stop);
-			done();
-		});
+      // Assert
+      should.not.exist(task.stop);
+      done();
+    });
 
-		it('should remove duration', function(done) {
-			var orchestrator, task;
+    it('should remove duration', function(done) {
+      var orchestrator;
+      var task;
 
-			// Arrange
-			task = {
-				name: 'test',
-				fn: function() {},
-				duration: new Date()
-			};
+      // Arrange
+      task = {
+        name: 'test',
+        fn: function() {},
+        duration: new Date()
+      };
 
-			// the thing under test
-			orchestrator = new Orchestrator();
+      // the thing under test
+      orchestrator = new Orchestrator();
 
-			// Act
-			orchestrator._resetTask(task);
+      // Act
+      orchestrator._resetTask(task);
 
-			// Assert
-			should.not.exist(task.duration);
-			done();
-		});
+      // Assert
+      should.not.exist(task.duration);
+      done();
+    });
 
-		it('should remove args', function(done) {
-			var orchestrator, task;
+    it('should remove args', function(done) {
+      var orchestrator;
+      var task;
 
-			// Arrange
-			task = {
-				name: 'test',
-				fn: function() {},
-				args: {}
-			};
+      // Arrange
+      task = {
+        name: 'test',
+        fn: function() {},
+        args: {}
+      };
 
-			// the thing under test
-			orchestrator = new Orchestrator();
+      // the thing under test
+      orchestrator = new Orchestrator();
 
-			// Act
-			orchestrator._resetTask(task);
+      // Act
+      orchestrator._resetTask(task);
 
-			// Assert
-			should.not.exist(task.args);
-			done();
-		});
+      // Assert
+      should.not.exist(task.args);
+      done();
+    });
 
-		it('should not die if not passed a task', function(done) {
-			// Arrange
-			var orchestrator = new Orchestrator();
+    it('should not die if not passed a task', function(done) {
+      // Arrange
+      var orchestrator = new Orchestrator();
 
-			// Act
-			orchestrator._resetTask();
+      // Act
+      orchestrator._resetTask();
 
-			// Assert
-			// we're still here so it worked
-			done();
-		});
+      // Assert
+      // we're still here so it worked
+      done();
+    });
 
-	});
+  });
 });

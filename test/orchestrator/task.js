@@ -5,71 +5,80 @@ var should = require('should');
 require('mocha');
 
 describe('orchestrator', function() {
-	describe('task()', function() {
+  describe('task()', function() {
 
-		it('should return task if there is a task', function(done) {
-			var orchestrator, name, task1, actual;
+    it('should return task if there is a task', function(done) {
+      var orchestrator;
+      var name;
+      var task1;
+      var actual;
 
-			// Arrange
-			name = 'task1';
-			task1 = {
-				name: name,
-				fn: function() {}
-			};
+      // Arrange
+      name = 'task1';
+      task1 = {
+        name: name,
+        fn: function() {}
+      };
 
-			// the thing under test
-			orchestrator = new Orchestrator();
-			orchestrator.tasks[name] = task1;
+      // the thing under test
+      orchestrator = new Orchestrator();
+      orchestrator.tasks[name] = task1;
 
-			// Act
-			actual = orchestrator.task(name);
+      // Act
+      actual = orchestrator.task(name);
 
-			// Assert
-			actual.should.equal(task1);
-			done();
-		});
+      // Assert
+      actual.should.equal(task1);
+      done();
+    });
 
-		it('should return false if there is no such task', function(done) {
-			var orchestrator, name, task1, actual;
+    it('should return false if there is no such task', function(done) {
+      var orchestrator;
+      var name;
+      var task1;
+      var actual;
 
-			// Arrange
-			name = 'task1';
-			task1 = {
-				name: name,
-				fn: function() {}
-			};
+      // Arrange
+      name = 'task1';
+      task1 = {
+        name: name,
+        fn: function() {}
+      };
 
-			// the thing under test
-			orchestrator = new Orchestrator();
-			orchestrator.tasks[name] = task1;
+      // the thing under test
+      orchestrator = new Orchestrator();
+      orchestrator.tasks[name] = task1;
 
-			// Act
-			actual = orchestrator.task('not'+name);
+      // Act
+      actual = orchestrator.task('not' + name);
 
-			// Assert
-			should.not.exist(actual);
-			done();
-		});
+      // Assert
+      should.not.exist(actual);
+      done();
+    });
 
-		it('should create a task if passed a second arg', function(done) {
-			var orchestrator, name, fn, actual;
+    it('should create a task if passed a second arg', function(done) {
+      var orchestrator;
+      var name;
+      var fn;
+      var actual;
 
-			// Arrange
-			name = 'task1';
-			fn = function () {};
+      // Arrange
+      name = 'task1';
+      fn = function() {};
 
-			// the thing under test
-			orchestrator = new Orchestrator();
+      // the thing under test
+      orchestrator = new Orchestrator();
 
-			// Act
-			actual = orchestrator.task(name, fn);
+      // Act
+      actual = orchestrator.task(name, fn);
 
-			// Assert
-			should.not.exist(actual);
-			should.exist(orchestrator.tasks[name]);
-			orchestrator.tasks[name].name.should.equal(name);
-			done();
-		});
+      // Assert
+      should.not.exist(actual);
+      should.exist(orchestrator.tasks[name]);
+      orchestrator.tasks[name].name.should.equal(name);
+      done();
+    });
 
-	});
+  });
 });
