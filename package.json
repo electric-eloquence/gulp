@@ -58,9 +58,12 @@
   "devDependencies": {
     "coveralls": "3.x",
     "eslint": "6.x",
+    "event-stream": "^4.0.1",
+    "map-stream": "0.0.7",
     "mkdirp": "^0.5.0",
     "mocha": "7.x",
     "nyc": "15.x",
+    "q": "^1.5.1",
     "rimraf": "^2.7.1",
     "should": "13.x",
     "sinon": "8.x"
@@ -69,7 +72,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "nyc mocha --exit"
+    "test": "nyc mocha --exit test test/orchestrator"
   },
   "license": "MIT"
 }
