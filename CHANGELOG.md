@@ -1,5 +1,8 @@
 # gulp changelog
 
+### 3.9.15
+* Added runSeq documentation to readme
+
 ### 3.9.14
 * Purely internal maintenance updates
 
