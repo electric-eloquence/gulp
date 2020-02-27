@@ -15,15 +15,15 @@ This includes maintenance fixes and security updates.
 ## Install
 
 * Latest version (without Git):
-  * `npm install https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.15`
-  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.15"`
+  * `npm install https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.16`
+  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.16"`
     as a dependency in package.json.
 * Latest version (with Git):
   * `npm install electric-eloquence/gulp`
 * Specific version (with Git):
-  * `npm install electric-eloquence/gulp#3.9.15`
+  * `npm install electric-eloquence/gulp#3.9.16`
 * Semver range (with Git):
-  * `npm install electric-eloquence/gulp#semver:^3.9.15`
+  * `npm install electric-eloquence/gulp#semver:^3.9.16`
 * When installed one of these ways, other packages depending on gulp will get
   gulp 3 with long-term support.
 

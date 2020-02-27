@@ -32,6 +32,6 @@ branches:
     - npm
     - v3-lts
     # After releasing, bump to next anticpated version.
-    - v3-lts@3.9.15
+    - v3-lts@3.9.16
 
 skip_tags: true
