@@ -1,6 +1,6 @@
 {
   "name": "gulp",
-  "description": "The streaming build system",
+  "description": "The streaming build system with long-term support at v3",
   "version": "3.9.15",
   "homepage": "https://github.com/electric-eloquence/gulp",
   "repository": {
