@@ -63,11 +63,10 @@ var paths = {
   images: 'client/img/**/*'
 };
 
-// Not all tasks need to use streams.
-// A gulpfile is just another node program and you can use any package
-// available on npm.
 gulp.task('clean', function() {
-  // You can use multiple globbing patterns as you would with `gulp.src`.
+  // Not all tasks need to use streams.
+  // A gulpfile is just another node program and you can use any package
+  // available on npm.
   return del(['build']);
 });
 
@@ -83,18 +82,18 @@ gulp.task('scripts', ['clean'], function() {
     .pipe(gulp.dest('build/js'));
 });
 
-// Copy all static images.
 gulp.task('imagemin', function() {
+  // Minify and copy all static images.
   return gulp.src(paths.images)
     // Pass in options to the task
     .pipe(imagemin({ optimizationLevel: 5 }))
     .pipe(gulp.dest('build/img'));
 });
 
-// The run-sequence package and method are now internal to gulp
-// and will receive long-term support for the life of gulp 3 lts.
-// https://github.com/OverZealous/run-sequence
 gulp.task('images', function(cb) {
+  // The run-sequence package and method are now internal to gulp
+  // and will receive long-term support for the life of gulp 3 lts.
+  // https://github.com/OverZealous/run-sequence
   gulp.runSeq( // or gulp.runSequence
     'clean',
     'imagemin',
