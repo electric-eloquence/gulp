@@ -1,5 +1,8 @@
 # gulp changelog
 
+### 3.9.14
+* Purely internal maintenance updates
+
 ### 3.9.13
 * Updated internal run-sequence (gulp.runSeq) to run in Node 13
 

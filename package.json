@@ -1,7 +1,7 @@
 {
   "name": "@electric-eloquence/gulp",
   "description": "The streaming build system",
-  "version": "3.9.13",
+  "version": "3.9.14",
   "homepage": "https://github.com/electric-eloquence/gulp",
   "repository": {
     "type": "git",
@@ -47,7 +47,7 @@
     "minimist": "0.0.8",
     "object.defaults": "^1.1.0",
     "object.map": "^1.0.1",
-    "plugin-error": "0.1.2",
+    "plugin-error": "^1.0.1",
     "pretty-hrtime": "^1.0.3",
     "resolve": "^1.12.0",
     "sequencify": "0.0.7",
@@ -58,18 +58,21 @@
   "devDependencies": {
     "coveralls": "3.x",
     "eslint": "6.x",
+    "event-stream": "^4.0.1",
+    "map-stream": "0.0.7",
     "mkdirp": "^0.5.0",
     "mocha": "7.x",
     "nyc": "15.x",
+    "q": "^1.5.1",
     "rimraf": "^2.7.1",
     "should": "13.x",
-    "sinon": "7.x"
+    "sinon": "8.x"
   },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "nyc mocha --exit"
+    "test": "nyc mocha --exit test test/orchestrator"
   },
   "license": "MIT"
 }
