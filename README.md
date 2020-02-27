@@ -84,11 +84,22 @@ gulp.task('scripts', ['clean'], function() {
 });
 
 // Copy all static images.
-gulp.task('images', ['clean'], function() {
+gulp.task('imagemin', function() {
   return gulp.src(paths.images)
     // Pass in options to the task
     .pipe(imagemin({ optimizationLevel: 5 }))
     .pipe(gulp.dest('build/img'));
+});
+
+// The run-sequence package and method are now internal to gulp
+// and will receive long-term support for the life of gulp 3 lts.
+// https://github.com/OverZealous/run-sequence
+gulp.task('images', function(cb) {
+  gulp.runSeq( // or gulp.runSequence
+    'clean',
+    'imagemin',
+    cb
+  );
 });
 
 // Rerun the task when a file changes.
