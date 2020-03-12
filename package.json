@@ -1,7 +1,7 @@
 {
   "name": "@electric-eloquence/gulp",
-  "description": "The streaming build system with long-term support at v3",
-  "version": "3.9.15",
+  "description": "The streaming build system (v3 with long-term support)",
+  "version": "3.9.16",
   "homepage": "https://github.com/electric-eloquence/gulp",
   "repository": {
     "type": "git",
@@ -44,7 +44,7 @@
     "fined": "^1.2.0",
     "flagged-respawn": "^1.0.1",
     "lodash.debounce": "^4.0.8",
-    "minimist": "0.0.8",
+    "minimist": "^1.2.4",
     "object.defaults": "^1.1.0",
     "object.map": "^1.0.1",
     "plugin-error": "^1.0.1",
@@ -60,7 +60,7 @@
     "eslint": "6.x",
     "event-stream": "^4.0.1",
     "map-stream": "0.0.7",
-    "mkdirp": "^0.5.0",
+    "mkdirp": "^1.0.3",
     "mocha": "7.x",
     "nyc": "15.x",
     "q": "^1.5.1",
