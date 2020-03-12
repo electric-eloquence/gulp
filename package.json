@@ -60,7 +60,7 @@
     "eslint": "6.x",
     "event-stream": "^4.0.1",
     "map-stream": "0.0.7",
-    "mkdirp": "^0.5.0",
+    "mkdirp": "^1.0.3",
     "mocha": "7.x",
     "nyc": "15.x",
     "q": "^1.5.1",
