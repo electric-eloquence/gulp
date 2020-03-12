@@ -15,9 +15,8 @@ describe('gulp', function() {
   describe('watch()', function() {
     before(function(done) {
       rimraf(outpath, function() {
-        mkdirp(outpath, function() {
-          done();
-        });
+        mkdirp.sync(outpath);
+        done();
       });
     });
 
