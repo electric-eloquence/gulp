@@ -1,5 +1,7 @@
 # gulp changelog
 
+### 3.9.17
+
 ### 3.9.16
 * Bumped dependency minimist version to fix vulnerability
 * Bumped devDependency mkdirp version
