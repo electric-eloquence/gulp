@@ -44,7 +44,7 @@
     "fined": "^1.2.0",
     "flagged-respawn": "^1.0.1",
     "lodash.debounce": "^4.0.8",
-    "minimist": "^1.2.4",
+    "minimist": "^1.2.5",
     "object.defaults": "^1.1.0",
     "object.map": "^1.0.1",
     "plugin-error": "^1.0.1",
