@@ -14,7 +14,7 @@ describe('orchestrator', function() {
       var timeout;
 
       // Arrange
-      timeout = 0.1; // seconds
+      timeout = 0.2; // seconds
       a = 0;
       fn = function(cb) {
         setTimeout(function() {
@@ -28,7 +28,7 @@ describe('orchestrator', function() {
 
       orchestrator.on('task_stop', function(args) {
         // Assert
-        args.duration.should.be.approximately(timeout, 0.1);
+        args.duration.should.be.approximately(timeout, 0.2);
         args.duration.should.be.above(0);
         ++a;
       });
