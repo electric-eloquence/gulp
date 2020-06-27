@@ -133,42 +133,46 @@ describe('gulp', function() {
       var a = 0;
       var timeout = writeTimeout * 2.5;
 
-      new Promise(function(resolve) {
-        fs.writeFile(tempFile, tempFileContent, function() {
-          // Set up watcher
-          gulp.task(task, function() {
-            a++;
-          });
-          gulp.task(task1, function() {
-            a += 10;
-          });
-
-          // Launch watcher
-          var config = { debounceDelay: timeout / 2 };
-          gulp.watch(tempFile, config, [task, task1]);
-
-          resolve();
-        });
-      })
-      .then(function() {
-        return new Promise(function(resolve) {
-          // Act: change file
-          setTimeout(function() {
-            fs.writeFile(tempFile, tempFileContent + ' changed', function() {
-              resolve();
+      new Promise(
+        function(resolve) {
+          fs.writeFile(tempFile, tempFileContent, function() {
+            // Set up watcher
+            gulp.task(task, function() {
+              a++;
             });
-          }, writeTimeout);
-        });
-      })
-      .then(function() {
-        // Assert
-        setTimeout(function() {
-          a.should.equal(11); // task and task1
+            gulp.task(task1, function() {
+              a += 10;
+            });
 
-          gulp.reset();
-          done();
-        }, timeout);
-      });
+            // Launch watcher
+            var config = { debounceDelay: timeout / 2 };
+            gulp.watch(tempFile, config, [task, task1]);
+
+            resolve();
+          });
+        }
+      ).then(
+        function() {
+          return new Promise(function(resolve) {
+            // Act: change file
+            setTimeout(function() {
+              fs.writeFile(tempFile, tempFileContent + ' changed', function() {
+                resolve();
+              });
+            }, writeTimeout);
+          });
+        }
+      ).then(
+        function() {
+          // Assert
+          setTimeout(function() {
+            a.should.equal(11); // task and task1
+
+            gulp.reset();
+            done();
+          }, timeout);
+        }
+      );
     });
 
     it('runs many tasks: no options', function(done) {
@@ -179,41 +183,45 @@ describe('gulp', function() {
       var a = 0;
       var timeout = writeTimeout * 2.5;
 
-      new Promise(function(resolve) {
-        fs.writeFile(tempFile, tempFileContent, function() {
-          // Set up watcher
-          gulp.task(task, function() {
-            a++;
-          });
-          gulp.task(task1, function() {
-            a += 10;
-          });
-
-          // Launch watcher
-          gulp.watch(tempFile, [task, task1]);
-
-          resolve();
-        });
-      })
-      .then(function() {
-        return new Promise(function(resolve) {
-          // Act: change file
-          setTimeout(function() {
-            fs.writeFile(tempFile, tempFileContent + ' changed', function() {
-              resolve();
+      new Promise(
+        function(resolve) {
+          fs.writeFile(tempFile, tempFileContent, function() {
+            // Set up watcher
+            gulp.task(task, function() {
+              a++;
             });
-          }, writeTimeout);
-        });
-      })
-      .then(function() {
-        // Assert
-        setTimeout(function() {
-          a.should.equal(11); // Task1 and task1
+            gulp.task(task1, function() {
+              a += 10;
+            });
 
-          gulp.reset();
-          done();
-        }, timeout);
-      });
+            // Launch watcher
+            gulp.watch(tempFile, [task, task1]);
+
+            resolve();
+          });
+        }
+      ).then(
+        function() {
+          return new Promise(function(resolve) {
+            // Act: change file
+            setTimeout(function() {
+              fs.writeFile(tempFile, tempFileContent + ' changed', function() {
+                resolve();
+              });
+            }, writeTimeout);
+          });
+        }
+      ).then(
+        function() {
+          // Assert
+          setTimeout(function() {
+            a.should.equal(11); // Task1 and task1
+
+            gulp.reset();
+            done();
+          }, timeout);
+        }
+      );
     });
   });
 });
