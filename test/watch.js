@@ -150,9 +150,8 @@ describe('gulp', function() {
 
             resolve();
           });
-        }
-      ).then(
-        function() {
+        })
+        .then(function() {
           return new Promise(function(resolve) {
             // Act: change file
             setTimeout(function() {
@@ -161,9 +160,8 @@ describe('gulp', function() {
               });
             }, writeTimeout);
           });
-        }
-      ).then(
-        function() {
+        })
+        .then(function() {
           // Assert
           setTimeout(function() {
             a.should.equal(11); // task and task1
@@ -171,8 +169,7 @@ describe('gulp', function() {
             gulp.reset();
             done();
           }, timeout);
-        }
-      );
+        });
     });
 
     it('runs many tasks: no options', function(done) {
@@ -199,9 +196,8 @@ describe('gulp', function() {
 
             resolve();
           });
-        }
-      ).then(
-        function() {
+        })
+        .then(function() {
           return new Promise(function(resolve) {
             // Act: change file
             setTimeout(function() {
@@ -210,9 +206,8 @@ describe('gulp', function() {
               });
             }, writeTimeout);
           });
-        }
-      ).then(
-        function() {
+        })
+        .then(function() {
           // Assert
           setTimeout(function() {
             a.should.equal(11); // Task1 and task1
@@ -220,8 +215,7 @@ describe('gulp', function() {
             gulp.reset();
             done();
           }, timeout);
-        }
-      );
+        });
     });
   });
 });
