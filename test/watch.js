@@ -152,14 +152,15 @@ describe('gulp', function() {
           });
         })
         .then(function() {
-          return new Promise(function(resolve) {
-            // Act: change file
-            setTimeout(function() {
-              fs.writeFile(tempFile, tempFileContent + ' changed', function() {
-                resolve();
-              });
-            }, writeTimeout);
-          });
+          return new Promise(
+            function(resolve) {
+              // Act: change file
+              setTimeout(function() {
+                fs.writeFile(tempFile, tempFileContent + ' changed', function() {
+                  resolve();
+                });
+              }, writeTimeout);
+            });
         })
         .then(function() {
           // Assert
@@ -198,14 +199,15 @@ describe('gulp', function() {
           });
         })
         .then(function() {
-          return new Promise(function(resolve) {
-            // Act: change file
-            setTimeout(function() {
-              fs.writeFile(tempFile, tempFileContent + ' changed', function() {
-                resolve();
-              });
-            }, writeTimeout);
-          });
+          return new Promise(
+            function(resolve) {
+              // Act: change file
+              setTimeout(function() {
+                fs.writeFile(tempFile, tempFileContent + ' changed', function() {
+                  resolve();
+                });
+              }, writeTimeout);
+            });
         })
         .then(function() {
           // Assert
