@@ -3,8 +3,9 @@
 > The streaming build system
 
 [![Known Vulnerabilities][snyk-image]][snyk-url]
-[![Mac/Linux Build Status][travis-image]][travis-url]
-[![Windows Build Status][appveyor-image]][appveyor-url]
+[![Linux Build Status][linux-image]][linux-url]
+[![Mac Build Status][mac-image]][mac-url]
+[![Windows Build Status][windows-image]][windows-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
 [![License][license-image]][license-url]
 
@@ -21,15 +22,15 @@ Instead, follow these instructions:
 ## Install
 
 * Latest version (without Git):
-  * `npm install https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.16`
-  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.16"`
+  * `npm install https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.17`
+  * Or add `"gulp": "https://github.com/electric-eloquence/gulp/tarball/v3-lts@3.9.17"`
     as a dependency in package.json.
 * Latest version (with Git):
   * `npm install electric-eloquence/gulp`
 * Specific version (with Git):
-  * `npm install electric-eloquence/gulp#3.9.16`
+  * `npm install electric-eloquence/gulp#3.9.17`
 * Semver range (with Git):
-  * `npm install electric-eloquence/gulp#semver:^3.9.16`
+  * `npm install electric-eloquence/gulp#semver:^3.9.17`
 * When installed one of these ways, other packages depending on gulp will get
   gulp 3 with long-term support.
 
@@ -145,11 +146,14 @@ project, which may otherwise be burdensome for them to commit time to.
 [snyk-image]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts/badge.svg
 [snyk-url]: https://snyk.io/test/github/electric-eloquence/gulp/v3-lts
 
-[travis-image]: https://img.shields.io/travis/electric-eloquence/gulp/v3-lts.svg?label=mac%20%26%20linux
-[travis-url]: https://travis-ci.org/electric-eloquence/gulp
+[linux-image]: https://github.com/electric-eloquence/gulp/workflows/Linux%20build/badge.svg?branch=v3-lts
+[linux-url]: https://github.com/electric-eloquence/gulp/actions?query=workflow%3A"Linux+build"
 
-[appveyor-image]: https://img.shields.io/appveyor/ci/e2tha-e/gulp/v3-lts.svg?label=windows
-[appveyor-url]: https://ci.appveyor.com/project/e2tha-e/gulp
+[mac-image]: https://github.com/electric-eloquence/gulp/workflows/Mac%20build/badge.svg?branch=v3-lts
+[mac-url]: https://github.com/electric-eloquence/gulp/actions?query=workflow%3A"Mac+build"
+
+[windows-image]: https://github.com/electric-eloquence/gulp/workflows/Windows%20build/badge.svg?branch=v3-lts
+[windows-url]: https://github.com/electric-eloquence/gulp/actions?query=workflow%3A"Windows+build"
 
 [coveralls-image]: https://img.shields.io/coveralls/electric-eloquence/gulp/v3-lts.svg
 [coveralls-url]: https://coveralls.io/github/electric-eloquence/gulp?branch=v3-lts

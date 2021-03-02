@@ -1,4 +1,4 @@
 *.log
 .*
-appveyor.yml
+!.gitkeep
 test/

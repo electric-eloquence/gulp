@@ -13,7 +13,7 @@ require('mocha');
 var timeout = 200;
 
 describe('globWatcher()', function() {
-  this.timeout(4000);
+  this.timeout(6000);
 
   var outDir = path.join(__dirname, './fixtures/');
   var outFile1 = path.join(outDir, 'changed.js');
@@ -135,7 +135,7 @@ describe('globWatcher()', function() {
       runs++;
       if (runs === 1) {
         setTimeout(function() {
-          // Expect 2 because run 2 completes before this timeout completes and the queue is disabled
+          // Expect 2 because run 2 completes before 6his timeout completes and the queue is disabled
           should(runs).equal(2);
           watcher.close();
           done();
