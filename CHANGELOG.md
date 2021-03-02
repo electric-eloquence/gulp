@@ -1,6 +1,7 @@
 # gulp changelog
 
 ### 3.9.17
+* Updated dependency tree to no longer contain glob-parent and its regex dos vulnerability
 
 ### 3.9.16
 * Bumped dependency minimist version to fix vulnerability
